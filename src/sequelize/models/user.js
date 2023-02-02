@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 /**
  * @param {import("sequelize").Sequelize} sequelize - Sequelize
@@ -17,40 +17,43 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  user.init({
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false, // NOT NULL, Null을 허용하지 않음
-      autoIncrement: true, // AUTO_INCREMENT
-      primaryKey: true, // PRIMARY KEY, 기본키
+  user.init(
+    {
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false, // NOT NULL, Null을 허용하지 않음
+        autoIncrement: true, // AUTO_INCREMENT
+        primaryKey: true, // PRIMARY KEY, 기본키
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      nickname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      salt: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      type: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      point: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    nickname: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    salt: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    type: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    point: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    {
+      sequelize,
+      modelName: "user",
     }
-  }, {
-    sequelize,
-    modelName: 'user',
-  });
+  );
   return user;
 };

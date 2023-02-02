@@ -1,12 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+  
+<title>통합 마이페이지</title>
 </head>
+
+<style>
+  button {
+   background-color: #F9B514;
+   padding: 5px 10px;
+   border-radius: 4px;
+   cursor: pointer;
+ }
+  .modal {
+    position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+    /* position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%; */
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal.show {
+    display: block;
+  }
+
+  .modal_body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 800px;
+    height: 450px;
+
+    /* padding: 40px; */
+
+    /* text-align: center; */
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .m_head{
+    height: 10%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    background-color:#e7e5e5;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .m_body{
+    height: 80%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .m_footer{
+        height: 10%;
+        padding: 20px;
+        background-color:#e7e5e5;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        display: flex;
+        justify-content: end;
+      }
+  .modal_title{
+    font-size: 18px;
+    color: gray;
+    font-weight: 500;
+  }
+  .close_btn{
+    font-size: 20px;
+    color: rgb(139, 139, 139);
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .modal_label{
+    padding-top: 10px;
+  }
+  .input_box{
+    width: 100%;
+    border: 1px solid rgb(189, 189, 189);
+    height: 30px;
+  }
+  .modal_btn{
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    padding-top: 5px;
+    margin-left: 5px;
+    font-family: sans-serif;
+  }
+  .cancle{
+    background-color: white;
+    color: black;
+  }
+  .save{
+    background-color: rgb(50, 77, 158);
+    color: white;
+  }
+</style>
+
 <body>
-    통합 마이페이지 입니다.
+<header>
+    
+    <div >회원정보: 닉네임</div>
+    <div >포인트: </div>
+
+</header>
+
+<div> 
+<button class="btn" id="add-btn">프로필 수정</button>
+   <!-- 모달 -->
+   <div class="modal" id="modal">
+    <div class="modal_body">
+      <div class="m_head">
+        <div class="modal_title">프로필 수정</div>
+        <div class="close_btn" id="close_btn">X</div>
+      </div>
+      <div class="m_body">
+        <div class="modal_label">닉네임</div>
+        <input type="text" class="input_box" id="nickname_box"/>
+        <div class="modal_label">이메일</div>
+        <input type="text" class="input_box" id="email_box"/>
+        <div class="modal_label">비밀번호</div>
+        <input type="text" class="input_box" id="pw_box"/>
+      </div>
+      <div class="m_footer">
+        <div class="modal_btn cancle" id="close_btn">CANCLE</div>
+        <div class="modal_btn save" id="save_btn">SAVE</div>
+      </div>
+    </div>
+  </div>
+<!-- 모달 -->
+
+<button>장바구니</button>
+<button>내 강의실</button>
+<button>실시간 채팅 상담</button>
+<button>관리자</button>
+</div>
+
+<script>
+
+function orderStatus(){
+    window.location.href = 'myPage/lectures'
+};
+
+
+  // click on 라벨 추가 모달 열기
+$(document).on('click', '#add-btn', function (e) {
+  console.log("click event");
+  $('#modal').addClass('show');
+
+});
+
+// 모달 닫기
+$(document).on('click', '#close_btn', function (e) {
+  console.log("click event");
+  $('#modal').removeClass('show');
+
+});
+  </script>
+
 </body>
+
 </html>
