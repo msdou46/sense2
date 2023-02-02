@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+	<title>admin page</title>
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+    }
+
+    body{
+    background-color: #f3f5f9;
+    }
+
+    .wrapper{
+    display: flex;
+    position: relative;
+    }
+
+    .wrapper .sidebar{
+    width: 250px;
+    height: 100%;
+    background: #252525;
+    padding: 30px 0px;
+    position: fixed;
+    color: white;
+    }
+
+    .sidebar-title{
+    font-size: 30px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    }
+
+    .ul-title {
+    padding-top: 10px;
+    padding-left: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 30px;
+    border-top: 1px solid rgb(61, 61, 61);
+    }
+
+    .cate-ul {
+    display: block;
+    margin-top: 5px;
+    padding: 0;
+    }
+    
+    .fas {
+    margin-right: 5px;
+    }
+
+    .target-li {
+        display: block;
+        padding-left: 40px;
+        height: 35px;
+        line-height: 35px;
+        font-size: 14px;
+    }
+
+    .target-li a{
+    color: white;
+    display: block;
+    }
+
+    .link-li:hover{
+    background-color: #fff718;
+    color: black;
+    cursor: pointer;
+    }
+
+    .active-li {
+    background-color: white;
+    color: black;
+    }
+
+    .wrapper .main_content{
+    width: 100%;
+    margin-left: 250px;
+    }
+
+    .wrapper .main_content .header{
+    padding: 20px;
+    background: #fff;
+    color: #717171;
+    border-bottom: 1px solid #e0e4e8;
+    }
+
+    .wrapper .main_content .info{
+    margin: 20px;
+    color: #717171;
+    line-height: 25px;
+    }
+
+    .wrapper .main_content .info div{
+    margin-bottom: 20px;
+    }
+</style>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <div class="sidebar-title">관리자 페이지</div>
+
+        <div class="ul-title"><i class="fas fa-user"></i> 회원 관리</div>
+        <ul class="cate-ul">
+            <li class="target-li link-li" onclick="location.href='/admin/user'">- 관리자 등록</li>
+        </ul>
+
+        <div class="ul-title"><i class="fas fa-address-book"></i> 상품 관리</div>
+        <ul class="cate-ul">
+            <li class="target-li link-li" onclick="location.href='/admin/lectures'">- 강의 관리</li>
+            <li class="target-li active-li">- 강의 등록</li>
+        </ul>
+    </div>
+
+    <div class="main_content">
+        
+    </div>
+</div>
+
+</body>
+</html>
