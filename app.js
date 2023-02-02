@@ -21,3 +21,5 @@ app.use("/", rootRouting);
 app.listen(process.env.PORT, () => {
   console.log(process.env.PORT, " 포트로 서버가 열렸어요!");
 });
+
+// 커밋 연습용!
