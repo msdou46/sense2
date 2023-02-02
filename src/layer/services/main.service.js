@@ -1,12 +1,16 @@
-
 const MainRepository = require("../repositories/main.repository");
-const { cart, lecture, order, user } = require("../../sequelize/models/index.js")
+const {
+  cart,
+  lecture,
+  order,
+  user,
+} = require("../../sequelize/models/index.js");
 
 class MainService {
-    userModel = new MainRepository(user);
-    lecturModel = new MainRepository(lecture);
-    orderModel = new MainRepository(order);
-    cartModel = new MainRepository(cart);
+  userModel = new MainRepository(user);
+  lecturModel = new MainRepository(lecture);
+  orderModel = new MainRepository(order);
+  cartModel = new MainRepository(cart);
 }
 
 module.exports = MainService;

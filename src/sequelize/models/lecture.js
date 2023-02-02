@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 /**
  * @param {import("sequelize").Sequelize} sequelize - Sequelize
@@ -17,40 +17,43 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  lecture.init({
-    lecture_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false, // NOT NULL, Null을 허용하지 않음
-      autoIncrement: true, // AUTO_INCREMENT
-      primaryKey: true, // PRIMARY KEY, 기본키
+  lecture.init(
+    {
+      lecture_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false, // NOT NULL, Null을 허용하지 않음
+        autoIncrement: true, // AUTO_INCREMENT
+        primaryKey: true, // PRIMARY KEY, 기본키
+      },
+      lecturer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      content: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      category: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      point: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
-    lecturer: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    content: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    category: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    image: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    point: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    {
+      sequelize,
+      modelName: "lecture",
     }
-  }, {
-    sequelize,
-    modelName: 'lecture',
-  });
+  );
   return lecture;
 };
