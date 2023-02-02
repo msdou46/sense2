@@ -41,7 +41,7 @@ router.use("/api/profile", my_profile_router);
 router.use("/api/cart", my_cart_router);
 router.use("/api/mylectures", my_lectures_router);
 
-router.use("/api/admin/register", admin_user_manage_router);
+router.use("/api/admin/user", admin_user_manage_router);
 router.use("/api/admin/lecture", admin_lecture_manage_router);
 
 

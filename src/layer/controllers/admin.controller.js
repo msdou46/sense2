@@ -22,6 +22,10 @@ class AdminControllerRender {
 class AdminControllerApi {
     adminservice = new AdminService();
 
+    get_user_info = async (req, res) => {
+
+    };
+
     add_admin_user = async (req, res) => {
 
     };

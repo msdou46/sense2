@@ -80,70 +80,77 @@
     }
 
     .link-li:hover{
-    background-color: #fff718;
-    color: black;
-    cursor: pointer;
+        background-color: #fff718;
+        color: black;
+        cursor: pointer;
     }
 
     .active-li {
-    background-color: white;
-    color: black;
+        background-color: white;
+        color: black;
     }
 
     .wrapper .main_content{
-    width: 100%;
-    margin-left: 250px;
+        width: 100%;
+        margin-left: 250px;
     }
 
     #content-input-wrap {
-    width: 50%;
-    min-width: 500px;
-    height: 500px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
+        width: 50%;
+        min-width: 500px;
+        height: 500px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
     }
 
     .content-title {
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: 600;
+        margin-bottom: 30px;
     }
 
     .user-info-form input {
-    width: 300px;
-    display: block;
-    margin-bottom: 20px;
+        width: 300px;
+        display: block;
+        margin-bottom: 20px;
     }
 
     #content-output-wrap{
-    width: 60%;
-    min-width: 600px;
-    height: 500px;
-    margin: auto;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
+        width: 60%;
+        min-width: 700px;
+        height: 500px;
+        margin: auto;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
     }
 
-    .user-info-result {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff718;
-    margin-bottom: 20px;
+    .user-info-wrap {
+        margin-bottom: 30px;
+        padding: 10px;
+        border: 2px solid rgb(158, 158, 158);
+        border-radius: 5px;
     }
 
     .result-table {
-        display: block;
         margin: auto;
+        width: 550px;
         text-align: center;
-        border: 1px solid blue;
+        color: rgb(0, 188, 0);
+    }
+
+    .table-email {
+        width: 200px;
+    }
+
+    .table-nick, .table-point, .table-type {
+        width: 150px;
     }
     
 </style>
@@ -180,17 +187,11 @@
         <div id="content-output-wrap">
             <div class="content-title">조회 결과</div>
             <div class="user-info-wrap">
-                <div class="user-info-result">
-                    <div>msdou44@daum.net</div>
-                    <div>닉네임임</div>
-                    <div>point : 50000</div>
-                    <div>유저 유형 : 일반 유저</div>
-                </div>
                 <table class="result-table">
-                    <th>이메일</th>
-                    <th>닉네임</th>
-                    <th>point</th>
-                    <th>유형</th>
+                    <th class="table-email">이메일</th>
+                    <th class="table-nick">닉네임</th>
+                    <th class="table-point">point</th>
+                    <th class="table-type">유형</th>
                     <tr>
                         <td>msdou44@daum.net</td>
                         <td>minsoo</td>
@@ -199,9 +200,10 @@
                     </tr>
                 </table>
             </div>
-            <button type="button" class="btn btn-info" >관리자 등록</button>
+            <button type="button" class="btn btn-warning" onclick="add_admin_account()">관리자 등록</button>
         </div>
     </div>
+    
 </div>
 
 </body>
@@ -213,6 +215,14 @@
 
         input_div.style.display = "none";
         output_div.style.display = "flex";
+    };
+
+    const add_admin_account = () => {
+        const input_div = document.querySelector("#content-input-wrap");
+        const output_div = document.querySelector("#content-output-wrap");
+
+        input_div.style.display = "flex";
+        output_div.style.display = "none";
     }
 
 </script>
