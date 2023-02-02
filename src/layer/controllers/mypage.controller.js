@@ -21,7 +21,18 @@ class MypageControllerRender {
 class MypageControllerApi {
   mypageservice = new MypageService();
 
-  get_my_profile = async (req, res) => {};
+  get_my_profile = async (req, res) => {
+    try {
+
+      const user = await this.mypageservice.findUser()
+
+      return res.status(200).send({"profile" : user});
+       
+      } catch (error) {
+        console.error(error);
+        return res.status(500).send({ message: error.message });
+      }
+  };
 
   update_my_profile = async (req, res) => {};
 

@@ -90,6 +90,7 @@
             success: function (response) {
                
                 let rows = response['mylectures']['mylectures']
+                console.log(rows)
                 let temp_html = ''
                   for (let i =0; i < rows.length; i++){
                     let lecturer = rows[i]['lecturer']
