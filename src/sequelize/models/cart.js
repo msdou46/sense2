@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 /**
  * @param {import("sequelize").Sequelize} sequelize - Sequelize
@@ -17,24 +17,27 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  cart.init({
-    cart_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false, // NOT NULL, Null을 허용하지 않음
-      autoIncrement: true, // AUTO_INCREMENT
-      primaryKey: true, // PRIMARY KEY, 기본키
+  cart.init(
+    {
+      cart_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false, // NOT NULL, Null을 허용하지 않음
+        autoIncrement: true, // AUTO_INCREMENT
+        primaryKey: true, // PRIMARY KEY, 기본키
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      lecture_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    lecture_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    {
+      sequelize,
+      modelName: "cart",
     }
-  }, {
-    sequelize,
-    modelName: 'cart',
-  });
+  );
   return cart;
 };
