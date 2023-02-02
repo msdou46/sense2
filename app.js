@@ -18,6 +18,10 @@ app.use(express.urlencoded({ extended: false }));
 const rootRouting = require("./src/routes");
 app.use("/", rootRouting);
 
-app.listen(process.env.PORT, () => {
-  console.log(process.env.PORT, " 포트로 서버가 열렸어요!");
+// app.listen(process.env.PORT, () => {
+//   console.log(process.env.PORT, " 포트로 서버가 열렸어요!");
+// });
+
+app.listen(3000, function () {
+  console.log('listening on port 3000')
 });
