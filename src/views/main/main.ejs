@@ -104,9 +104,11 @@
                     let image = rows[i]['image']
                     let point = rows[i]['point']
                     let update = rows[i]['updatedAt']
+                    
 
                     
                     if (cat == 0){temp_html += `
+                    <a  href="/lecture" style="color: black">
                     <div class="card" style="width: 18rem; float:left; margin: 10px;">
                         <img src="${image}" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -115,12 +117,14 @@
                         <p class="card-text">${content}</p>
                         <p class="card-text"><small class="text-muted">마지막 업데이트: ${update}</small></p>
                         </div>
-                    </div> `
+                    </div>
+                    </a> `
                     }
 
                     if (category == cat){
                         temp_html += `
-                    <div class="card" style="width: 18rem; float:left; margin: 10px;">
+                        <a  href="/lecture" style="color: black">
+                    <div class="card"  style="width: 18rem; float:left; margin: 10px;">
                         <img src="${image}" class="card-img-top" alt="...">
                         <div class="card-body">
                         <h4 class="card-title">${title}</h4>
@@ -128,7 +132,8 @@
                         <p class="card-text">${content}</p>
                         <p class="card-text"><small class="text-muted">마지막 업데이트: ${update}</small></p>
                         </div>
-                    </div> `
+                    </div>
+                         </a> `
                  }
                            
                 } 
