@@ -1,12 +1,805 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    강의 상세보기 페이지 입니다.
-</body>
+<html lang="ko">
+  <head> </head>
+
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <div id="spStrap" sp-contents class="initialize" spstrap>
+      <style>
+        @import url("https://fonts.googleapis.com/css2?&family=Roboto:wght@300%3B700&display=swap");
+        @import url("https://fonts.googleapis.com/css2?&family=Noto+Sans+KR:wght@300%3B500&display=swap");
+        #spStrap[sp-contents],
+        #spStrap [sp-contents] {
+          font-family: Roboto, Noto Sans KR, "Apple SD Gothic Neo", "arial",
+            "sans-serif", "serif", "Noto Color Emoji", "Apple Color Emoji",
+            "Segoe UI Emoji";
+        }
+        #spStrap [sp-fontfamily="main"] {
+          font-family: Roboto, "Apple SD Gothic Neo", "arial", "sans-serif",
+            "serif", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji";
+        }
+        #spStrap [sp-fontfamily="sub"] {
+          font-family: Noto Sans KR, "Apple SD Gothic Neo", "arial",
+            "sans-serif", "serif", "Noto Color Emoji", "Apple Color Emoji",
+            "Segoe UI Emoji";
+        }
+
+        #spStrap *:not(i) {
+          font-family: inherit;
+        }
+
+        [spStrap] {
+          min-width: 320px;
+          color: #333;
+          line-height: 1.4;
+          position: relative;
+          overflow: hidden;
+        }
+        [spStrap],
+        [spStrap] * {
+          -webkit-box-sizing: border-box !important;
+          -khtml-box-sizing: border-box !important;
+          -moz-box-sizing: border-box !important;
+          -ms-box-sizing: border-box !important;
+          -o-box-sizing: border-box !important;
+          box-sizing: border-box !important;
+        }
+        [spStrap] [sp-trans],
+        [spStrap] [sp-trans]:before,
+        [spStrap] [sp-trans]:after {
+          -webkit-perspective: 1000;
+          -moz-perspective: 1000;
+          -o-perspective: 1000;
+          perspective: 1000;
+          -webkit-backface-visibility: hidden;
+          -khtml-backface-visibility: hidden;
+          -moz-backface-visibility: hidden;
+          -ms-backface-visibility: hidden;
+          -o-backface-visibility: hidden;
+          backface-visibility: hidden;
+          -webkit-transition: all 300ms ease;
+          -khtml-transition: all 300ms ease;
+          -moz-transition: all 300ms ease;
+          -ms-transition: all 300ms ease;
+          -o-transition: all 300ms ease;
+          transition: all 300ms ease;
+        }
+
+        [spStrap] * {
+          line-height: inherit;
+        }
+        [spStrap] [sp-size] {
+          width: 1000px;
+          min-width: 320px;
+          position: relative;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        [spStrap] ol,
+        [spStrap] li,
+        [spStrap] ul {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+        }
+        /*!
+       * Element Reset
+       */
+        [spStrap] a,
+        [spStrap] img,
+        [spStrap] table,
+        [spStrap] div:not([sp-overbox]),
+        [spStrap] span,
+        [spStrap] iframe,
+        [spStrap] ul,
+        [spStrap] li {
+          max-width: 100%;
+        }
+        [spStrap] [sp-resize] {
+          font-size: 0;
+        }
+        [spStrap] [sp-resize] img {
+          width: 100%;
+        }
+        [spStrap] div[sp-resize] {
+          margin: 0 auto;
+        }
+        [spStrap] [sp-resize] {
+          display: inline-block;
+          display: inline-flex;
+          vertical-align: middle;
+        }
+        [spStrap] [sp-edit] {
+          position: relative;
+        }
+        [spStrap] span[sp-edit] {
+          display: inline-block;
+        }
+        [spStrap] div[sp-edit]:not([sp-line])::after {
+          clear: both;
+          content: " ";
+          display: block;
+          font-size: 0;
+          height: 0;
+          line-height: 0;
+          visibility: hidden;
+        }
+        [spStrap] [sp-edit="text"] {
+          cursor: auto;
+          word-break: break-all;
+        }
+        [spStrap] [sp-edit] > span {
+          display: inline-block;
+          vertical-align: middle;
+        }
+        [spStrap] [sp-scroll] {
+          overflow: auto;
+        }
+        [spStrap] a[sp-edit],
+        [spStrap] a {
+          position: relative;
+          display: inline-block;
+          display: inline-flex;
+          vertical-align: middle;
+        }
+        [spStrap] a,
+        [spStrap] a {
+          color: inherit;
+          text-decoration: none;
+        }
+        [spStrap] [sp-clear]:after {
+          content: " ";
+          clear: both;
+          display: block;
+          font-size: 0;
+          height: 0;
+          line-height: 0;
+          visibility: hidden;
+        }
+        [spStrap] [sp-inlinebox],
+        [spStrap] [sp-edit$="_button"] {
+          font-size: 0;
+        }
+        [spStrap] table,
+        [spStrap] thead,
+        [spStrap] tbody,
+        [spStrap] tfoot,
+        [spStrap] tr,
+        [spStrap] th,
+        [spStrap] td {
+          border-collapse: inherit;
+          border-spacing: 0;
+          border-color: inherit;
+          vertical-align: inherit;
+          text-align: left;
+          font-weight: inherit;
+          -webkit-border-horizontal-spacing: 0;
+          -webkit-border-vertical-spacing: 0;
+        }
+
+        [spStrap] img[sp-edit] {
+          display: inline-block;
+          vertical-align: middle;
+          vertical-align: super;
+        }
+        [spStrap] [sp-line] {
+          position: relative;
+          text-indent: -9999px;
+          line-height: 0 !important;
+        }
+        [spStrap] [sp-line]:before {
+          content: ".";
+        }
+        [spStrap] [sp-line]:after {
+          content: "";
+          z-index: 1;
+          position: absolute;
+          top: -5px;
+          right: 0;
+          bottom: -5px;
+          left: 0;
+        }
+        [spStrap] [sp-table-editor] {
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin: 0 auto;
+        }
+        [spStrap] [sp-table-editor] td {
+          min-width: 15px;
+          word-break: break-all;
+          position: relative;
+        }
+
+        /* Video PC, Mobile Ratio Buildup */
+        [spStrap] [sp-videoframe] {
+          position: relative;
+          padding-bottom: 56.25%; /* 16:9 비율인 경우 */
+          height: 0;
+        }
+        [spStrap] [sp-videoframe="4:3"] {
+          padding-bottom: 75%;
+        }
+        [spStrap] [sp-videoframe] iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+        [spStrap] [sp-ratio] {
+          position: relative;
+        }
+        [spStrap] [sp-ratio="1:1"] {
+          padding-bottom: 100%;
+        }
+        [spStrap] [sp-ratio="1:2"] {
+          padding-bottom: 200%;
+        }
+        [spStrap] [sp-ratio="2:1"] {
+          padding-bottom: 50%;
+        }
+
+        /*!
+       * Set Font Attribute
+       */
+        [spStrap] [sp-font="7"] {
+          font-size: 0.7rem;
+        }
+        [spStrap] [sp-font="8"] {
+          font-size: 0.8rem;
+        }
+        [spStrap] [sp-font="9"] {
+          font-size: 0.9rem;
+        }
+        [spStrap] [sp-font="10"] {
+          font-size: 1rem;
+        }
+        [spStrap] [sp-font="11"] {
+          font-size: 1.1rem;
+        }
+        [spStrap] [sp-font="12"] {
+          font-size: 1.2rem;
+        }
+        [spStrap] [sp-font="13"] {
+          font-size: 1.3rem;
+        }
+        [spStrap] [sp-font="14"] {
+          font-size: 1.4rem;
+        }
+        [spStrap] [sp-font="15"] {
+          font-size: 1.5rem;
+        }
+        [spStrap] [sp-font="16"] {
+          font-size: 1.6rem;
+        }
+        [spStrap] [sp-font="17"] {
+          font-size: 1.7rem;
+        }
+        [spStrap] [sp-font="18"] {
+          font-size: 1.8rem;
+        }
+        [spStrap] [sp-font="19"] {
+          font-size: 1.9rem;
+        }
+        [spStrap] [sp-font="20"] {
+          font-size: 2rem;
+        }
+        [spStrap] [sp-font="25"] {
+          font-size: 2.5rem;
+        }
+        [spStrap] [sp-font="30"] {
+          font-size: 3rem;
+        }
+        [spStrap] [sp-font="35"] {
+          font-size: 3.5rem;
+        }
+        [spStrap] [sp-font="40"] {
+          font-size: 4rem;
+        }
+        [spStrap] [sp-font="45"] {
+          font-size: 4.5rem;
+        }
+        [spStrap] [sp-font="50"] {
+          font-size: 5rem;
+        }
+        [spStrap] [sp-font="55"] {
+          font-size: 5.5rem;
+        }
+        [spStrap] [sp-font="60"] {
+          font-size: 6rem;
+        }
+        [spStrap] [sp-less="pc"] {
+          display: none;
+        }
+        [spStrap] [sp-only="tablet"],
+        [spStrap] [sp-only="mobile"] {
+          display: none;
+        }
+
+        /*!
+       * Responsive Tablet, Mobile Size
+       */
+        @media screen and (min-width: 601px) and (max-width: 1024px) {
+          [spStrap] {
+            line-height: 1.3;
+          }
+          [spStrap] [sp-size] {
+            width: auto;
+          }
+          [spStrap] [sp-font="7"] {
+            font-size: 0.7rem;
+          }
+          [spStrap] [sp-font="8"] {
+            font-size: 0.8rem;
+          }
+          [spStrap] [sp-font="9"] {
+            font-size: 0.89rem;
+          }
+          [spStrap] [sp-font="10"] {
+            font-size: 0.99rem;
+          }
+          [spStrap] [sp-font="11"] {
+            font-size: 1.08rem;
+          }
+          [spStrap] [sp-font="12"] {
+            font-size: 1.17rem;
+          }
+          [spStrap] [sp-font="13"] {
+            font-size: 1.26rem;
+          }
+          [spStrap] [sp-font="14"] {
+            font-size: 1.35rem;
+          }
+          [spStrap] [sp-font="15"] {
+            font-size: 1.44rem;
+          }
+          [spStrap] [sp-font="16"] {
+            font-size: 1.53rem;
+          }
+          [spStrap] [sp-font="17"] {
+            font-size: 1.62rem;
+          }
+          [spStrap] [sp-font="18"] {
+            font-size: 1.7rem;
+          }
+          [spStrap] [sp-font="19"] {
+            font-size: 1.79rem;
+          }
+          [spStrap] [sp-font="20"] {
+            font-size: 1.87rem;
+          }
+          [spStrap] [sp-font="25"] {
+            font-size: 2.33rem;
+          }
+          [spStrap] [sp-font="30"] {
+            font-size: 2.78rem;
+          }
+          [spStrap] [sp-font="35"] {
+            font-size: 3.22rem;
+          }
+          [spStrap] [sp-font="40"] {
+            font-size: 3.66rem;
+          }
+          [spStrap] [sp-font="45"] {
+            font-size: 4.1rem;
+          }
+          [spStrap] [sp-font="50"] {
+            font-size: 4.53rem;
+          }
+          [spStrap] [sp-font="55"] {
+            font-size: 4.95rem;
+          }
+          [spStrap] [sp-font="60"] {
+            font-size: 5.37rem;
+          }
+          [spStrap] [sp-tab="20"] {
+            display: inline-block !important;
+            width: 20% !important;
+          }
+          [spStrap] [sp-tab="25"] {
+            display: inline-block !important;
+            width: 25% !important;
+          }
+          [spStrap] [sp-tab="33"] {
+            display: inline-block !important;
+            width: 33.333% !important;
+          }
+          [spStrap] [sp-tab="50"] {
+            display: inline-block !important;
+            width: 50% !important;
+          }
+          [spStrap] [sp-tab="100"] {
+            display: block !important;
+            width: initial !important;
+          }
+          [spStrap] [sp-less="tablet"] {
+            display: none;
+          }
+          [spStrap] [sp-only="pc"],
+          [spStrap] [sp-only="mobile"] {
+            display: none;
+          }
+          [spStrap] [sp-table-editor] {
+            width: 100% !important;
+            min-width: unset !important;
+          }
+        }
+        @media screen and (min-width: 1px) and (max-width: 601px) {
+          [spStrap] {
+            line-height: 1.2;
+          }
+          [spStrap] [sp-size] {
+            width: auto;
+          }
+          [spStrap] [sp-font="7"] {
+            font-size: 0.7rem;
+          }
+          [spStrap] [sp-font="8"] {
+            font-size: 0.79rem;
+          }
+          [spStrap] [sp-font="9"] {
+            font-size: 0.88rem;
+          }
+          [spStrap] [sp-font="10"] {
+            font-size: 0.97rem;
+          }
+          [spStrap] [sp-font="11"] {
+            font-size: 1.06rem;
+          }
+          [spStrap] [sp-font="12"] {
+            font-size: 1.14rem;
+          }
+          [spStrap] [sp-font="13"] {
+            font-size: 1.22rem;
+          }
+          [spStrap] [sp-font="14"] {
+            font-size: 1.3rem;
+          }
+          [spStrap] [sp-font="15"] {
+            font-size: 1.38rem;
+          }
+          [spStrap] [sp-font="16"] {
+            font-size: 1.46rem;
+          }
+          [spStrap] [sp-font="17"] {
+            font-size: 1.53rem;
+          }
+          [spStrap] [sp-font="18"] {
+            font-size: 1.61rem;
+          }
+          [spStrap] [sp-font="19"] {
+            font-size: 1.68rem;
+          }
+          [spStrap] [sp-font="20"] {
+            font-size: 1.75rem;
+          }
+          [spStrap] [sp-font="25"] {
+            font-size: 2.16rem;
+          }
+          [spStrap] [sp-font="30"] {
+            font-size: 2.57rem;
+          }
+          [spStrap] [sp-font="35"] {
+            font-size: 2.96rem;
+          }
+          [spStrap] [sp-font="40"] {
+            font-size: 3.35rem;
+          }
+          [spStrap] [sp-font="45"] {
+            font-size: 3.73rem;
+          }
+          [spStrap] [sp-font="50"] {
+            font-size: 4.1rem;
+          }
+          [spStrap] [sp-font="55"] {
+            font-size: 4.46rem;
+          }
+          [spStrap] [sp-font="60"] {
+            font-size: 4.81rem;
+          }
+          [spStrap] [sp-mob="20"] {
+            display: inline-block !important;
+            width: 20% !important;
+          }
+          [spStrap] [sp-mob="25"] {
+            display: inline-block !important;
+            width: 25% !important;
+          }
+          [spStrap] [sp-mob="33"] {
+            display: inline-block !important;
+            width: 33.333% !important;
+          }
+          [spStrap] [sp-mob="50"] {
+            display: inline-block !important;
+            width: 50% !important;
+          }
+          [spStrap] [sp-mob="100"] {
+            display: block !important;
+            width: initial !important;
+            position: initial !important;
+          }
+          [spStrap] [sp-less="mobile"] {
+            display: none;
+          }
+          [spStrap] [sp-only="pc"],
+          [spStrap] [sp-only="tablet"] {
+            display: none;
+          }
+          [spStrap] [sp-scale^="mob"] {
+            -webkit-transform: scale(0.9);
+            -moz-transform: scale(0.9);
+            -ms-transform: scale(0.9);
+            -o-transform: scale(0.9);
+            transform: scale(0.9);
+          }
+          [spStrap] [sp-scale*="-tl"] {
+            transform-origin: top left;
+          }
+          [spStrap] [sp-scale*="-tc"] {
+            transform-origin: top center;
+          }
+          [spStrap] [sp-scale*="-tr"] {
+            transform-origin: top right;
+          }
+          [spStrap] [sp-scale*="-ml"] {
+            transform-origin: center left;
+          }
+          [spStrap] [sp-scale*="-mc"] {
+            transform-origin: center center;
+          }
+          [spStrap] [sp-scale*="-mr"] {
+            transform-origin: center right;
+          }
+          [spStrap] [sp-scale*="-bl"] {
+            transform-origin: bottom left;
+          }
+          [spStrap] [sp-scale*="-bc"] {
+            transform-origin: bottom center;
+          }
+          [spStrap] [sp-scale*="-br"] {
+            transform-origin: bottom right;
+          }
+          [spStrap] [sp-table-editor] {
+            width: 100% !important;
+            min-width: unset !important;
+          }
+        }
+
+        /*-------------------------------------------------------------------------
+          |   Code : 563DD445ED
+          |-------------------------------------------------------------------------*/
+        /* [spStrap] .mo-563DD445ED {
+        } */
+        [spStrap] .mo-563DD445ED-line {
+          display: inline-block;
+          min-width: 21px;
+        }
+
+        /*-------------------------------------------------------------------------
+          |   Code : 356F912B00
+          |-------------------------------------------------------------------------*/
+        [spStrap] .mo-356F912B00 {
+          background: #eeff00;
+          /* background: -moz-linear-gradient(-45deg, #3dacf6 0%, #5699f7 100%);
+        background: -webkit-linear-gradient(-45deg, #3dacf6 0%, #5699f7 100%);
+        background: linear-gradient(135deg, #3dacf6 0%, #5699f7 100%); */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3dacf6', endColorstr='#5699f7',GradientType=1 );
+        }
+      </style>
+
+      <style sp-stylesheet="mo-E844D80A94">
+        /*-------------------------------------------------------------------------
+          |   Code : E844D80A94
+          |-------------------------------------------------------------------------*/
+        /* [spStrap] .mo-E844D80A94 {
+        } */
+
+        [spStrap] .mo-E844D80A94--box {
+          display: table;
+          table-layout: fixed;
+          width: 100%;
+        }
+        [spStrap] .mo-E844D80A94--inner {
+          display: table-cell;
+          vertical-align: top;
+        }
+        [spStrap] .mo-E844D80A94--deco {
+          z-index: 3;
+        }
+
+        /* 
+              Responsive 
+          */
+        [spStrap][device="mobile"] .mo-E844D80A94--deco {
+          position: absolute !important;
+          width: 20% !important;
+          top: 3rem;
+          right: 3rem;
+        }
+        @media screen and (min-width: 1px) and (max-width: 1024px) {
+          /**/
+          [spStrap] .mo-E844D80A94--deco {
+            position: absolute !important;
+            width: 20% !important;
+            top: 3rem;
+            right: 3rem;
+          }
+        }
+      </style>
+      <div
+        class="mo-E844D80A94 initialize"
+        sp-edit="box"
+        sp-sort-nodrop="fixed"
+        area="before"
+      >
+        <div sp-edit="box" sp-size class="initialize">
+          <div
+            class="mo-E844D80A94--box initialize"
+            sp-edit
+            sp-tab="100"
+            sp-mob="100"
+          >
+            <div
+              class="mo-E844D80A94--inner initialize"
+              sp-edit="box"
+              sp-sort-nodrop="element"
+              sp-tab="100"
+              sp-mob="100"
+              style="width: 60%; padding: 3rem"
+              area="before"
+            >
+              <div
+                sp-edit="box"
+                style="padding: 0 0 3rem 0"
+                class="initialize"
+                area="before"
+              >
+                <a
+                  href="#!"
+                  sp-edit="image_button"
+                  sp-resize
+                  style="width: 100%"
+                  class="initialize"
+                  direction="vertical"
+                  ><img
+                    src="https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png"
+                    sp-edit="image"
+                    style="width: 100%"
+                    class="initialize"
+                    onerror="this.onerror=null;this.src='/src/img/onerror.png';"
+                /></a>
+              </div>
+            </div>
+
+            <div
+              class="mo-563DD445ED initialize"
+              sp-edit="box"
+              sp-size
+              sp-sort-nodrop
+              style="padding: 3rem"
+              draggable="false"
+              area="before"
+            >
+              <div
+                sp-edit="text"
+                style="text-align: center"
+                class="initialize"
+                area="before"
+                draggable="false"
+              >
+                <span style="font-size: 25px" draggable="false"
+                  ><b draggable="false">혼자 공부하는 타입스크립트!!</b></span
+                ><br draggable="false" />
+              </div>
+
+              <div
+                sp-edit="text"
+                style="text-align: center"
+                class="initialize"
+                area="after"
+                draggable="false"
+              >
+                <font color="#548742" draggable="false"
+                  >당신도 할 수 있다!!<br draggable="false"
+                /></font>
+                단기간 타입 스크립트 완벽 마스터<br draggable="false" />자바
+                스크립트 기초 지식부터 차근차근 진행!<br draggable="false" /><br
+                  draggable="false"
+                />튜터 : 김민수<br draggable="false" />&nbsp;코드 고수<br
+                  draggable="false"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        sp-edit="box"
+        sp-inlinebox
+        sp-sort-nodrop="element"
+        style="font-size: 0; text-align: center"
+        class="initialize"
+      >
+        <a
+          class="mo-356F912B00 initialize"
+          href="#!"
+          sp-edit="button"
+          sp-sortable-inline
+          mo-filter
+          style="
+            font-size: 0.1rem;
+            margin: 0.5rem;
+            display: inline-block;
+            padding: 0.8rem 5rem;
+            color: #f1ff28c0;
+            border-radius: 10rem;
+            box-shadow: 0px 10px 10px -5px #f1ff28c0;
+          "
+          area="before"
+          ><span style="font-size: 14.4px" onclick="start_run()"
+            ><b>수강하기</b></span
+          ></a
+        >
+
+        <a
+          class="mo-356F912B00 initialize"
+          href="#!"
+          sp-edit="button"
+          sp-sortable-inline
+          mo-filter
+          style="
+            font-size: 0.1rem;
+            margin: 0.5rem;
+            display: inline-block;
+            padding: 0.8rem 5rem;
+            color: #f1ff28c0;
+            border-radius: 10rem;
+            box-shadow: 0px 10px 10px -5px #f1ff28c0;
+          "
+          area="after"
+          ><span style="font-size: 14.4px" onclick="in_cart()"
+            ><b>장바구니 담기</b></span
+          ></a
+        >
+      </div>
+    </div>
+    <script>
+      function start_run() {
+        const lecture_id = "test";
+        console.log(lecture_id);
+        $.ajax({
+          type: "POST",
+          url: "/api/cart/:lecture",
+          data: {
+            lecture_id,
+          },
+          success: function (response) {
+            alert("수강하기 완료!");
+          },
+          error: function (error) {
+            alert("수강 신청 실패하였습니다..");
+          },
+        });
+      }
+
+      function in_cart() {
+        const lecture_id = 5;
+        console.log(lecture_id);
+        $.ajax({
+          type: "POST",
+          url: "/api/cart/lecture",
+          data: {
+            lecture_id,
+          },
+          success: function (response) {
+            alert("장바구니에 담았습니다.!!!");
+          },
+          error: function (error) {
+            alert("장바구니 담기 실패");
+          },
+        });
+      }
+    </script>
+  </body>
 </html>
