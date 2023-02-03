@@ -8,7 +8,7 @@ const {
 
 class MypageService {
   userModel = new MypageRepository(user);
-  lecturModel = new MypageRepository(lecture);
+  lectureModel = new MypageRepository(lecture);
   orderModel = new MypageRepository(order);
   cartModel = new MypageRepository(cart);
 }
