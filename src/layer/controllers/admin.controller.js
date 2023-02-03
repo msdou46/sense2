@@ -21,6 +21,10 @@ class AdminControllerRender {
 class AdminControllerApi {
   adminservice = new AdminService();
 
+  get_user_info = async (req, res) => {
+
+  }
+  
   // 관리자 권한 부여
   add_admin_user = async (req, res) => {
     const user_id = req.params.user_id;
