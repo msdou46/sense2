@@ -12,9 +12,7 @@
 />
 
 <title>내 강의실</title>
-	<script src="
-	https://kit.fontawesome.com/a076d05399.js">
-	</script>
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 	<style>
 	ul {
 		list-style-type: none;
@@ -58,7 +56,7 @@
     <div class="sidebar">
         <ul>
             <li><a onclick="show_lecture(0)" class="active">
-            <i class="fas fa-home icon"></i>
+            <i class="fas fa-address-book"></i>
             Category</a></li>
             <li><a onclick="show_lecture(1)" class="active">
             Javascript</a></li>
@@ -69,7 +67,7 @@
             <li><a onclick="show_lecture(4)" class="active">
             Java</a></li>
             <li><a href="/myPage">
-            <i class="fa fa-user-o" aria-hidden="true"></i>
+            <i class="fas fa-home icon"></i>
             My Page</a></li>
             
 	    </ul>
@@ -104,17 +102,20 @@
                     let category = rows[i]['category']
                     let image = rows[i]['image']
                     let point = rows[i]['point']
+                    let update = rows[i]['updatedAt']
 
                     
                     if (cat == 0){temp_html += `
                     <div class="card" style="width: 18rem; float:left; margin: 10px;">
                         <img src="${image}" class="card-img-top" alt="...">
                         <div class="card-body">
-                        <h5 class="card-title">${title}</h5>
+                        <h4 class="card-title">${title}</h4>
+                        <h5 class="card-title">강사: ${lecturer}</h5>
                         <p class="card-text">${content}</p>
-                        <a class="btn btn-primary">강의 듣기</a>
+                        <p class="card-text"><small class="text-muted">마지막 업데이트: ${update}</small></p>
+                        <button type="button" class="btn btn-warning">강의듣기</button>
                         </div>
-                    </div> ` 
+                    </div> `
                     }
 
                     if (category == cat){
@@ -122,9 +123,11 @@
                     <div class="card" style="width: 18rem; float:left; margin: 10px;">
                         <img src="${image}" class="card-img-top" alt="...">
                         <div class="card-body">
-                        <h5 class="card-title">${title}</h5>
+                        <h4 class="card-title">${title}</h4>
+                        <h5 class="card-title">강사: ${lecturer}</h5>
                         <p class="card-text">${content}</p>
-                        <a href="#" class="btn btn-primary">강의 듣기</a>
+                        <p class="card-text"><small class="text-muted">마지막 업데이트: ${update}</small></p>
+                        <button type="button" class="btn btn-warning">강의듣기</button>
                         </div>
                     </div> `
                  }

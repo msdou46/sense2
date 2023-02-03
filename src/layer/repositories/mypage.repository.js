@@ -25,6 +25,11 @@ class MypageRepository {
     await this.mypageModels.update({nickname: nickname, email: email},{where:{user_id: user_id}})
   }
 
+  edit_pw = async (user_id, new_pw) => {
+    await this.mypageModels.update({password: new_pw},{where:{user_id: user_id}})
+  }
+  
+
    
 }
 

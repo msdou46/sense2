@@ -14,9 +14,14 @@
   
 
 <title>통합 마이페이지</title>
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
 
 <style>
+
+.fas {
+    margin-right: 5px;
+    }
   
   div.p-3_pro{
 
@@ -168,7 +173,8 @@
       <div class="p-3_pro" id="profile"style="text-align: center;"></div>
     </div>
      <div class="col-19">
-      <div class="p-3" type="button" class="btn" id="add-btn"  style="text-align: center;">프로필 수정</div>
+      <div class="p-3" type="button" class="btn" id="add-btn"  style="text-align: center;">
+        <i class="fas fa-user"></i>프로필 수정</div>
     </div>
      <!-- 모달 -->
    <div class="modal" id="modal">
@@ -187,14 +193,42 @@
     </div>
   </div>
 <!-- 모달 -->
+
+<!-- 비밀번호 수정 -->
+<div class="col-19">
+  <div class="p-3" type="button" class="btn" id="add-btn2"  style="text-align: center;">
+    <i class='fas fa-lock'></i>비밀번호 수정</div>
+</div>
+ <!-- 모달 -->
+<div class="modal" id="modal2">
+<div class="modal_body">
+  <div class="m_head">
+    <div class="modal_title">비밀번호 수정</div>
+    <div class="close_btn" id="close_btn2">X</div>
+  </div>
+  <div class="m_body" id="m_body2">
+    
+  </div>
+  <div class="m_footer">
+    <div class="modal_btn cancle" id="close_btn2">취소</div>
+    <div class="modal_btn save" id="save_btn2" onclick="edit_pw()">수정하기</div>
+  </div>
+</div>
+</div>
+<!-- 모달 -->
+
+
     <div class="col-19">
-      <div class="p-3" type="button" onclick="cart_page()" style="text-align: center;">장바구니</div>
+      <div class="p-3" type="button" onclick="cart_page()" style="text-align: center;">
+        <i class='fas fa-dolly-flatbed'></i>장바구니</div>
     </div>
     <div class="col-19">
-      <div class="p-3" type="button" onclick="lectures_page()"  style="text-align: center;">내 강의실</div>
+      <div class="p-3" type="button" onclick="lectures_page()"  style="text-align: center;">
+        <i class="fas fa-address-book"></i>내 강의실</div>
     </div>
     <div class="col-19">
-      <div class="p-3" type="button"  style="text-align: center;">실시간 채팅 상담</div>
+      <div class="p-3" type="button"  style="text-align: center;">
+        <i class='fas fa-comments'></i>실시간 채팅 상담</div>
     </div>
     
   </div>
@@ -232,6 +266,20 @@ $(document).on('click', '#close_btn', function (e) {
 
 });
 
+// click on 라벨 추가 모달 열기
+$(document).on('click', '#add-btn2', function (e) {
+  console.log("click event");
+  $('#modal2').addClass('show');
+
+});
+
+// 모달 닫기
+$(document).on('click', '#close_btn2', function (e) {
+  console.log("click event");
+  $('#modal2').removeClass('show');
+
+});
+
 // 프로필 GET API
 
 $.ajax({
@@ -248,27 +296,40 @@ $.ajax({
                     let point = user['point']
                     let type = user['type']
                     
+                    
                     temp_html += `
                     <div class="modal_label">닉네임</div>
                     <input type="text" class="input_box" id="nickname_box" value="${nickname}"/>
                     <div class="modal_label">이메일</div>
                     <input type="text" class="input_box" id="email_box" value="${email}"/>
                     <div class="modal_label">비밀번호</div>
-                    <input type="text" class="input_box" id="pw_box"/>`       
+                    <input type="text" class="input_box" id="origin_pw_box"/>
+                    `       
                 
                 $('#m_body').append(temp_html)
+
+                let pw_html=''
+                 pw_html = `
+                    <div class="modal_label">현재 비밀번호</div>
+                    <input type="text" class="input_box" id="origin_pw_box2"/>
+                    <div class="modal_label">새 비밀번호</div>
+                    <input type="text" class="input_box" id="new_pw_box"/>
+                    <div class="modal_label">새 비밀번호 (확인)</div>
+                    <input type="text" class="input_box" id="confirm_pw_box"/>`
+                $('#m_body2').append(pw_html)
 
                 let profile_html =''
                   profile_html += `
                   <div >
                     닉네임: ${nickname}</div>
-                  <div >포인트: ${point}</div>`
+                  <div >보유 포인트: ${point}</div>`
                 $('#profile').append(profile_html)
 
                 if(type == 99){
                   let admin_button = `
                   <div class="col-19">
-                    <div class="p-3" onclick="admin_page()"style="text-align: center;">관리자 페이지</div>
+                    <div class="p-3" onclick="admin_page()"style="text-align: center;">
+                      <i class='fas fa-desktop'></i>관리자 페이지</div>
                   </div>`
                   $('#page_buttons').append(admin_button)
                 }
@@ -281,19 +342,50 @@ $.ajax({
 
     const nickname = $("#nickname_box").val();
     const email = $("#email_box").val();
-    $.ajax({
+    const origin_pw = $("#origin_pw_box").val();
+    if (nickname.length == 0 || email.length == 0 || origin_pw.length ==0){alert("모든 칸을 입력해주세요!")}
+
+    else{
+      $.ajax({
           type: "PUT",
           url: `/api/profile`,
           data: {
             nickname: nickname,
-            email: email
+            email: email,
+            origin_pw: origin_pw
           },
-          success: function () {
-            alert("수정되었습니다!")
+          success: function (response) {
+            alert(response.message)
               window.location.replace(`/myPage`);
 
           }})
   }
+}
+
+// 비밀번호 수정
+function edit_pw(){
+
+const origin_pw = $("#origin_pw_box2").val();
+const new_pw = $("#new_pw_box").val();
+const confirm_pw = $("#confirm_pw_box").val();
+if (origin_pw.length ==0 || new_pw.length ==0 || confirm_pw.length == 0){alert("모든 칸을 입력해주세요!")}
+
+else if(new_pw == confirm_pw){
+  $.ajax({
+      type: "PUT",
+      url: `/api/profile`,
+      data: {
+        origin_pw: origin_pw ,
+        new_pw: new_pw
+      },
+      success: function (response) {
+        alert(response.message)
+          window.location.replace(`/myPage`);
+
+      }})
+}
+else if (new_pw != confirm_pw){alert("새 비밀번호와 확인 비밀번호가 일치하지 않습니다!")}
+}
   </script>
 
 </body>

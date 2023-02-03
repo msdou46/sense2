@@ -37,6 +37,10 @@ edit_user = async (nickname, email, user_id) => {
   await this.userModel.edit_user(nickname, email, user_id)
 }
 
+edit_pw = async (user_id, new_pw) => {
+  await this.userModel.edit_pw(user_id, new_pw)
+}
+
 
 }
 

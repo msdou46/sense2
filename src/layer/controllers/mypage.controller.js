@@ -36,11 +36,23 @@ class MypageControllerApi {
 
   update_my_profile = async (req, res) => {
     try{
-      const{nickname, email} = req.body
+      const{nickname, email, origin_pw, new_pw} = req.body
       const user_id = 1
-    await this.mypageservice.edit_user(nickname, email, user_id)
-    return res.json({"message": "수정하였습니다"});
-    }
+      const password = 1234
+
+      if (origin_pw == password){
+        if(new_pw != undefined){
+          await this.mypageservice.edit_pw(user_id, new_pw)
+          return res.json({"message": "비밀번호를 수정하였습니다"});}
+        else{
+          await this.mypageservice.edit_user(nickname, email, user_id)
+          return res.json({"message": "프로필을 수정하였습니다"});}
+      }
+        else if (origin_pw != password){
+          return res.json({"message": " 현재 비밀번호가 틀렸습니다!"})
+        }
+      
+  }
     catch (error) {
       console.error(error);
       return res.status(500).send({ message: error.message });
