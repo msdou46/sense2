@@ -12,8 +12,8 @@ class MainService {
   orderModel = new MainRepository(order);
   cartModel = new MainRepository(cart);
 
-  findAll = async () => {
-    const lectures = await this.lectureModel.findAll()
+  find_lectures = async () => {
+    const lectures = await this.lectureModel.find_lectures()
     return lectures
   }
 }

@@ -5,7 +5,7 @@ class MainRepository {
     this.mainModels = mainModels;
   }
 
-  findAll = async () => {
+  find_lectures = async () => {
     const lectures = await this.mainModels.findAll()
     return lectures
   }

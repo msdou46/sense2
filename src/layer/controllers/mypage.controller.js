@@ -24,7 +24,7 @@ class MypageControllerApi {
   get_my_profile = async (req, res) => {
     try {
 
-      const user = await this.mypageservice.findUser()
+      const user = await this.mypageservice.find_user()
 
       return res.status(200).send({"profile" : user});
        
@@ -38,7 +38,7 @@ class MypageControllerApi {
     try{
       const{nickname, email} = req.body
       const user_id = 1
-    await this.mypageservice.editUser(nickname, email, user_id)
+    await this.mypageservice.edit_user(nickname, email, user_id)
     return res.json({"message": "수정하였습니다"});
     }
     catch (error) {
@@ -60,7 +60,7 @@ class MypageControllerApi {
 
     try {
 
-      const mylectures = await this.mypageservice.findAll()
+      const mylectures = await this.mypageservice.find_orders()
 
       return res.status(200).send({"mylectures" : mylectures});
        

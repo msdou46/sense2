@@ -14,27 +14,27 @@ class MypageService {
 
   
 
-findAll = async () => {
-const myorders = await this.orderModel.findAll()
+  find_orders = async () => {
+const myorders = await this.orderModel.find_orders()
 
 let mylectures = []
 
 for (let i=0; i< myorders.length; i++){
     const myorder = myorders[i].dataValues
       const lecture_id = myorder['lecture_id']
-      const mylecture = await this.lectureModel.findOne(lecture_id)
+      const mylecture = await this.lectureModel.find_lectures(lecture_id)
       mylectures.push(mylecture)
 }
 return {"mylectures" : mylectures}
 }
 
-findUser = async () => {
-  const user = await this.userModel.findUser()
+find_user = async () => {
+  const user = await this.userModel.find_user()
   return {"user" : user}
 }
 
-editUser = async (nickname, email, user_id) => {
-  await this.userModel.editUser(nickname, email, user_id)
+edit_user = async (nickname, email, user_id) => {
+  await this.userModel.edit_user(nickname, email, user_id)
 }
 
 

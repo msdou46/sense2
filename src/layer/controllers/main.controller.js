@@ -20,7 +20,7 @@ class MainControllerApi {
   get_lectures_list = async (req, res) => {
     try {
 
-      const lectures = await this.mainService.findAll()
+      const lectures = await this.mainService.find_lectures()
 
       return res.status(200).send({"lectures" : lectures});
        
