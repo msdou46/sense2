@@ -6,9 +6,9 @@ class MainRepository {
   }
 
   find_lectures = async () => {
-    const lectures = await this.mainModels.findAll()
-    return lectures
-  }
+    const lectures = await this.mainModels.findAll();
+    return lectures;
+  };
 }
 
 module.exports = MainRepository;

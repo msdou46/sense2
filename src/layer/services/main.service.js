@@ -13,9 +13,9 @@ class MainService {
   cartModel = new MainRepository(cart);
 
   find_lectures = async () => {
-    const lectures = await this.lectureModel.find_lectures()
-    return lectures
-  }
+    const lectures = await this.lectureModel.find_lectures();
+    return lectures;
+  };
 }
 
 module.exports = MainService;
