@@ -2,6 +2,7 @@ const AdminService = require("../services/admin.service");
 
 // 랜더링 용
 class AdminControllerRender {
+
   adminservice = new AdminService();
   
   get_page_admin_user = async (req, res) => {

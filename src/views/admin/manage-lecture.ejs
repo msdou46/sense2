@@ -302,8 +302,21 @@
                         <button type="button" class="lecture-delete">삭제하기</button>
                     </div>
                 </div>
-                
-            
+                <div class="lecture-card">
+                    <div class="card-img-wrap">
+                        <img src="/image/public_lecture_thum.jpeg">
+                    </div>
+                    <div class="card-category">javascript</div>
+                    <div class="card-title">자바스크립트 기초부터 실전까지</div>
+                    <div class="card-lecturer">가나다</div>
+                    <div class="card-lecture-price">₩50000</div>
+                    <div class="lecture-created">등록일 : 2022-12-13</div>
+                    <div class="lecture-manage">
+                        <button type="button" class="lecture-update">수정하기</button>
+                        <button type="button" class="lecture-delete">삭제하기</button>
+                    </div>
+                </div>
+            </div>
         </div>
         
     </div>
@@ -316,6 +329,7 @@
     const select_category = (event) => {
 
     };
+    
     function get_lectures () {
         $.ajax({
             type: "GET",

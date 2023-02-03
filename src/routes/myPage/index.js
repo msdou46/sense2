@@ -8,11 +8,14 @@ const {
 } = require("../../layer/controllers/mypage.controller");
 const mypageControllerRender = new MypageControllerRender();
 
+// 검증 미들웨어
+const mypage_middleware = require("../../middleware/mypage-page-middleware");
+
 // 통합 마이페이지
-router.get("/", mypageControllerRender.get_page_mypage);
+router.get("/", mypage_middleware,mypageControllerRender.get_page_mypage);
 // 마이 페이지 장바구니
-router.get("/cart", mypageControllerRender.get_page_my_cart);
+router.get("/cart", mypage_middleware, mypageControllerRender.get_page_my_cart);
 // 마이 페이지 내 강의실
-router.get("/mylecture", mypageControllerRender.get_page_my_lectures);
+router.get("/mylecture", mypage_middleware, mypageControllerRender.get_page_my_lectures);
 
 module.exports = router;
