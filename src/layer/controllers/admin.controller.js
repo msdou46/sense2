@@ -4,14 +4,14 @@ const AdminService = require("../services/admin.service");
 class AdminControllerRender {
   adminservice = new AdminService();
   get_page_admin_user = async (req, res) => {
-      res.render('admin/index', {ejsName: "manage-user"});
+    res.render("admin/index", { ejsName: "manage-user" });
   };
   get_page_lectures = async (req, res) => {
-      res.render('admin/index', {ejsName: "manage-lecture"});
+    res.render("admin/index", { ejsName: "manage-lecture" });
   };
   get_page_add_lecture = async (req, res) => {
-      res.render('admin/index', {ejsName: "add-lecture"});
-  }
+    res.render("admin/index", { ejsName: "add-lecture" });
+  };
 }
 // api 용
 class AdminControllerApi {
@@ -19,17 +19,14 @@ class AdminControllerApi {
 
   // 관리자 권한 부여
   add_admin_user = async (req, res) => {
-    const user_id = req.params.user_id
-    const admin_type = 99
-    
+    const user_id = req.params.user_id;
+    const admin_type = 99;
+
     try {
-      await this.adminservice.update_admin_user(
-        user_id,
-        admin_type
-      )
+      await this.adminservice.update_admin_user(user_id, admin_type);
       return res.status(200).json({
         success: true,
-        msg: "관리자 등록 완료"
+        msg: "관리자 등록 완료",
       });
     } catch (error) {
       console.log(error);
@@ -40,7 +37,7 @@ class AdminControllerApi {
   get_lectures = async (req, res) => {
     const lecture_list = await this.adminservice.get_all_lectures();
     try {
-      return res.status(200).send(lecture_list);
+      return res.status(200).json({data:lecture_list});
     } catch (error) {
       console.log(error);
     }
@@ -69,7 +66,15 @@ class AdminControllerApi {
       //     msg: "모든 항목을 작성해주세요.",
       //   });
       // }
-      await this.adminservice.edit_lecture(lecture_id, lecturer, title, content, category, image, point);
+      await this.adminservice.edit_lecture(
+        lecture_id,
+        lecturer,
+        title,
+        content,
+        category,
+        image,
+        point
+      );
       return res.status(201).json({
         success: true,
         msg: "강의 수정 완료",
@@ -91,7 +96,7 @@ class AdminControllerApi {
       //     msg: "관리자만 삭제 가능합니다.",
       //   });
       // }
-      await this.adminservice.delete_lecture(lecture_id)
+      await this.adminservice.delete_lecture(lecture_id);
       return res.status(200).json({
         success: true,
         msg: "강의 삭제 완료",
@@ -105,11 +110,18 @@ class AdminControllerApi {
   add_lecture = async (req, res) => {
     const { lecturer, title, content, category, image, point } = req.body;
     try {
-      const new_lecture = await this.adminservice.regist_lecture(lecturer, title, content, category, image, point);
+      const new_lecture = await this.adminservice.regist_lecture(
+        lecturer,
+        title,
+        content,
+        category,
+        image,
+        point
+      );
       return res.status(200).json({
         success: true,
         msg: "강의 등록 완료",
-        new_lecture
+        new_lecture,
       });
     } catch (error) {
       console.log(error);
