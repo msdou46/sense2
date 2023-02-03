@@ -25,7 +25,13 @@ class MypageControllerApi {
 
   update_my_profile = async (req, res) => {};
 
-  get_cart_list = async (req, res) => {};
+  // 장바구니 페이지로 갔을때 장바구니 리스트 불러오기
+  get_cart_list = async (req, res, next) => {
+    // const {user_id} = res.locals.user; // 테스트가 완료되면 주석해제 
+    const user_id = 1;
+    const cart_list = await this.mypageservice.cart_list(user_id);
+    res.status(203).json({data:cart_list});
+  };
 
   // 강의 상세보기에서 장바구니에 추가
   add_cart = async (req, res, next) => { 

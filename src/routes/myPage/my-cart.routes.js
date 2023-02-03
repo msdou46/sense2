@@ -9,6 +9,7 @@ const {
 const mypageControllerApi = new MypageControllerApi();
 
 // 장바구니 목록 가져오기
+// router.get("/carts", mypageControllerApi.get_cart_list); // 테스트용 테스트가 완료되면 주석 해제
 router.get("/carts", mypageControllerApi.get_cart_list);
 
 // 장바구니에 담기

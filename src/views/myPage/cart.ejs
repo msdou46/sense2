@@ -15,6 +15,11 @@
     />
   </head>
   <body>
+    <script>
+      $(document).ready(function () {
+    cart_list();
+        });   
+    </script>
     <style>
         main {    
     width: 1460px;
@@ -84,7 +89,7 @@
       <div class="header_wrap" id="header_wrap" name="header_wrap">
       </header>
       <main id="cart_list_id">      
-        <div class="cart_list">
+        <!-- <div class="cart_list">
             <img
             src="https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png"
             alt=""
@@ -109,11 +114,8 @@
                   onclick="cancle_run()"
                   />
             </div>
-        </div>
-
+        </div> -->
     </main>
-    <script defer src="./static/js/cart_list.js"></script>
-    <script defer src="./static/js/header_shop.js"></script>
     <script>
       function start_run() {
         $.ajax({
@@ -150,7 +152,62 @@
           },
         });
       }
+
+      function cart_list() {
+          $.ajax({
+            type: "GET",
+            url: "/api/cart/carts",
+            data: {},
+            success: function (response) {
+              const rows = response.data;
+
+              for (let i in rows) {
+                let category = rows[i].category;
+                let content = rows[i].content;
+                let lecture_id = rows[i].lecture_id;
+                let lecturer = rows[i].lecturer;
+                let point = rows[i].point;
+                let title = rows[i].title;
+
+                let temp_html = `
+                <main id="cart_list_id">      
+                  <div class="cart_list">
+                      <img
+                      src="https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png"
+                      alt=""
+                      />
+                      <div class="cart_list_bottom">
+                          <input type="hidden" class="cart_id" value="${lecture_id}" />
+                          <p class="extra">
+                            ${title}
+                          </p>
+                            <input
+                            class="cart_btn"
+                            type="button"
+                            name="cart_start"
+                            value="수강"
+                            onclick="start_run()"
+                            />
+                            <input
+                            class="cart_btn"
+                            type="button"
+                            name="cart_start"
+                            value="장바구니 삭제"
+                            onclick="cancle_run()"
+                            />
+                      </div>
+                  </div>
+                `
+                $('#cart_list_id').append(temp_html)
+              }
+
+            },
+            error: function (error) {
+            alert("알 수 없는 이유로 실행되지 않았습니다. 관리자에게 문의해 주세요.");
+            console.log(error);
+          },
+          })
+        }
     </script>
   </body>
-  <script src="/static/js/cart_list.js"></script>
 </html>

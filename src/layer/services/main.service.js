@@ -8,7 +8,7 @@ const {
 
 class MainService {
   userModel = new MainRepository(user);
-  lecturModel = new MainRepository(lecture);
+  lectureModel = new MainRepository(lecture);
   orderModel = new MainRepository(order);
   cartModel = new MainRepository(cart);
 }

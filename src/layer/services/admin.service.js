@@ -8,7 +8,7 @@ const {
 
 class AdminService {
   userModel = new AdminRepository(user);
-  lecturModel = new AdminRepository(lecture);
+  lectureModel = new AdminRepository(lecture);
   orderModel = new AdminRepository(order);
   cartModel = new AdminRepository(cart);
 }
