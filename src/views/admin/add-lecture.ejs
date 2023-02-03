@@ -194,7 +194,17 @@
                         <textarea></textarea>
                         <div class="count"><span>0</span>/200</div>
                     </div>
-                  </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">강의 카테고리</label>
+                    <select class="form-select" id="lecture-category" aria-label="Default select example" onchange="change_selection()">
+                        <option selected>강의 카테고리 선택</option>
+                        <option value="1">javascript</option>
+                        <option value="2">typescript</option>
+                        <option value="3">python</option>
+                        <option value="4">java</option>
+                    </select>
+                </div>
                 <div class="mb-3">
                     <label for="lecture-point" class="form-label">강의 금액</label>
                     <input type="text" class="form-control" id="lecture-point" placeholder="강의 금액">
@@ -216,14 +226,14 @@
 </body>
 
 <script>
-    $('.text_box textarea').keyup(function(){
-  var content = $(this).val();
-  $('.text_box .count span').html(content.length);
-  if (content.length > 200){
-    alert("최대 200자까지 입력 가능합니다.");
-    $(this).val(content.substring(0, 200));
-    $('.text_box .count span').html(200);
-  }
+    $('.text_box textarea').keyup(function() {
+        var content = $(this).val();
+        $('.text_box .count span').html(content.length);
+        if (content.length > 200){
+            alert("최대 200자까지 입력 가능합니다.");
+            $(this).val(content.substring(0, 200));
+            $('.text_box .count span').html(200);
+        }
     });
 
     $(document).ready(function () {
@@ -252,5 +262,13 @@
             reader.readAsDataURL(file);
         };
     });
+
+    // 카테고리 select 변경 시 선택된 카테고리의 지정값(1~4)을 반환.
+    const change_selection = () => {
+        const selected_lecture_category = document.querySelector("#lecture-category");
+        const selected_value = selected_lecture_category.options[selected_lecture_category.selectedIndex].value;
+        
+    }
+
 </script>
 </html>

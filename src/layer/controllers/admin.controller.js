@@ -6,15 +6,15 @@ class AdminControllerRender {
     adminservice = new AdminService();
 
     get_page_admin_user = async (req, res) => {
-        res.render("admin/manage-user");
+        res.render('admin/index', {ejsName: "manage-user"});
     };
 
     get_page_lectures = async (req, res) => {
-        res.render("admin/manage-lecture");
+        res.render('admin/index', {ejsName: "manage-lecture"});
     };
 
     get_page_add_lecture = async (req, res) => {
-        res.render("admin/add-lecture");
+        res.render('admin/index', {ejsName: "add-lecture"});
     }
 }
 
