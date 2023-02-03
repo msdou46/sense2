@@ -1,12 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+  crossorigin="anonymous"
+/>
+
+<title>내 강의실</title>
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	<style>
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		
+		background-color: #000000;
+	}
+	li a {
+		display: block;
+		color: rgb(255, 255, 255);
+		padding: 8px 16px;
+		text-decoration: none;
+	}
+
+	/* Change the link color on hover */
+	li a:hover {
+		background-color: #ffdc2a;
+		color: rgb(0, 0, 0);
+	}
+	.i {
+		margin-right: 10px;
+	}
+
+    .wrapper {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  
+}
+    div.sidebar {
+        background-color: black;
+  grid-column: 1;
+
+}
+
+
+</style>
 </head>
 <body>
-    마이 페이지 (강의실) 입니다
+    <div class="wrapper">
+    <div class="sidebar">
+        <ul>
+            <li><a onclick="show_lecture(0)" class="active">
+            <i class="fas fa-address-book"></i>
+            Category</a></li>
+            <li><a onclick="show_lecture(1)" class="active">
+            Javascript</a></li>
+            <li><a onclick="show_lecture(2)" class="active">
+            Typescript</a></li>
+            <li><a onclick="show_lecture(3)" class="active">
+            Python</a></li>
+            <li><a onclick="show_lecture(4)" class="active">
+            Java</a></li>
+            <li><a href="/myPage">
+            <i class="fas fa-home icon"></i>
+            My Page</a></li>
+            
+	    </ul>
+    </div>
+        <section class="lecture_list" id="lecture_list">     
+        </section>
+    </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+
+   <script>
+    show_lecture(0)
+
+    function show_lecture(cat){
+
+        $.ajax({
+            type: "GET",
+            url: `/api/mylectures`,
+            data: {},
+            success: function (response) {
+               
+                let rows = response['mylectures']['mylectures']
+                let temp_html = ''
+                  for (let i =0; i < rows.length; i++){
+                    let lecturer = rows[i]['lecturer']
+                    let title = rows[i]['title']
+                    let content = rows[i]['content']
+                    let category = rows[i]['category']
+                    let image = rows[i]['image']
+                    let point = rows[i]['point']
+                    let update = rows[i]['updatedAt']
+
+                    
+                    if (cat == 0){temp_html += `
+                    <div class="card" style="width: 18rem; float:left; margin: 10px;">
+                        <img src="${image}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h4 class="card-title">${title}</h4>
+                        <h5 class="card-title">강사: ${lecturer}</h5>
+                        <p class="card-text">${content}</p>
+                        <p class="card-text"><small class="text-muted">마지막 업데이트: ${update}</small></p>
+                        <button type="button" class="btn btn-warning">강의듣기</button>
+                        </div>
+                    </div> `
+                    }
+
+                    if (category == cat){
+                        temp_html += `
+                    <div class="card" style="width: 18rem; float:left; margin: 10px;">
+                        <img src="${image}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h4 class="card-title">${title}</h4>
+                        <h5 class="card-title">강사: ${lecturer}</h5>
+                        <p class="card-text">${content}</p>
+                        <p class="card-text"><small class="text-muted">마지막 업데이트: ${update}</small></p>
+                        <button type="button" class="btn btn-warning">강의듣기</button>
+                        </div>
+                    </div> `
+                 }
+                           
+                } 
+                $('#lecture_list').empty()
+                $('#lecture_list').append(temp_html)
+            }
+        });
+ }
+
+    
+   </script> 
+    
 </body>
 </html>
