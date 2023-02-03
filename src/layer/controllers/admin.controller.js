@@ -37,7 +37,7 @@ class AdminControllerApi {
   get_lectures = async (req, res) => {
     const lecture_list = await this.adminservice.get_all_lectures();
     try {
-      return res.status(200).json({data:lecture_list});
+      return res.status(200).json({ data: lecture_list });
     } catch (error) {
       console.log(error);
     }
