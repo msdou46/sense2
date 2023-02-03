@@ -3,6 +3,7 @@ const AdminService = require("../services/admin.service");
 // 랜더링 용
 class AdminControllerRender {
   adminservice = new AdminService();
+  
   get_page_admin_user = async (req, res) => {
     res.render("admin/index", { ejsName: "manage-user" });
   };
@@ -13,6 +14,7 @@ class AdminControllerRender {
     res.render("admin/index", { ejsName: "add-lecture" });
   };
 }
+
 // api 용
 class AdminControllerApi {
   adminservice = new AdminService();

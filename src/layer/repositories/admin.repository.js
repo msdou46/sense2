@@ -5,7 +5,7 @@ class AdminRepository {
   constructor(adminModels) {
     this.adminModels = adminModels;
   }
-
+  
   find_one_user_by_pk = async (user_id) => {
     return await this.adminModels.findByPk({ user_id });
   };
@@ -47,6 +47,7 @@ class AdminRepository {
       point,
     });
   };
+  
 }
 
 module.exports = AdminRepository;
