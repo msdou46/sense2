@@ -22,24 +22,13 @@ class AdminControllerApi {
   adminservice = new AdminService();
 
   add_admin_user = async (req, res) => {
-    const type = req.body.type;
-    const change_user = await user.findOne({ where: "type" });
-    const admin_type = res.locals.user.type;
-    const admin_user = await user.findOne({ where: { type: admin_type } });
+    const user_id = req.params.user_id
+    const admin_type = 99
+    
     try {
-      if (admin_user.type !== 99) {
-        return res.status(401).json({
-          success: false,
-          msg: "관리자만 수정 가능합니다.",
-        });
-      }
-      if (change_user.type !== 1) {
-        return res.stauts(412).json({
-          success: false,
-          msg: "유효하지 않은 유저입니다.",
-        });
-      }
-      await user.update({ type }, { where: { type } });
+      const update_user_type = await this.adminservice(
+        user_id, admin_type
+      )
       return res.status(200).json({
         success: true,
         msg: "관리자 등록 완료",

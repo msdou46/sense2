@@ -1,16 +1,17 @@
 const { Op } = require("sequelize");
+const user = require("../../sequelize/models/user");
 
 class AdminRepository {
   constructor(adminModels) {
     this.adminModels = adminModels;
   }
 
-  find_one_user_by_type = async (type) => {
-    return await this.adminModels.findOne({where:{type}})
+  find_one_user_by_pk = async (user_id) => {
+    return await this.adminModels.findByPk({ user_id })
   }
 
-  find_admin_user_by_type = async (admin_type) => {
-    return await this.adminModels.findOne({where: {admin_type}})
+  update_to_admin = async (user_id) => {
+    return await this.adminModels.update({ type : 99 }, { where: { user_id } })
   }
 }
 
