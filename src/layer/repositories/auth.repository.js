@@ -19,7 +19,6 @@ class AuthRepository {
         const insert_result = await this.authModels.create({email, nickname, password, salt, type: 1});
         return {user_id: insert_result.user_id, type: insert_result.type}
     }
-
 }
 
 module.exports = AuthRepository;

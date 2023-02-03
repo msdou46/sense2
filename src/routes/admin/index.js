@@ -1,9 +1,11 @@
 "use strict";
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const { AdminControllerRender } = require("../../layer/controllers/admin.controller");
+const {
+  AdminControllerRender,
+} = require("../../layer/controllers/admin.controller");
 const adminControllerRender = new AdminControllerRender();
 
 // 미들웨어
@@ -15,6 +17,5 @@ router.get("/user", admin_middleware, adminControllerRender.get_page_admin_user)
 router.get("/lectures", admin_middleware, adminControllerRender.get_page_lectures);
 // 관리자 페이지 - 상품관리 - 강의 등록
 router.get("/lecture/add", admin_middleware, adminControllerRender.get_page_add_lecture);
-
 
 module.exports = router;

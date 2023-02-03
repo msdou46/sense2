@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 // render 페이지 랜더링
@@ -23,8 +23,6 @@ const my_lectures_router = require("./myPage/my-lectures.routes");
 const admin_user_manage_router = require("./admin/user-manage.routes");
 const admin_lecture_manage_router = require("./admin/lecture-manage.routes");
 
-
-
 // ejs 랜더링 라우터
 router.use("/", main_render_router);
 router.use("/auth", auth_render_router);
@@ -43,9 +41,5 @@ router.use("/api/mylectures", my_lectures_router);
 
 router.use("/api/admin/user", admin_user_manage_router);
 router.use("/api/admin/lecture", admin_lecture_manage_router);
-
-
-
-
 
 module.exports = router;

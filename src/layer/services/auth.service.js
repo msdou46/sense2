@@ -107,6 +107,7 @@ class AuthService {
             { expiresIn: '60s', algorithm : "HS256"});
         return accessToken;
     }
+    
 }
 
 module.exports = AuthService;

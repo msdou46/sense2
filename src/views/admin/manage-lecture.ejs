@@ -329,6 +329,47 @@
     const select_category = (event) => {
 
     };
+    
+    function get_lectures () {
+        $.ajax({
+            type: "GET",
+            url: "127.0.0.1:3000/api/admin/lecture/lectures",
+            data:{},
+            success:function(response){
+                console.log(response)
+                const rows = response.data;
+
+                for (let i in rows) {
+                let category = rows[i].category;
+                let content = rows[i].content;
+                let lecture_id = rows[i].lecture_id;
+                let lecturer = rows[i].lecturer;
+                let point = rows[i].point;
+                let title = rows[i].title;
+                
+            let temp_html = `
+            <div class="lecture-card">
+                    <div class="card-img-wrap">
+                        <img src="/image/public_lecture_thum.jpeg">
+                    </div>
+                    <div class="card-category">${category}</div>
+                    <div class="card-title">${title}</div>
+                    <div class="card-lecturer">${lecturer}</div>
+                    <div class="card-lecture-price">₩${point}</div>
+                    <div class="lecture-created">등록일 : 2022-12-13</div>
+                    <div class="lecture-manage">
+                        <button type="button" class="lecture-update">수정하기</button>
+                        <button type="button" class="lecture-delete">삭제하기</button>
+                    </div>
+                </div>
+            </div>
+            `
+
+            $('#lecture-card').append(temp_html)
+            }
+            }
+        })
+    }
 
 </script>
 </html>
