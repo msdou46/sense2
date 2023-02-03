@@ -95,27 +95,69 @@
     color: black;
     }
 
-    .wrapper .main_content{
-    width: 100%;
-    margin-left: 250px;
+    .main_content{
+        width: 100%;
+        margin-left: 250px;
     }
 
-    .wrapper .main_content .header{
-    padding: 20px;
-    background: #fff;
-    color: #717171;
-    border-bottom: 1px solid #e0e4e8;
+    .lecture-form-wrap {
+        width: 70%;
+        margin: auto;
+        margin-top: 100px;
+        display: flex;
     }
 
-    .wrapper .main_content .info{
-    margin: 20px;
-    color: #717171;
-    line-height: 25px;
+    .submit-lecture {
+        width: 70%;
+        margin: auto;
+        margin-top: 20px;
+        display: flex;
+        align-content: right;
+        justify-content: right;
     }
 
-    .wrapper .main_content .info div{
-    margin-bottom: 20px;
+    .lecture-form-wrap .lecture-text-form {
+        width: 500px;
+        height: 100%;
     }
+
+    .lecture-form-wrap .lecture-img-form {
+        width: 500px;
+        height: 100%;
+        
+    }
+
+    #lecture-lecturer {
+        width: 200px;
+    }
+
+    #lecture-title {
+        width: 400px;
+    }
+
+    #lecture-point {
+        width: 200px;
+    }
+
+    .text_box {position:relative; display:inline-block; width:100%;}
+    .text_box textarea {width:100%; height:152px; color:#666; font-family:"ht_r"; font-size:18px; line-height:28px; padding:20px; border:1px solid #e4dcd3; outline:0; resize:none}
+    .text_box .count {position:absolute; right:20px; bottom:20px; color:#666; font-family:"ht_r"; font-size:15px;}
+
+    .lecture-img-form img {
+        width: 400px;
+        height: 250px;
+        display: block;
+        max-width: 400px;
+        margin: auto;
+        margin-top: 100px;
+        margin-bottom: 50px;
+        border-radius: 1px solid gray;
+    }
+
+    .img-div {
+        margin: auto;
+    }
+
 </style>
 <body>
 
@@ -136,9 +178,98 @@
     </div>
 
     <div class="main_content">
-        
+        <div class="lecture-form-wrap">
+            <div class="lecture-text-form">
+                <div class="mb-3">
+                    <label for="lecture-lecturer" class="form-label">강사명</label>
+                    <input type="text" class="form-control" id="lecture-lecturer" placeholder="강사명">
+                </div>
+                <div class="mb-3">
+                    <label for="lecture-title" class="form-label">강의명</label>
+                    <input type="text" class="form-control" id="lecture-title" placeholder="강의명">
+                </div>
+                <div class="mb-3">
+                    <label for="lecture-content" class="form-label">강의 내용</label>
+                    <div class="text_box">
+                        <textarea></textarea>
+                        <div class="count"><span>0</span>/200</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">강의 카테고리</label>
+                    <select class="form-select" id="lecture-category" aria-label="Default select example" onchange="change_selection()">
+                        <option selected>강의 카테고리 선택</option>
+                        <option value="1">javascript</option>
+                        <option value="2">typescript</option>
+                        <option value="3">python</option>
+                        <option value="4">java</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="lecture-point" class="form-label">강의 금액</label>
+                    <input type="text" class="form-control" id="lecture-point" placeholder="강의 금액">
+                </div>
+            </div>
+            <div class="lecture-img-form">
+                <img id="lecture-img"/>
+                <div class="col-md-6 img-div">
+                    <input class="form-control form-control-sm img-file" id="lecture-img-input" type="file" accept="image/*">
+                </div>
+            </div>
+        </div>
+        <div class="submit-lecture">
+            <button type="button" class="btn btn-warning">강좌 등록하기</button>
+        </div>
     </div>
 </div>
 
 </body>
+
+<script>
+    $('.text_box textarea').keyup(function() {
+        var content = $(this).val();
+        $('.text_box .count span').html(content.length);
+        if (content.length > 200){
+            alert("최대 200자까지 입력 가능합니다.");
+            $(this).val(content.substring(0, 200));
+            $('.text_box .count span').html(200);
+        }
+    });
+
+    $(document).ready(function () {
+        const ims_input_tag = document.querySelector("#lecture-img-input");
+        ims_input_tag.addEventListener("change", function (event) {
+            let files = event.target.files;
+
+            if (files.length >= 1) {
+                insertImageDate(files[0])
+            }
+
+            if (!files.length) {
+                const imgShow = document.querySelector(`#img-${i}-show`);
+                imgShow.removeAttribute('src');
+            }
+        });
+
+        async function insertImageDate (file) {
+            const imgShow = document.querySelector("#lecture-img");
+
+            const reader = new FileReader();
+
+            reader.addEventListener('load', function (event) {
+                imgShow.src = reader.result;
+            });
+            reader.readAsDataURL(file);
+        };
+    });
+
+    // 카테고리 select 변경 시 선택된 카테고리의 지정값(1~4)을 반환.
+    const change_selection = () => {
+        const selected_lecture_category = document.querySelector("#lecture-category");
+        const selected_value = selected_lecture_category.options[selected_lecture_category.selectedIndex].value;
+        
+    }
+    
+
+</script>
 </html>

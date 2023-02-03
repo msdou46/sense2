@@ -1,7 +1,6 @@
 {
   "name": "2023-02-01_first",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
@@ -28,5 +27,14 @@
     "prettier": "^2.8.3",
     "sequelize-cli": "^6.6.0",
     "supertest": "^6.3.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msdou46/sense2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/msdou46/sense2/issues"
+  },
+  "homepage": "https://github.com/msdou46/sense2#readme",
+  "description": ""
 }

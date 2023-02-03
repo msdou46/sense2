@@ -9,15 +9,18 @@ const {
 const mypageControllerApi = new MypageControllerApi();
 
 // 장바구니 목록 가져오기
+// router.get("/carts", mypageControllerApi.get_cart_list); // 테스트용 테스트가 완료되면 주석 해제
 router.get("/carts", mypageControllerApi.get_cart_list);
 
 // 장바구니에 담기
-router.post("/:lecture_id", mypageControllerApi.add_cart);
+// router.post("/:lecture_id", mypageControllerApi.add_cart); // 테스트용 테스트가 완료되면 주석해제
+router.post("/lecture", mypageControllerApi.add_cart);
 
 // 장바구니에 담겨 있는 강의를 수강하기
 router.delete("/sign/:cart_id", mypageControllerApi.sign_cart);
 
 // 장바구니에서 강의 삭제하기
-router.delete("/:cart_id", mypageControllerApi.remove_cart);
+// router.delete("/:cart_id", mypageControllerApi.remove_cart); // 테스트가 완료되면 주석 해제
+router.post("/cart_id", mypageControllerApi.remove_cart);
 
 module.exports = router;
