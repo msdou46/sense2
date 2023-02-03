@@ -128,9 +128,9 @@
 
 <body>
 <header>
+  <div id="profile">
+  </div>
     
-    <div >회원정보: 닉네임</div>
-    <div >포인트: </div>
 
 </header>
 
@@ -143,17 +143,12 @@
         <div class="modal_title">프로필 수정</div>
         <div class="close_btn" id="close_btn">X</div>
       </div>
-      <div class="m_body">
-        <div class="modal_label">닉네임</div>
-        <input type="text" class="input_box" id="nickname_box"/>
-        <div class="modal_label">이메일</div>
-        <input type="text" class="input_box" id="email_box"/>
-        <div class="modal_label">비밀번호</div>
-        <input type="text" class="input_box" id="pw_box"/>
+      <div class="m_body" id="m_body">
+        
       </div>
       <div class="m_footer">
-        <div class="modal_btn cancle" id="close_btn">CANCLE</div>
-        <div class="modal_btn save" id="save_btn">SAVE</div>
+        <div class="modal_btn cancle" id="close_btn">취소</div>
+        <div class="modal_btn save" id="save_btn" onclick="edit_profile()">수정하기</div>
       </div>
     </div>
   </div>
@@ -185,6 +180,59 @@ $(document).on('click', '#close_btn', function (e) {
   $('#modal').removeClass('show');
 
 });
+
+// 프로필 GET API
+
+$.ajax({
+            type: "GET",
+            url: `/api/profile`,
+            data: {},
+            success: function (response) {
+               
+                let user = response['profile']['user']
+                
+                let temp_html = ''
+                    let email = user['email']
+                    let nickname = user['nickname']
+                    let point = user['point']
+                    let type = user['type']
+                    
+                    temp_html += `
+                    <div class="modal_label">닉네임</div>
+                    <input type="text" class="input_box" id="nickname_box" value="${nickname}"/>
+                    <div class="modal_label">이메일</div>
+                    <input type="text" class="input_box" id="email_box" value="${email}"/>
+                    <div class="modal_label">비밀번호</div>
+                    <input type="text" class="input_box" id="pw_box"/>`       
+                
+                $('#m_body').append(temp_html)
+
+                let profile_html =''
+                  profile_html += `
+                  <div >닉네임: ${nickname}</div>
+                  <div >포인트: ${point}</div>`
+                $('#profile').append(profile_html)
+            }
+        });
+
+  //프로필 수정 
+  function edit_profile(){
+
+    const nickname = $("#nickname_box").val();
+    const email = $("#email_box").val();
+    $.ajax({
+          type: "PUT",
+          url: `/api/profile`,
+          data: {
+            nickname: nickname,
+            email: email
+          },
+          success: function () {
+            alert("수정되었습니다!")
+              window.location.replace(`/myPage`);
+
+          }})
+  }
   </script>
 
 </body>

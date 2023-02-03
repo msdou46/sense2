@@ -21,6 +21,10 @@ class MypageRepository {
     return user
   }
 
+  editUser = async (nickname, email, user_id) => {
+    await this.mypageModels.update({nickname: nickname, email: email},{where:{user_id: user_id}})
+  }
+
    
 }
 

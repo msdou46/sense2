@@ -57,16 +57,16 @@
     <div class="wrapper">
     <div class="sidebar">
         <ul>
-            <li><a href="/myPage/mylecture" class="active">
+            <li><a onclick="show_lecture(0)" class="active">
             <i class="fas fa-home icon"></i>
             Category</a></li>
-            <li><a href="?js">
+            <li><a onclick="show_lecture(1)" class="active">
             Javascript</a></li>
-            <li><a href="?ts">
+            <li><a onclick="show_lecture(2)" class="active">
             Typescript</a></li>
-            <li><a href="?python">
+            <li><a onclick="show_lecture(3)" class="active">
             Python</a></li>
-            <li><a href="?java">
+            <li><a onclick="show_lecture(4)" class="active">
             Java</a></li>
             
 	    </ul>
@@ -82,7 +82,10 @@
   ></script>
 
    <script>
-    // function show_order(){
+    show_lecture(0)
+
+    function show_lecture(cat){
+
         $.ajax({
             type: "GET",
             url: `/api/mylectures`,
@@ -90,7 +93,6 @@
             success: function (response) {
                
                 let rows = response['mylectures']['mylectures']
-                console.log(rows)
                 let temp_html = ''
                   for (let i =0; i < rows.length; i++){
                     let lecturer = rows[i]['lecturer']
@@ -99,8 +101,21 @@
                     let category = rows[i]['category']
                     let image = rows[i]['image']
                     let point = rows[i]['point']
+
                     
-                    temp_html += `
+                    if (cat == 0){temp_html += `
+                    <div class="card" style="width: 18rem; float:left; margin: 10px;">
+                        <img src="${image}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">${title}</h5>
+                        <p class="card-text">${content}</p>
+                        <a class="btn btn-primary">강의 듣기</a>
+                        </div>
+                    </div> ` 
+                    }
+
+                    if (category == cat){
+                        temp_html += `
                     <div class="card" style="width: 18rem; float:left; margin: 10px;">
                         <img src="${image}" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -108,13 +123,17 @@
                         <p class="card-text">${content}</p>
                         <a href="#" class="btn btn-primary">강의 듣기</a>
                         </div>
-                    </div> `       
+                    </div> `
+                 }
+                           
                 } 
-                
+                $('#lecture_list').empty()
                 $('#lecture_list').append(temp_html)
             }
         });
-    // }
+ }
+
+    
    </script> 
     
 </body>

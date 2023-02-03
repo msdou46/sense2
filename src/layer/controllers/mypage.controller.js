@@ -34,7 +34,19 @@ class MypageControllerApi {
       }
   };
 
-  update_my_profile = async (req, res) => {};
+  update_my_profile = async (req, res) => {
+    try{
+      const{nickname, email} = req.body
+      const user_id = 1
+    await this.mypageservice.editUser(nickname, email, user_id)
+    return res.json({"message": "수정하였습니다"});
+    }
+    catch (error) {
+      console.error(error);
+      return res.status(500).send({ message: error.message });
+    }
+    
+  };
 
   get_cart_list = async (req, res) => {};
 
@@ -52,7 +64,9 @@ class MypageControllerApi {
 
       return res.status(200).send({"mylectures" : mylectures});
        
-      } catch (error) {
+      } 
+      
+      catch (error) {
         console.error(error);
         return res.status(500).send({ message: error.message });
       }

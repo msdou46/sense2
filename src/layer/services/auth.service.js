@@ -8,7 +8,7 @@ const {
 
 class AuthService {
   userModel = new AuthRepository(user);
-  lecturModel = new AuthRepository(lecture);
+  lectureModel = new AuthRepository(lecture);
   orderModel = new AuthRepository(order);
   cartModel = new AuthRepository(cart);
 }
