@@ -1,12 +1,394 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  
+
+<title>통합 마이페이지</title>
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
+
+<style>
+
+
+.fas {
+    margin-right: 5px;
+    }
+  
+  div.p-3_pro{
+
+    color: #ffffff;
+   background-color: #000000;
+   padding: 10px;
+   border-radius: 4px;
+   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  }
+  div.p-3 {
+    color: #212529;
+   background-color: #ffc107;
+   padding: 5px 10px;
+   border-radius: 10px;
+   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+   cursor: pointer;
+ }
+ div.p-3:hover{
+  background-color: #e0a800;
+ }
+  .modal {
+    position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+    /* position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%; */
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal.show {
+    display: block;
+  }
+
+  .modal_body {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+
+    width: 800px;
+    height: 450px;
+
+    /* padding: 40px; */
+
+    /* text-align: center; */
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .m_head{
+    height: 15%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    background-color:#e7e5e5;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .m_body{
+    height: 80%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .m_footer{
+        height: 15%;
+        padding: 20px;
+        background-color:#e7e5e5;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        display:flex;
+        justify-content: end;
+        
+      }
+  .modal_title{
+    font-size: 18px;
+    color: gray;
+    font-weight: 500;
+  }
+  .close_btn{
+    font-size: 20px;
+    color: rgb(139, 139, 139);
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .modal_label{
+    padding-top: 10px;
+  }
+  .input_box{
+    width: 100%;
+    border: 1px solid rgb(189, 189, 189);
+    height: 30px;
+  }
+  .modal_btn{
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    padding-top: 5px;
+    margin-left: 5px;
+    font-family: sans-serif;
+  }
+  .cancle{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+  }
+  .cancle:hover{
+    background-color: #f2f2f2;
+  }
+  .save{
+    background-color: #ffc107;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  .save:hover{
+    background-color: #e0a800;
+  }
+</style>
+
 <body>
-    통합 마이페이지 입니다.
+
+<!-- <div>
+ 
+<button >프로필 수정</button>
+<button>장바구니</button>
+<button onclick="lecturesPage()">내 강의실</button>
+<button>실시간 채팅 상담</button> -->
+
+<div class="container" style="margin-top: 5%;">
+  <div class="row g-2" id="page_buttons">
+    <div class="col-19" >
+      <div class="p-3_pro" id="profile"style="text-align: center;"></div>
+    </div>
+     <div class="col-19">
+      <div class="p-3" type="button" class="btn" id="add-btn"  style="text-align: center;">
+        <i class="fas fa-user"></i>프로필 수정</div>
+    </div>
+     <!-- 모달 -->
+   <div class="modal" id="modal">
+    <div class="modal_body">
+      <div class="m_head">
+        <div class="modal_title">프로필 수정</div>
+        <div class="close_btn" id="close_btn">X</div>
+      </div>
+      <div class="m_body" id="m_body">
+        
+      </div>
+      <div class="m_footer">
+        <div class="modal_btn cancle" id="close_btn">취소</div>
+        <div class="modal_btn save" id="save_btn" onclick="edit_profile()">수정하기</div>
+      </div>
+    </div>
+  </div>
+<!-- 모달 -->
+
+<!-- 비밀번호 수정 -->
+<div class="col-19">
+  <div class="p-3" type="button" class="btn" id="add-btn2"  style="text-align: center;">
+    <i class='fas fa-lock'></i>비밀번호 수정</div>
+</div>
+ <!-- 모달 -->
+<div class="modal" id="modal2">
+<div class="modal_body">
+  <div class="m_head">
+    <div class="modal_title">비밀번호 수정</div>
+    <div class="close_btn" id="close_btn2">X</div>
+  </div>
+  <div class="m_body" id="m_body2">
+    
+  </div>
+  <div class="m_footer">
+    <div class="modal_btn cancle" id="close_btn2">취소</div>
+    <div class="modal_btn save" id="save_btn2" onclick="edit_pw()">수정하기</div>
+  </div>
+</div>
+</div>
+<!-- 모달 -->
+
+
+    <div class="col-19">
+      <div class="p-3" type="button" onclick="cart_page()" style="text-align: center;">
+        <i class='fas fa-dolly-flatbed'></i>장바구니</div>
+    </div>
+    <div class="col-19">
+      <div class="p-3" type="button" onclick="lectures_page()"  style="text-align: center;">
+        <i class="fas fa-address-book"></i>내 강의실</div>
+    </div>
+    <div class="col-19">
+      <div class="p-3" type="button"  style="text-align: center;">
+        <i class='fas fa-comments'></i>실시간 채팅 상담</div>
+    </div>
+    
+  </div>
+
+</div>
+
+
+<!-- </div> -->
+
+<script>
+
+
+function lectures_page(){
+    window.location.href = 'myPage/mylecture'
+};
+function cart_page(){
+    window.location.href = 'myPage/cart'
+};
+function admin_page(){
+    window.location.href = 'admin/user'
+};
+
+
+  // click on 라벨 추가 모달 열기
+$(document).on('click', '#add-btn', function (e) {
+  console.log("click event");
+  $('#modal').addClass('show');
+
+});
+
+// 모달 닫기
+$(document).on('click', '#close_btn', function (e) {
+  console.log("click event");
+  $('#modal').removeClass('show');
+
+});
+
+// click on 라벨 추가 모달 열기
+$(document).on('click', '#add-btn2', function (e) {
+  console.log("click event");
+  $('#modal2').addClass('show');
+
+});
+
+// 모달 닫기
+$(document).on('click', '#close_btn2', function (e) {
+  console.log("click event");
+  $('#modal2').removeClass('show');
+
+});
+
+// 프로필 GET API
+
+$.ajax({
+            type: "GET",
+            url: `/api/profile`,
+            data: {},
+            success: function (response) {
+               
+                let user = response['profile']['user']
+                
+                let temp_html = ''
+                    let email = user['email']
+                    let nickname = user['nickname']
+                    let point = user['point']
+                    let type = user['type']
+                    
+                    
+                    temp_html += `
+                    <div class="modal_label">닉네임</div>
+                    <input type="text" class="input_box" id="nickname_box" value="${nickname}"/>
+                    <div class="modal_label">이메일</div>
+                    <input type="text" class="input_box" id="email_box" value="${email}"/>
+                    <div class="modal_label">비밀번호</div>
+                    <input type="text" class="input_box" id="origin_pw_box"/>
+                    `       
+                
+                $('#m_body').append(temp_html)
+
+                let pw_html=''
+                 pw_html = `
+                    <div class="modal_label">현재 비밀번호</div>
+                    <input type="text" class="input_box" id="origin_pw_box2"/>
+                    <div class="modal_label">새 비밀번호</div>
+                    <input type="text" class="input_box" id="new_pw_box"/>
+                    <div class="modal_label">새 비밀번호 (확인)</div>
+                    <input type="text" class="input_box" id="confirm_pw_box"/>`
+                $('#m_body2').append(pw_html)
+
+                let profile_html =''
+                  profile_html += `
+                  <div >
+                    닉네임: ${nickname}</div>
+                  <div >보유 포인트: ${point}</div>`
+                $('#profile').append(profile_html)
+
+                if(type == 99){
+                  let admin_button = `
+                  <div class="col-19">
+                    <div class="p-3" onclick="admin_page()"style="text-align: center;">
+                      <i class='fas fa-desktop'></i>관리자 페이지</div>
+                  </div>`
+                  $('#page_buttons').append(admin_button)
+                }
+            }
+        });
+
+
+  //프로필 수정 
+  function edit_profile(){
+
+    const nickname = $("#nickname_box").val();
+    const email = $("#email_box").val();
+    const origin_pw = $("#origin_pw_box").val();
+    if (nickname.length == 0 || email.length == 0 || origin_pw.length ==0){alert("모든 칸을 입력해주세요!")}
+
+    else{
+      $.ajax({
+          type: "PUT",
+          url: `/api/profile`,
+          data: {
+            nickname: nickname,
+            email: email,
+            origin_pw: origin_pw
+          },
+          success: function (response) {
+            alert(response.message)
+              window.location.replace(`/myPage`);
+
+          }})
+  }
+}
+
+// 비밀번호 수정
+function edit_pw(){
+
+const origin_pw = $("#origin_pw_box2").val();
+const new_pw = $("#new_pw_box").val();
+const confirm_pw = $("#confirm_pw_box").val();
+if (origin_pw.length ==0 || new_pw.length ==0 || confirm_pw.length == 0){alert("모든 칸을 입력해주세요!")}
+
+else if(new_pw == confirm_pw){
+  $.ajax({
+      type: "PUT",
+      url: `/api/profile`,
+      data: {
+        origin_pw: origin_pw ,
+        new_pw: new_pw
+      },
+      success: function (response) {
+        alert(response.message)
+          window.location.replace(`/myPage`);
+
+      }})
+}
+else if (new_pw != confirm_pw){alert("새 비밀번호와 확인 비밀번호가 일치하지 않습니다!")}
+}
+  </script>
+
 </body>
+
 </html>

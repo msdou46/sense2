@@ -13,6 +13,7 @@ class AdminControllerRender {
   get_page_add_lecture = async (req, res) => {
     res.render("admin/index", { ejsName: "add-lecture" });
   };
+  
 }
 
 // api 용
@@ -129,6 +130,7 @@ class AdminControllerApi {
       console.log(error);
     }
   };
+  
 }
 
 module.exports = { AdminControllerRender, AdminControllerApi };
