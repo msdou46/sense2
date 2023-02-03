@@ -27,7 +27,7 @@ class MypageService {
   // 장바구니 페이지로 갔을때 장바구니 리스트 불러오기
   cart_list = async(user_id) => {
     const cart_list = await this.cartModel.cart_list(user_id);
-    // console.log("서비스단계의 값", cart_list);
+    console.log("서비스단계의 값", cart_list);
     return cart_list.map((data) => {
       return {
         // user_id: data.user_id,

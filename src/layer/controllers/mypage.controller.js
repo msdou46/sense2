@@ -46,7 +46,7 @@ class MypageControllerApi {
   // 장바구니에서 강의 삭제
   remove_cart = async (req, res, next) => {
     const {user_id, lecture_id} = req.body;
-    console.log(user_id, lecture_id);
+    console.log("컨트롤러단계의 값", user_id, lecture_id);
     const delete_cart = await this.mypageservice.remove_cart(user_id,lecture_id);
     res.status(202).json({ data: delete_cart});
   };

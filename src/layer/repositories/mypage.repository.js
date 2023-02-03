@@ -33,44 +33,21 @@ class MypageRepository {
       try {
         const cart_list = await cart.findAll({
           where: {user_id:user_id},
-          include: [
-            {
-              model: lecture,
-              attributes: ["lecture_id"]
-            }
-          ]
+          // include: [
+          //   {
+          //     model: lecture,
+          //     attributes: ["lecture_id"]
+          //   }
+          // ]
         })
-        // console.log(cart_list.length);
-        // console.log(cart_list[0].lecture_id);
-        // console.log(cart_list[1].lecture_id);
-        // console.log(cart_list[2].lecture_id);
-        // console.log(cart_list[3].lecture_id);
-
         let a = [];
         for(let i = 0; i<=cart_list.length - 1; i++) {
-          // console.log(cart_list[i].lecture_id);
-
+          console.log("i의 값 : ", i);
           const b = await lecture.findAll({
             where: {lecture_id:i+1}
           })
           a.push(b[0].dataValues)
-          // console.log(b[0].dataValues);
-          // a.push(b[0].dataValues)
         }
-        // console.log(a);
-        // const my_cart_list = await lecture.findAll({
-        //   where: {lecture_id:3}
-        // });
-        // const {lecturer,title,content,category,image,point} = my_cart_list[0].dataValues
-        // console.log(my_cart_list[0].dataValues.lecturer);
-        // console.log(my_cart_list[0].dataValues.title);
-        // console.log(my_cart_list[0].dataValues.content);
-        // console.log(my_cart_list[0].dataValues.category);
-        // console.log(my_cart_list[0].dataValues.image);
-        // console.log(my_cart_list[0].dataValues.point);
-        // console.log("강사명", lecturer);
-        // console.log("강의명", title);
-        // console.log("여기서부터 진짜 전달될 값", a);
         return a
       } catch (err) {
         console.log("알 수 없는 에러가 발생했습니다. [cart_list]", err);
