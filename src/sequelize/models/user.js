@@ -45,8 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     point: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

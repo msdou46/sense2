@@ -4,7 +4,7 @@ const { cart, lecture, order, user } = require("../../sequelize/models/index.js"
 
 class MypageService {
     userModel = new MypageRepository(user);
-    lecturModel = new MypageRepository(lecture);
+    lectureModel = new MypageRepository(lecture);
     orderModel = new MypageRepository(order);
     cartModel = new MypageRepository(cart);
 }
