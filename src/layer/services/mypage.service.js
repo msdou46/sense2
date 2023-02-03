@@ -11,7 +11,7 @@ class MypageService {
   lectureModel = new MypageRepository(lecture);
   orderModel = new MypageRepository(order);
   cartModel = new MypageRepository(cart);
-
+  
   // 강의 상세페이지에서 장바구니 추가
   add_cart = async (user_id, lecture_id) => {
     const add_cart = await this.cartModel.add_cart(lecture_id, user_id);
@@ -41,6 +41,7 @@ class MypageService {
       };
     });
   };
+  
 }
 
 module.exports = MypageService;

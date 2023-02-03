@@ -53,6 +53,7 @@ class MypageControllerApi {
     );
     res.status(202).json({ data: delete_cart });
   };
+  
 
   get_my_lectures = async (req, res) => {};
 }

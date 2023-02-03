@@ -6,6 +6,7 @@ class MypageRepository {
   constructor(mypageModels) {
     this.mypageModels = mypageModels;
   }
+  
   add_cart = async (user_id, lecture_id) => {
     // const creat_add = `INSERT INTO cart (user_id, lecture_id) VALUES ('${user_id}','${lecture_id}')`
     try {
@@ -53,6 +54,7 @@ class MypageRepository {
       console.log("알 수 없는 에러가 발생했습니다. [cart_list]", err);
     }
   };
+  
 }
 
 module.exports = MypageRepository;
