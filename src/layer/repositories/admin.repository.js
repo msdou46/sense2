@@ -6,6 +6,10 @@ class AdminRepository {
     this.adminModels = adminModels;
   }
   
+  find_one_by_email_and_password = async (email, password) => {
+    return await this.adminModels.findOne({where: {email, password}})
+  }
+
   find_one_user_by_pk = async (user_id) => {
     return await this.adminModels.findByPk({ user_id });
   };

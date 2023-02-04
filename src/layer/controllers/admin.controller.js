@@ -22,7 +22,14 @@ class AdminControllerApi {
   adminservice = new AdminService();
 
   get_user_info = async (req, res) => {
+    const {email, password} = req.body;
+    try{
+      const user = await this.adminservice.get_user_info(email, password)
 
+      return res.status(200).json({success: true, user})
+    } catch (error) {
+      console.log(error);
+    }
   }
   
   // 관리자 권한 부여

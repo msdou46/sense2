@@ -12,6 +12,10 @@ class AdminService {
   orderModel = new AdminRepository(order);
   cartModel = new AdminRepository(cart);
   
+  get_user_info = async (email, password) => {
+    return await this.userModel.find_one_by_email_and_password(email, password)
+  };
+
 
   // 관리자 권한
   update_admin_user = async (user_id, admin_type) => {
