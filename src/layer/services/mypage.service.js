@@ -1,4 +1,7 @@
 const MypageRepository = require("../repositories/mypage.repository");
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+const util = require("util");
 const {
   cart,
   lecture,
@@ -12,8 +15,9 @@ class MypageService {
   orderModel = new MypageRepository(order);
   cartModel = new MypageRepository(cart);
 
-  find_orders = async () => {
-    const myorders = await this.orderModel.find_orders();
+  //내 강의 목록 찾기
+  find_orders = async (user_id) => {
+    const myorders = await this.orderModel.find_orders(user_id);
 
     let mylectures = [];
 
@@ -26,18 +30,44 @@ class MypageService {
     return { mylectures: mylectures };
   };
 
-  find_user = async () => {
-    const user = await this.userModel.find_user();
+  //내 프로필 
+  find_user = async (user_id) => {
+    const user = await this.userModel.find_user(user_id);
     return { user: user };
   };
 
-  edit_user = async (nickname, email, user_id) => {
-    await this.userModel.edit_user(nickname, email, user_id);
-  };
+  //프로필 & 비밀번호 수정 통합
+  edit_profile = async (user_id, nickname, email, origin_pw, new_pw) => {
+    const user = await this.userModel.find_user(user_id);
+      const password = user.password;
+      const salt= user.salt
 
-  edit_pw = async (user_id, new_pw) => {
-    await this.userModel.edit_pw(user_id, new_pw);
-  };
+      const input_pw = await this.check_account_password(origin_pw, salt);
+      
+      if (input_pw == password) {
+        if (new_pw != undefined) {
+          const confirm_pw = await this.check_account_password(new_pw, salt);
+
+          await this.userModel.edit_pw(user_id, confirm_pw);
+          return { message: "비밀번호를 수정하였습니다" };
+        } 
+        else {
+          await this.userModel.edit_user(nickname, email, user_id);
+          return { message: "프로필을 수정하였습니다" };
+        }
+      } 
+      else if (input_pw != password) {
+        return { message: " 현재 비밀번호가 틀렸습니다!" };
+      }
+    } 
+
+
+  check_account_password = async (password, salt) => {
+    const pbkdf2Promise = util.promisify(crypto.pbkdf2);
+    const hashedPassword = await pbkdf2Promise(password, salt, 100000, 64, "sha512");
+    const encodedHashedPassword = hashedPassword.toString("base64")
+    return encodedHashedPassword;
+}
   
   // 강의 상세페이지에서 장바구니 추가
   add_cart = async (user_id, lecture_id) => {

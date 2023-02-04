@@ -304,7 +304,7 @@ $.ajax({
                     <div class="modal_label">이메일</div>
                     <input type="text" class="input_box" id="email_box" value="${email}"/>
                     <div class="modal_label">비밀번호</div>
-                    <input type="text" class="input_box" id="origin_pw_box"/>
+                    <input type="password"  class="input_box"  id="origin_pw_box" placeholder=" 현재 비밀번호를 입력하세요">
                     `       
                 
                 $('#m_body').append(temp_html)
@@ -312,11 +312,11 @@ $.ajax({
                 let pw_html=''
                  pw_html = `
                     <div class="modal_label">현재 비밀번호</div>
-                    <input type="text" class="input_box" id="origin_pw_box2"/>
+                    <input type="password" class="input_box" id="origin_pw_box2"/>
                     <div class="modal_label">새 비밀번호</div>
-                    <input type="text" class="input_box" id="new_pw_box"/>
+                    <input type="password" class="input_box" id="new_pw_box"/>
                     <div class="modal_label">새 비밀번호 (확인)</div>
-                    <input type="text" class="input_box" id="confirm_pw_box"/>`
+                    <input type="password" class="input_box" id="confirm_pw_box"/>`
                 $('#m_body2').append(pw_html)
 
                 let profile_html =''

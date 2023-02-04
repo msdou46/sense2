@@ -7,11 +7,11 @@ class MypageRepository {
     this.mypageModels = mypageModels;
   }
 
-  find_orders = async () => {
-    const myorders = await this.mypageModels.findAll({ where: { user_id: 1 } });
+  // 내 강의 목록 찾기 
+  find_orders = async (user_id) => {
+    const myorders = await this.mypageModels.findAll({ where: { user_id: user_id } });
     return myorders;
   };
-
   find_lectures = async (lecture_id) => {
     const mylectures = await this.mypageModels.findOne({
       where: { lecture_id: lecture_id },
@@ -19,18 +19,19 @@ class MypageRepository {
     return mylectures;
   };
 
-  find_user = async () => {
-    const user = await this.mypageModels.findOne({ where: { user_id: 1 } });
+  // 내 프로필 찾기
+  find_user = async (user_id) => {
+    const user = await this.mypageModels.findOne({ where: { user_id: user_id} });
     return user;
   };
-
+  // 내 프로필 수정
   edit_user = async (nickname, email, user_id) => {
     await this.mypageModels.update(
       { nickname: nickname, email: email },
       { where: { user_id: user_id } }
     );
   };
-
+  // 내 비밀번호 수정
   edit_pw = async (user_id, new_pw) => {
     await this.mypageModels.update(
       { password: new_pw },
