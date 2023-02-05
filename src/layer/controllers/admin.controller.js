@@ -2,9 +2,8 @@ const AdminService = require("../services/admin.service");
 
 // 랜더링 용
 class AdminControllerRender {
-
   adminservice = new AdminService();
-  
+
   get_page_admin_user = async (req, res) => {
     res.render("admin/index", { ejsName: "manage-user" });
   };
@@ -14,30 +13,34 @@ class AdminControllerRender {
   get_page_add_lecture = async (req, res) => {
     res.render("admin/index", { ejsName: "add-lecture" });
   };
-  
 }
 
 // api 용
 class AdminControllerApi {
   adminservice = new AdminService();
 
+  // 관리자 유저 조회
   get_user_info = async (req, res) => {
-    const {email, password} = req.body;
-    try{
-      const user = await this.adminservice.get_user_info(email, password)
+    const { email, password } = req.body;
+    try {
+      const user = await this.adminservice.get_user_info(email, password);
 
-      return res.status(200).json({success: true, user})
+      return res.status(200).json({ success: true, data: user });
     } catch (error) {
       console.log(error);
     }
-  }
-  
+  };
+
   // 관리자 권한 부여
   add_admin_user = async (req, res) => {
     const user_id = req.params.user_id;
-    const admin_type = 99;
+    const admin_type = res.locals.account_type
+    console.log(admin_type)
 
     try {
+      // 유효성 검사
+      await this.adminservice.check_admin_type(admin_type)
+
       await this.adminservice.update_admin_user(user_id, admin_type);
       return res.status(200).json({
         success: true,
@@ -52,7 +55,7 @@ class AdminControllerApi {
   get_lectures = async (req, res) => {
     const lecture_list = await this.adminservice.get_all_lectures();
     try {
-      return res.status(200).json({ data: lecture_list });
+      return res.status(200).json({ data : lecture_list });
     } catch (error) {
       console.log(error);
     }
@@ -142,7 +145,6 @@ class AdminControllerApi {
       console.log(error);
     }
   };
-  
 }
 
 module.exports = { AdminControllerRender, AdminControllerApi };

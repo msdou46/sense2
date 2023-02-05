@@ -270,5 +270,32 @@
         
     }
 
+// ---------------------------------------------------
+    // 추가 한 것 
+
+    // 버튼 클릭시 submit
+    $(document).ready(function () {
+        const login_form = document.querySelector("#submit-lecture");
+        login_form.addEventListener("submit", (event) => {
+            event.preventDefault();
+        });
+    })
+    const add_lecture = () => {
+
+        $.ajax({
+            type: "POST",
+            url: '/api/admin/lecture',
+            data: {lecturer, title, content, category, point, image},
+            success: function (response) {
+                console.log(response.success);
+                location.href="/admin/lectures";
+            },
+            error: function (request, status, error) {
+            alert(`${request.status} ${error} / ${request.responseJSON.message}`);
+            return
+            }
+        });
+    }
+
 </script>
 </html>

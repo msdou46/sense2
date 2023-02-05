@@ -5,21 +5,22 @@ class AdminRepository {
   constructor(adminModels) {
     this.adminModels = adminModels;
   }
-  
-  find_one_by_email_and_password = async (email, password) => {
-    return await this.adminModels.findOne({where: {email, password}})
-  }
+
+  find_one_by_email = async (email) => {
+    return await this.adminModels.findOne({ where: { email } });
+  };
 
   find_one_user_by_pk = async (user_id) => {
     return await this.adminModels.findByPk({ user_id });
   };
 
-  update_to_admin = async (user_id, admin_type) => {
-    return await this.adminModels.update(
-      { type: admin_type },
-      { where: { user_id } }
-    );
-  };
+
+  check_user_type = async (user_id, admin_type) => {
+    return await this.adminModels.findOne(
+      { type: admin_type }, 
+      {where: {user_id}}
+      );
+  }
 
   find_all_lectures = async () => {
     return await this.adminModels.findAll();
@@ -51,7 +52,6 @@ class AdminRepository {
       point,
     });
   };
-  
 }
 
 module.exports = AdminRepository;

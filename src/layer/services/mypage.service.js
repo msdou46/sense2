@@ -38,7 +38,7 @@ class MypageService {
   edit_pw = async (user_id, new_pw) => {
     await this.userModel.edit_pw(user_id, new_pw);
   };
-  
+
   // 강의 상세페이지에서 장바구니 추가
   add_cart = async (user_id, lecture_id) => {
     const add_cart = await this.cartModel.add_cart(lecture_id, user_id);
@@ -68,7 +68,6 @@ class MypageService {
       };
     });
   };
-  
 }
 
 module.exports = MypageService;

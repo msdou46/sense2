@@ -54,7 +54,7 @@ class MypageControllerApi {
       return res.status(500).send({ message: error.message });
     }
   };
-  
+
   get_my_lectures = async (req, res) => {
     try {
       const mylectures = await this.mypageservice.find_orders();
@@ -65,7 +65,7 @@ class MypageControllerApi {
       return res.status(500).send({ message: error.message });
     }
   };
-  
+
   // 장바구니 페이지로 갔을때 장바구니 리스트 불러오기
   get_cart_list = async (req, res, next) => {
     // const {user_id} = res.locals.user; // 테스트가 완료되면 주석해제
@@ -94,7 +94,6 @@ class MypageControllerApi {
     );
     res.status(202).json({ data: delete_cart });
   };
-  
 }
 
 module.exports = { MypageControllerRender, MypageControllerApi };
