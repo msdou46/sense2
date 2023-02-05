@@ -4,6 +4,11 @@
 
   <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        show_lecture_detail();
+      });
+    </script>
     <div id="spStrap" sp-contents class="initialize" spstrap>
       <style>
         @import url("https://fonts.googleapis.com/css2?&family=Roboto:wght@300%3B700&display=swap");
@@ -689,7 +694,7 @@
                 draggable="false"
               >
                 <span style="font-size: 25px" draggable="false"
-                  ><b draggable="false">혼자 공부하는 타입스크립트!!</b></span
+                  ><b draggable="false">혼자 공부하는 타입스크립트</b></span
                 ><br draggable="false" />
               </div>
 
@@ -784,7 +789,7 @@
       }
 
       function in_cart() {
-        const lecture_id = 5;
+        const lecture_id = 2;
         console.log(lecture_id);
         $.ajax({
           type: "POST",
@@ -799,6 +804,24 @@
             alert("장바구니 담기 실패");
           },
         });
+      }
+
+      function show_lecture_detail() {
+        const lecture_id = 2;
+        $.ajax({
+            type: "GET",
+            url: "/api/lecture/lectures",
+            data: {
+              lecture_id,
+            },
+            success: function (response) {
+              console.log(response);
+            },
+            error: function (error) {
+              console.log(error);
+              alert("알 수 없는 이유로 실행되지 않았습니다. 관리자에게 문의해 주세요");
+            }
+        })
       }
     </script>
   </body>
