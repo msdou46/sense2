@@ -658,10 +658,10 @@
         // let param = new URLSearchParams(query);
         // let id = param.get('name');
       $(document).ready(function () {
-        
         show_lecture_detail();
       });
 
+      // 강의 상세보기에서 수강하기
       function start_run(index) {
         const lecture_id = index;
         $.ajax({
@@ -671,15 +671,16 @@
             lecture_id,
           },
           success: function (response) {
-            alert("수강하기 완료!");
+            alert(response.data);
             window.location.reload()
           },
           error: function (error) {
-            alert("수강 신청 실패하였습니다..");
+            alert("알 수 없는 이유로 실행되지 않았습니다. 관리자에게 문의해 주세요.[error:start_run]");
           },
         });
       }
 
+      // 강의 상세보기에서 장바구니 추가하기
       function in_cart(index) {
         const lecture_id = index;
         $.ajax({
@@ -689,15 +690,16 @@
             lecture_id,
           },
           success: function (response) {
-            alert("장바구니 담기_1");
+            alert(response.data);
             window.location.reload();
           },
           error: function (error) {
-            alert("장바구니 담기_2");
+            alert("알 수 없는 이유로 실행되지 않았습니다. 관리자에게 문의해 주세요.[error:in_cart]");
           },
         });
       }
 
+      // 강의 상세보기
       function show_lecture_detail() {
         const urlParams = window.location.href
         const lecture_id = urlParams.split('lecture/')[1]
@@ -789,6 +791,10 @@
                                   ${content}<br draggable="false" />
                                   튜터 : ${lecturer}<br draggable="false"
                                   />
+                                  <font color="#548742" draggable="false"
+                                  >가격: ${point}<br draggable="false"
+                                /></font>
+                                  
                                 </div>
                               </div>
                             </div>

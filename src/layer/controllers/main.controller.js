@@ -43,7 +43,8 @@ class MainControllerApi {
     const { lecture_id } = req.body;
     const user_id = res.locals.user_id;
     const sign_cart = await this.mainService.sign_cart(user_id,lecture_id);
-    return res.status(204).json({ data: sign_cart})
+    const send_message = JSON.stringify(sign_cart)
+    return res.status(200).json({ data: send_message})
   }
 
   // 강의 상세보기에서 장바구니에 추가하기
@@ -51,7 +52,8 @@ class MainControllerApi {
     const { lecture_id } = req.body;
     const user_id = res.locals.user_id;
     const add_cart = await this.mainService.add_cart(user_id,lecture_id);
-    return res.status(205).json({ data: add_cart})
+    const send_message = JSON.stringify(add_cart)
+    return res.status(200).json({ data: send_message})
   }
 }
 

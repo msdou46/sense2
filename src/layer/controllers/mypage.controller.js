@@ -70,7 +70,7 @@ class MypageControllerApi {
   get_cart_list = async (req, res, next) => {
     const user_id = res.locals.user_id;
     const cart_list = await this.mypageservice.cart_list(user_id);
-    res.status(203).json({ data: cart_list });
+    return res.status(203).json({ data: cart_list });
   };
 
   // 강의 상세보기에서 장바구니에 추가
@@ -78,7 +78,7 @@ class MypageControllerApi {
     const { lecture_id } = req.body;
     const user_id = res.locals.user_id;
     const add_cart = await this.mypageservice.add_cart(lecture_id, user_id);
-    res.status(201).json({ data: add_cart });
+    return res.status(201).send({ response: add_cart });
   };
 
   // 장바구니에서 강의 수강
@@ -86,9 +86,9 @@ class MypageControllerApi {
     const {lecture_id} = req.body;
     const user_id = res.locals.user_id;
     const sign_cart = await this.mypageservice.sign_cart(user_id,lecture_id);
-    res.status(204).json({ data: sign_cart })
+    const send_message = JSON.stringify(sign_cart)
+    return res.status(200).json({ data:send_message})
   };
-  
 
   // 장바구니에서 강의 삭제
   remove_cart = async (req, res, next) => {
@@ -98,7 +98,7 @@ class MypageControllerApi {
       user_id,
       lecture_id
     );
-    res.status(202).json({ data: delete_cart });
+    return res.status(202).json({ data: delete_cart });
   };
 }
 

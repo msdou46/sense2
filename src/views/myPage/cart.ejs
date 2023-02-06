@@ -102,7 +102,7 @@
           lecture_id,
           },
           success: function (response) {
-            alert("장바구니에서 정상적으로 수강되었습니다.");
+            alert(response.data);
             window.location.reload()
           },
           error: function (error) {
@@ -190,7 +190,7 @@
           })
         }
 
-      // 장바구니에서 특정 강의 클릭시 해당 강의 상세보기로 이동 (구현중)
+      // 장바구니에서 특정 강의 클릭시 해당 강의 상세보기로 이동
       function show_detail(lecture_id) {
         window.open(`http://localhost:3000/lecture/${lecture_id}`);
       }

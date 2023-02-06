@@ -34,13 +34,13 @@ class MainService {
   // 강의 상세보기에서 수강하기
   sign_cart = async (user_id,lecture_id) => {
     const sign_cart = await this.lectureModel.sign_cart(user_id,lecture_id);
-    return 
+    return sign_cart
   }
 
   // 강의 상세보기에서 장바구니 추가하기
   add_cart = async (user_id,lecture_id) => {
     const add_cart = await this.lectureModel.add_cart(user_id,lecture_id)
-    return 
+    return add_cart
   }
 }
 

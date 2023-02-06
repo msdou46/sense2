@@ -54,7 +54,7 @@ class MypageService {
   // 장바구니에서 강의 수강하기
   sign_cart = async (user_id,lecture_id) => {
     const sign_cart = await this.cartModel.sign_cart(user_id,lecture_id);
-    return "테스트용 메세지입니다.[sign_cart]"
+    return sign_cart
   }
 
   // 장바구니 페이지로 갔을때 장바구니 리스트 불러오기
