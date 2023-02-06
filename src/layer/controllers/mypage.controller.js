@@ -37,11 +37,24 @@ class MypageControllerApi {
 
   // 내 프로필 & 비밀번호 수정
   update_my_profile = async (req, res) => {
+    const { nickname, email, origin_pw, new_pw } = req.body;
+    const user_id = res.locals.user_id
+    try{
+      await this.mypageservice.checking_password(origin_pw, user_id)
+      
+
+      if(new_pw != undefined){
+        await this.mypageservice.checking_pw(new_pw)
+      }
+      else{
+        await this.mypageservice.checking_email(email, user_id)
+      }
+    } catch(err){ 
+      return res.status(500).send({ success: false, error_message: err.message})}
+
     try {
-      const { nickname, email, origin_pw, new_pw } = req.body;
-      const user_id = res.locals.user_id
         const message = await this.mypageservice.edit_profile(user_id, nickname, email, origin_pw, new_pw);
-        return res.json (message)
+        return res.status(200).send({ message})
     } catch (error) {
       console.error(error);
       return res.status(500).send({ message: error.message });

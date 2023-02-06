@@ -355,16 +355,18 @@ $.ajax({
             email: email,
             origin_pw: origin_pw
           },
-          success: function (response) {
-            alert(response.message)
+          success: function (res) {
+            alert(res.message.message)
               window.location.replace(`/myPage`);
-
-          }})
+          },  error: function (err){
+        alert(err.responseJSON.error_message)
+      }})
   }
 }
 
 // 비밀번호 수정
 function edit_pw(){
+
 
 const origin_pw = $("#origin_pw_box2").val();
 const new_pw = $("#new_pw_box").val();
@@ -379,10 +381,12 @@ else if(new_pw == confirm_pw){
         origin_pw: origin_pw ,
         new_pw: new_pw
       },
-      success: function (response) {
-        alert(response.message)
+      success: function (res) {
+        alert(res.message.message)
           window.location.replace(`/myPage`);
 
+      }, error: function (err){
+        alert(err.responseJSON.error_message)
       }})
 }
 else if (new_pw != confirm_pw){alert("새 비밀번호와 확인 비밀번호가 일치하지 않습니다!")}

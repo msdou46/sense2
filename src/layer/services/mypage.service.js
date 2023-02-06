@@ -39,28 +39,58 @@ class MypageService {
   //프로필 & 비밀번호 수정 통합
   edit_profile = async (user_id, nickname, email, origin_pw, new_pw) => {
     const user = await this.userModel.find_user(user_id);
-      const password = user.password;
       const salt= user.salt
-
-      const input_pw = await this.check_account_password(origin_pw, salt);
       
-      if (input_pw == password) {
         if (new_pw != undefined) {
           const confirm_pw = await this.check_account_password(new_pw, salt);
-
-          await this.userModel.edit_pw(user_id, confirm_pw);
+          
+            await this.userModel.edit_pw(user_id, confirm_pw);
           return { message: "비밀번호를 수정하였습니다" };
         } 
         else {
           await this.userModel.edit_user(nickname, email, user_id);
-          return { message: "프로필을 수정하였습니다" };
+          return { message: "프로필을 수정하였습니다"};
+          
         }
-      } 
-      else if (input_pw != password) {
-        return { message: " 현재 비밀번호가 틀렸습니다!" };
-      }
     } 
 
+  checking_pw = async (new_pw) => {
+    if(new_pw.length < 4 ){
+      const err = new Error("패스워드가 짧습니다.");
+      throw err;
+    }
+  }
+
+  checking_password = async (origin_pw, user_id) => {
+    const user = await this.userModel.find_user(user_id);
+      const password = user.password;
+      const salt= user.salt
+      const input_pw = await this.check_account_password(origin_pw, salt);
+
+      if (input_pw != password){
+        const err = new Error("현재 비밀번호가 틀렸습니다!");
+        throw err;
+      }
+  }
+
+  checking_email = async (email, user_id) => {
+    const users = await this.userModel.find_other_users(user_id)
+    
+    if(!email || !email.includes("@") || !email.includes(".")){
+      const err = new Error("이메일 형식이 올바르지 않습니다.");
+        throw err;
+    } 
+    else{
+       for(let i = 0; i < users.length; i++){
+      const other_user = users[i].dataValues;
+      const user_email = other_user['email']
+      if (user_email == email){
+        const err = new Error("이미 존재하는 이메일 입니다.");
+        throw err;
+      }
+    }
+    }
+  }
 
   check_account_password = async (password, salt) => {
     const pbkdf2Promise = util.promisify(crypto.pbkdf2);

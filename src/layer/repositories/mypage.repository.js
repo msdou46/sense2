@@ -31,6 +31,11 @@ class MypageRepository {
       { where: { user_id: user_id } }
     );
   };
+
+  find_other_users = async (user_id) => {
+    const users = await this.mypageModels.findAll({where: {user_id: {[Op.ne]: user_id} }})
+    return users
+  }
   // 내 비밀번호 수정
   edit_pw = async (user_id, new_pw) => {
     await this.mypageModels.update(
