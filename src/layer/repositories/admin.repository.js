@@ -14,13 +14,12 @@ class AdminRepository {
     return await this.adminModels.findByPk({ user_id });
   };
 
-
-  check_user_type = async (user_id, admin_type) => {
-    return await this.adminModels.findOne(
-      { type: admin_type }, 
-      {where: {user_id}}
-      );
-  }
+  update_to_admin = async (user_id, admin_type) => {
+    return await this.adminModels.update(
+      { type: admin_type },
+      { where: { user_id } }
+    );
+  };
 
   find_all_lectures = async () => {
     return await this.adminModels.findAll();

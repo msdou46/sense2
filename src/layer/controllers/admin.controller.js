@@ -34,13 +34,9 @@ class AdminControllerApi {
   // 관리자 권한 부여
   add_admin_user = async (req, res) => {
     const user_id = req.params.user_id;
-    const admin_type = res.locals.account_type
-    console.log(admin_type)
+    const admin_type = 99;
 
     try {
-      // 유효성 검사
-      await this.adminservice.check_admin_type(admin_type)
-
       await this.adminservice.update_admin_user(user_id, admin_type);
       return res.status(200).json({
         success: true,
@@ -55,7 +51,7 @@ class AdminControllerApi {
   get_lectures = async (req, res) => {
     const lecture_list = await this.adminservice.get_all_lectures();
     try {
-      return res.status(200).json({ data : lecture_list });
+      return res.status(200).json({ data: lecture_list });
     } catch (error) {
       console.log(error);
     }

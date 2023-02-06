@@ -16,24 +16,9 @@ class AdminService {
     return await this.userModel.find_one_by_email(email);
   };
 
-
-  // 관리자 타입 체크
-  check_admin_type = async (admin_type) => {
-    try{
-      if (!admin_type !== 99) {
-        const err = new Error("권한이 없습니다.");
-        err.name = "AccessDenied";
-        throw err;
-      }
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
-  
-  }
   // 관리자 권한 부여
   update_admin_user = async (user_id, admin_type) => {
-      return await this.userModel.update_to_admin(user_id, admin_type); 
+    return await this.userModel.update_to_admin(user_id, admin_type);
   };
   // 강의 목록 조회
   get_all_lectures = async () => {
@@ -74,6 +59,6 @@ class AdminService {
       point
     );
   };
-
+}
 
 module.exports = AdminService;
