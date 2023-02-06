@@ -24,6 +24,10 @@ class AdminRepository {
   find_all_lectures = async () => {
     return await this.adminModels.findAll();
   };
+
+  find_lecture = async (lecture_id) => {
+    return await this.adminModels.findOne({where: {lecture_id}})
+  };
   update_lecture = async (
     lecture_id,
     lecturer,
@@ -41,14 +45,14 @@ class AdminRepository {
   destroy_lecture = async (lecture_id) => {
     return await this.adminModels.destroy({ where: { lecture_id } });
   };
-  create_lecture = async (lecturer, title, content, category, image, point) => {
+  create_lecture = async (lecturer, title, content, category, point) => {
     return await this.adminModels.create({
       lecturer,
       title,
       content,
       category,
-      image,
       point,
+      image: "image.jpg"
     });
   };
 }

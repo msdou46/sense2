@@ -24,6 +24,11 @@ class AdminService {
   get_all_lectures = async () => {
     return await this.lectureModel.find_all_lectures();
   };
+
+  // 강의 상세 조회
+  get_detail_lecture = async (lecture_id) => {
+    return await this.lectureModel.find_lecture(lecture_id);
+  }
   // 강의 수정
   edit_lecture = async (
     lecture_id,
@@ -49,13 +54,12 @@ class AdminService {
     return await this.lectureModel.destroy_lecture(lecture_id);
   };
   // 강의 등록
-  regist_lecture = async (lecturer, title, content, category, image, point) => {
+  regist_lecture = async (lecturer, title, content, category, point) => {
     return await this.lectureModel.create_lecture(
       lecturer,
       title,
       content,
       category,
-      image,
       point
     );
   };

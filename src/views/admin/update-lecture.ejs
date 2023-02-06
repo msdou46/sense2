@@ -182,23 +182,23 @@
             <div class="lecture-text-form">
                 <div class="mb-3">
                     <label for="lecture-lecturer" class="form-label">강사명</label>
-                    <input type="text" class="form-control" id="lecture-lecturer" placeholder="강사명">
+                    <input type="text" class="form-control" id="lecture-lecturer" placeholder="강사명" value="<%= lecture.lecturer %>">
                 </div>
                 <div class="mb-3">
                     <label for="lecture-title" class="form-label">강의명</label>
-                    <input type="text" class="form-control" id="lecture-title" placeholder="강의명">
+                    <input type="text" class="form-control" id="lecture-title" placeholder="강의명" value="<%= lecture.title %>">
                 </div>
                 <div class="mb-3">
                     <label for="lecture-content" class="form-label">강의 내용</label>
                     <div class="text_box">
-                        <textarea id="lecture-textarea"></textarea>
+                        <textarea id="lecture-textarea"><%= lecture.content %></textarea>
                         <div class="count"><span>0</span>/200</div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">강의 카테고리</label>
-                    <select class="form-select" id="lecture-category" aria-label="Default select example" onchange="change_selection()">
-                        <option selected>강의 카테고리 선택</option>
+                    <select class="form-select" id="lecture-category" aria-label="Default select example" onchange="change_selection()" value="<%= lecture.category %>">
+                        <option value="0">강의 카테고리 선택</option>
                         <option value="1">javascript</option>
                         <option value="2">typescript</option>
                         <option value="3">python</option>
@@ -207,7 +207,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="lecture-point" class="form-label">강의 금액</label>
-                    <input type="text" class="form-control" id="lecture-point" placeholder="강의 금액">
+                    <input type="text" class="form-control" id="lecture-point" placeholder="강의 금액" value="<%= lecture.point %>">
                 </div>
             </div>
             <div class="lecture-img-form">
@@ -218,7 +218,7 @@
             </div>
         </div>
         <div class="submit-lecture">
-            <button type="button" class="btn btn-warning" onclick="add_lecture()">강좌 등록하기</button>
+            <button type="button" class="btn btn-warning" onclick="rewrite_lecture()">강좌 수정하기</button>
         </div>
     </div>
 </div>
@@ -226,6 +226,8 @@
 </body>
 
 <script>
+
+
     $('.text_box textarea').keyup(function() {
         var content = $(this).val();
         $('.text_box .count span').html(content.length);
@@ -237,6 +239,11 @@
     });
 
     $(document).ready(function () {
+
+        const category_value = "<%= lecture.category %>"
+        const sel_box = document.querySelector("#lecture-category")
+        sel_box.options[category_value].selected = true;
+
         const ims_input_tag = document.querySelector("#lecture-img-input");
         ims_input_tag.addEventListener("change", function (event) {
             let files = event.target.files;
@@ -271,10 +278,11 @@
     }
 
 // ---------------------------------------------------
-    // 추가 한 것 
+ 
+    // 강의 수정
+    const rewrite_lecture = () => {
 
-    const add_lecture = () => {
-
+        const lecture_id = (window.location.href.split('rewrite/')[1])
         const lecturer = $("#lecture-lecturer").val();
         const title = $("#lecture-title").val();
         const content = $("#lecture-textarea").val();
@@ -283,13 +291,16 @@
         const image = $("#lecture-img-input").val();
         console.log(lecturer, title, content, category, point)
 
+        console.log(window.location.href)
+        console.log(lecture_id, lecturer, title)
+
         $.ajax({
-            type: "POST",
-            url: '/api/admin/lecture',
+            type: "PUT",
+            url: `/api/admin/lecture/${lecture_id}`,
             data: {lecturer, title, content, category, point},
             success: function (response) {
                 console.log(response.success);
-                location.href="/admin/user";
+                location.href="/admin/lectures";
             },
             error: function (request, status, error) {
             alert(`${request.status} ${error} / ${request.responseJSON.message}`);
