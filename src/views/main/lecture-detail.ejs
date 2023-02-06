@@ -4,8 +4,8 @@
 
   <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
     <div id="spStrap" sp-contents class="initialize" spstrap>
+      
       <style>
         @import url("https://fonts.googleapis.com/css2?&family=Roboto:wght@300%3B700&display=swap");
         @import url("https://fonts.googleapis.com/css2?&family=Noto+Sans+KR:wght@300%3B500&display=swap");
@@ -715,11 +715,24 @@
             
             let category = rows.category;
             let content = rows.content;
-            let image = rows.image;
+            let images = rows.image;
             let lecturer = rows.lecturer;
             let lecture_id = rows.lecture_id;
             let point = rows.point;
             let title = rows.title;
+            let image;
+
+            if (images == 4) {
+              image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcQanpm%2FbtrYaqnRn5G%2FdR0MYp8LMUHWSuFm3k5rw1%2Fimg.png'
+            } else if (images == 1) {
+              image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiWRMY%2FbtrYj1fHDeU%2F611TAxdd3k4WuTwKgKJyTK%2Fimg.png'
+            } else if (images == 3) {
+              image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbkGHhW%2FbtrYe0h5VME%2FSkrYQA4uDkadFToraUZo9K%2Fimg.png'
+            } else if (images == 2) {
+              image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUNI6i%2FbtrYkDTcp0c%2FBlQ6JQJsVle4DZ4RSEb9KK%2Fimg.png'
+            } else {
+              image = 'https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png'
+            };
 
             let temp_html = `
                               <div
