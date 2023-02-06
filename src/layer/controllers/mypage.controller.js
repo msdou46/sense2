@@ -82,7 +82,7 @@ class MypageControllerApi {
   };
 
   // 장바구니에서 강의 수강
-  sign_cart = async (req, res) => {
+  sign_cart = async (req, res, next) => {
     const {lecture_id} = req.body;
     const user_id = res.locals.user_id;
     const sign_cart = await this.mypageservice.sign_cart(user_id,lecture_id);

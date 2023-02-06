@@ -119,11 +119,12 @@
                     let image = rows[i]['image']
                     let point = rows[i]['point']
                     let update = rows[i]['updatedAt']
+                    let lecture_id = rows[i]['lecture_id']
                     
 
                     
                     if (cat == 0){temp_html += `
-                    <a  href="/lecture" style="color: black">
+                    <a  href="/lecture/${lecture_id}" style="color: black">
                     <div class="card" style="width: 18rem; float:left; margin: 10px;">
                         <img src="${image}" class="card-img-top" alt="...">
                         <div class="card-body">

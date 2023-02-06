@@ -23,7 +23,7 @@ class AdminControllerApi {
 
   // 관리자 권한 부여
   add_admin_user = async (req, res) => {
-    const user_id = req.params.user_id;
+    const user_id = req.user_id;
     const admin_type = 99;
 
     try {

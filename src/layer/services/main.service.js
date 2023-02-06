@@ -20,17 +20,27 @@ class MainService {
   // 강의 상세보기
   show_lecture_detail = async(user_id,lecture_id) => {
     const show_lecture_detail = await this.lectureModel.show_lecture_detail(user_id,lecture_id);
-    return show_lecture_detail.map((data) => {
-      return {
-        lecture_id: data.lecture_id,
-        lecturer: data.lecturer,
-        title: data.title,
-        content: data.content,
-        category: data.category,
-        image: data.image,
-        point: data.point,
+    return {
+        lecture_id: show_lecture_detail.lecture_id,
+        lecturer: show_lecture_detail.lecturer,
+        title: show_lecture_detail.title,
+        content: show_lecture_detail.content,
+        category: show_lecture_detail.category,
+        image: show_lecture_detail.image,
+        point: show_lecture_detail.point,
       }
-    })
+  }
+
+  // 강의 상세보기에서 수강하기
+  sign_cart = async (user_id,lecture_id) => {
+    const sign_cart = await this.lectureModel.sign_cart(user_id,lecture_id);
+    return 
+  }
+
+  // 강의 상세보기에서 장바구니 추가하기
+  add_cart = async (user_id,lecture_id) => {
+    const add_cart = await this.lectureModel.add_cart(user_id,lecture_id)
+    return 
   }
 }
 
