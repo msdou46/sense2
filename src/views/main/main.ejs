@@ -108,6 +108,7 @@
             url: `/api/lectures`,
             data: {},
             success: function (response) {
+                console.log(response)
                
                 let rows = response['lectures']
                 let temp_html = ''
