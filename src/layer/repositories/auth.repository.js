@@ -35,6 +35,7 @@ class AuthRepository {
     });
     return { user_id: insert_result.user_id, type: insert_result.type };
   };
+
 }
 
 module.exports = AuthRepository;

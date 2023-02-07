@@ -12,8 +12,8 @@ class AdminService {
   orderModel = new AdminRepository(order);
   cartModel = new AdminRepository(cart);
 
-  get_user_info = async (email, password) => {
-    return await this.userModel.find_one_by_email(email);
+  get_user_info = async (email) => {
+    return await this.userModel.find_one_by_email_and_password(email);
   };
 
   // 관리자 권한 부여

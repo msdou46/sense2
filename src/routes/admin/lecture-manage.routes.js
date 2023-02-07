@@ -14,7 +14,7 @@ router.get("/lectures", adminControllerApi.get_lectures);
 router.put("/:lecture_id", adminControllerApi.update_lecture);
 
 // 상품 관리 - 강의 관리 페이지에서 강의 삭제 시
-router.delete("/", adminControllerApi.remove_lecture);
+router.delete("/:lecture_id", adminControllerApi.remove_lecture);
 
 // 상품 관리 - 강의 등록
 router.post("/", adminControllerApi.add_lecture);
