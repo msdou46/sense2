@@ -4,6 +4,7 @@
 
   <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
     <div id="spStrap" sp-contents class="initialize" spstrap>
       
       <style>
@@ -654,6 +655,10 @@
       </main>
     
     <script>
+      // imp 객체 가져오기.
+      const IMP = window.IMP;
+      IMP.init("imp31720762");
+
         // let query = window.location.search;
         // let param = new URLSearchParams(query);
         // let id = param.get('name');
@@ -679,6 +684,72 @@
           },
         });
       }
+
+      // 강의 상세보기에서 수강 클릭 시 본인 인증
+      // function cerification_user (lecture_id) {
+      //   const merchant_uid = document.querySelector("#lecture-merchant-uid").innerText;
+
+      //   IMP.certification({ // param
+      //     pg: "html5_inicis",
+      //     merchant_uid: merchant_uid, // 주문 번호
+      //     popup : false, // PC환경에서는 popup 파라메터가 무시되고 항상 true 로 적용됨
+      //     company: '아임포트',                           // 회사명 또는 URL
+      //     carrier: 'SKT',                              // 통신사
+      //     name: '김민수',                                // 이름
+      //     phone: '01082999441',
+      //   }, function (rsp) { // callback
+      //     if (rsp.success) {
+      //       console.log("본인 인증 성공!");
+      //       console.log(rsp);
+      //       // open_iamport(lecture_id);
+      //     } else {
+      //       console.log("본인 인증 실패...")
+      //       console.log(rsp);
+      //     }
+      //   });
+      // }
+
+      // 강의 상세보기에서 수강 클릭 시 결제 창
+      function open_iamport (lecture_id) {
+        const title = document.querySelector("#lecture-title").innerText;
+        const point = 100;
+        const merchant_uid = document.querySelector("#lecture-merchant-uid").innerText;
+
+        IMP.request_pay({
+            pg: "html5_inicis", // 하나의 아임포트 계정으로 여러 pg를 사용할 때 구분자
+            pay_method: "card", // 결제 수단
+            merchant_uid: merchant_uid,    // 고유 주문번호. 
+            name: title,  // 주문명
+            amount: Number(point),    // 결제할 금액
+            buyer_email: "msdou46@gmail.com",   // 구매자 이메일
+            buyer_name: "김민수",      // 구매자 이름
+            buyer_tel: "010-8299-9441", // 구매자 전화번호
+            buyer_addr: "서울특별시 마포구 망원동", // 구매자 주소
+            buyer_postcode: "01181" // 주문자 우편번호
+        }, function (rsp) {
+            if (rsp.success) {
+              console.log(rsp);
+            
+              $.ajax({
+                type: "POST",
+                url: "/api/lecture/payment",
+                data: {
+                  lecture_id, 
+                  imp_uid: rsp.imp_uid,
+                  merchant_uid: rsp.merchant_uid
+                },
+                success: function (response) {
+                },
+                error: function (error) {
+                },
+              });
+
+            } else {
+                console.log("결제 실패~");
+                console.log(rsp);
+            }
+        });
+      };
 
       // 강의 상세보기에서 장바구니 추가하기
       function in_cart(index) {
@@ -717,6 +788,7 @@
             let content = rows.content;
             let image = rows.image;
             let lecturer = rows.lecturer;
+            let merchant_uid = rows.merchant_uid;
             let lecture_id = rows.lecture_id;
             let point = rows.point;
             let title = rows.title;
@@ -786,10 +858,10 @@
                                   draggable="false"
                                 >
                                   <span style="font-size: 25px" draggable="false"
-                                    ><b draggable="false">${title}</b></span
+                                    ><b draggable="false" id="lecture-title">${title}</b></span
                                   ><br draggable="false" />
                                 </div>
-
+                                <div style="text-align: center">강의 번호 : <span id="lecture-merchant-uid">${merchant_uid}</span></div>
                                 <div
                                   sp-edit="text"
                                   style="text-align: center"
@@ -803,8 +875,8 @@
                                   ${content}<br draggable="false" />
                                   튜터 : ${lecturer}<br draggable="false"
                                   />
-                                  <font color="#548742" draggable="false"
-                                  >가격: ${point}<br draggable="false"
+                                  <font color="#548742" draggable="false" 
+                                  >가격: <span id="lecture-point">${point}</span><br draggable="false"
                                 /></font>
                                   
                                 </div>
@@ -824,7 +896,7 @@
                             type="button"
                             name="cart_start"
                             value="수강"
-                            onclick="start_run(${lecture_id})"
+                            onclick="open_iamport(${lecture_id})"
                             />
                             <input
                             class="cart_btn"

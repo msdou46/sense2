@@ -45,8 +45,9 @@ class AdminRepository {
   destroy_lecture = async (lecture_id) => {
     return await this.adminModels.destroy({ where: { lecture_id } });
   };
-  create_lecture = async (lecturer, title, content, category, point) => {
+  create_lecture = async (merchant_uid, lecturer, title, content, category, point) => {
     return await this.adminModels.create({
+      merchant_uid,
       lecturer,
       title,
       content,

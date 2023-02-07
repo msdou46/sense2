@@ -17,6 +17,26 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      imp_uid: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      merchant_uid: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      amount: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      pay_method: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      order_status: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

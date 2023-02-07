@@ -9,6 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      merchant_uid: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       lecturer: {
         type: Sequelize.STRING,
         allowNull: false,

@@ -83,7 +83,39 @@ class MainRepository {
       console.log("알 수 없는 에러가 발생했습니다. [add_cart]", err);
       return err;
     }
-  };
+  }
+
+  // lecture_id 로만 강의 상세 가져오기
+  get_lecture_by_id_and_merchant = async (lecture_id, merchant_uid) => {
+    const lecture = await this.mainModels.findOne({
+      where: {
+        [Op.and] : [
+          { lecture_id }, 
+          { merchant_uid }
+        ]
+      }
+    });
+    return lecture
+  }
+
+  // 결제 검증 후 주문 내역 추가
+  insert_order = async (user_id, lecture_id, imp_uid, merchant_uid, amount, pay_method, order_status) => {
+    console.log("내역 추가 진입")
+    console.log(user_id, lecture_id, imp_uid, merchant_uid, amount, pay_method, order_status);
+    console.log("----특히 가격.", amount, typeof amount);
+    
+    const order = await this.mainModels.create({
+      user_id,
+      lecture_id,
+      imp_uid,
+      merchant_uid,
+      amount,
+      pay_method,
+      order_status
+    });
+    return order
+  }
+  
 }
 
 module.exports = MainRepository;
