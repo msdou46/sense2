@@ -15,7 +15,6 @@
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
-
     *{
     margin: 0;
     padding: 0;
@@ -24,17 +23,14 @@
     text-decoration: none;
     font-family: 'Josefin Sans', sans-serif;
     }
-
     body{
     background-color: #252525;
     }
-
     .wrapper{
     display: flex;
     min-height: 1080px;
     height: 100%;
     }
-
     .wrapper .sidebar{
     min-width: 200px;
     width: 17%;
@@ -43,7 +39,6 @@
     background: #252525;
     color: white;
     }
-
     .sidebar-title{
     font-size: 30px;
     font-weight: 500;
@@ -52,7 +47,6 @@
     margin-bottom: 50px;
     margin-top: 20px;
     }
-
     .ul-title {
     padding-top: 10px;
     padding-left: 15px;
@@ -61,7 +55,6 @@
     margin-top: 30px;
     border-top: 1px solid rgb(61, 61, 61);
     }
-
     .cate-ul {
         display: block;
         margin-top: 5px;
@@ -71,7 +64,6 @@
     .fas {
         margin-right: 5px;
     }
-
     .target-li {
         display: block;
         padding-left: 40px;
@@ -79,24 +71,20 @@
         line-height: 35px;
         font-size: 14px;
     }
-
     .link-li:hover{
         background-color: #fff718;
         color: black;
         cursor: pointer;
     }
-
     .active-li {
         background-color: white;
         color: black;
     }
-
     .wrapper .main_content{
         min-width: 1000px;
         width: 83%;
         background-color: #f3f5f9;
     }
-
     #content-input-wrap {
         width: 50%;
         min-width: 500px;
@@ -108,19 +96,16 @@
         align-items: center;
         margin-top: 40px;
     }
-
     .content-title {
         font-size: 30px;
         font-weight: 600;
         margin-bottom: 30px;
     }
-
     .user-info-form input {
         width: 300px;
         display: block;
         margin-bottom: 20px;
     }
-
     #content-output-wrap{
         width: 60%;
         min-width: 700px;
@@ -132,25 +117,21 @@
         align-items: center;
         margin-top: 40px;
     }
-
     .user-info-wrap {
         margin-bottom: 30px;
         padding: 10px;
         border: 2px solid rgb(158, 158, 158);
         border-radius: 5px;
     }
-
     .result-table {
         margin: auto;
         width: 550px;
         text-align: center;
         color: rgb(0, 188, 0);
     }
-
     .table-email {
         width: 200px;
     }
-
     .table-nick, .table-point, .table-type {
         width: 150px;
     }
@@ -218,17 +199,14 @@
     //     });
     // })
 
-
     const search_user = () => {
         const input_div = document.querySelector("#content-input-wrap");
         const output_div = document.querySelector("#content-output-wrap");
-
         input_div.style.display = "none";
         output_div.style.display = "flex";
-
         const email = document.getElementById("search-email").value
         // const password = document.getElementById("search-password").value
-
+        
         $.ajax({
             type:'POST',
             url:'/api/admin/user/userinfo',
@@ -270,25 +248,21 @@
             }
         })
     };
-
-
     
     const add_admin_account = (a) => {
         const input_div = document.querySelector("#content-input-wrap");
         const output_div = document.querySelector("#content-output-wrap");
-
         input_div.style.display = "flex";
         output_div.style.display = "none";
 
         const user_id = a 
-        console.log(user_id)
+        
         $.ajax({
             type:'PUT',
             url:`/api/admin/user/register/${user_id}`,
             data: {},
             success: function (response) {
                 alert("관리자 권한 부여 완료")
-
             },
             error: function (request, status, error) {
             alert(`${request.status} ${error} / ${request.responseJSON.message}`);
@@ -296,6 +270,5 @@
             }
         })
     }
-
 </script>
 </html>
