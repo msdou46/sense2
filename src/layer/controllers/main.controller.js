@@ -1,16 +1,26 @@
 const MainService = require("../services/main.service");
+const AuthService = require("../services/auth.service");
 
 // 랜더링 용
 class MainControllerRender {
   mainService = new MainService();
+  authService = new AuthService();
 
   get_page_main = async (req, res) => {
-    res.render("main/main");
+    if (!res.locals.user_id) {
+      return res.render("main/main", {user_info: false});
+    }
+    const user_info = await this.authService.get_user_by_id(res.locals.user_id);
+    res.render("main/main", {user_info: user_info});
   };
 
   // 강의 상세보기
   get_page_lecture_detail = async (req, res, next) => {
-    res.render("main/lecture-detail");
+    if (!res.locals.user_id) {
+      return res.render("main/lecture-detail", {user_info: false});
+    }
+    const user_info = await this.authService.get_user_by_id(res.locals.user_id);
+    res.render("main/lecture-detail", {user_info: user_info});
   };
 }
 

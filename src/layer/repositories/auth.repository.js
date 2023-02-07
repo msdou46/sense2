@@ -5,6 +5,14 @@ class AuthRepository {
     this.authModels = authModels;
   }
 
+  get_account_by_id = async (user_id) => {
+    const user = await this.authModels.findOne({
+      attributes: ['user_id', 'email', 'nickname', 'type', 'point'],
+      where: { user_id }
+    })
+    return user;
+  }
+
   get_account_by_email = async (email) => {
     const check_email = await this.authModels.findOne({ where: { email } });
     return check_email;

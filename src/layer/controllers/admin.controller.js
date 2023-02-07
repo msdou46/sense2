@@ -1,17 +1,31 @@
 const AdminService = require("../services/admin.service");
+const AuthService = require("../services/auth.service");
 
 // 랜더링 용
 class AdminControllerRender {
   adminservice = new AdminService();
+  authService = new AuthService();
 
   get_page_admin_user = async (req, res) => {
-    res.render("admin/index", { ejsName: "manage-user" });
+    if (!res.locals.user_id) {
+      return res.render("admin/index", { ejsName: "manage-user", user_info: false });
+    }
+    const user_info = await this.authService.get_user_by_id(res.locals.user_id);
+    res.render("admin/index", { ejsName: "manage-user", user_info: user_info });
   };
   get_page_lectures = async (req, res) => {
-    res.render("admin/index", { ejsName: "manage-lecture" });
+    if (!res.locals.user_id) {
+      return res.render("admin/index", { ejsName: "manage-lecture", user_info: false });
+    }
+    const user_info = await this.authService.get_user_by_id(res.locals.user_id);
+    res.render("admin/index", { ejsName: "manage-lecture", user_info: user_info });
   };
   get_page_add_lecture = async (req, res) => {
-    res.render("admin/index", { ejsName: "add-lecture" });
+    if (!res.locals.user_id) {
+      return res.render("admin/index", { ejsName: "add-lecture", user_info: false });
+    }
+    const user_info = await this.authService.get_user_by_id(res.locals.user_id);
+    res.render("admin/index", { ejsName: "add-lecture", user_info: user_info });
   };
   
   get_page_update_lecture = async (req, res) => {
@@ -19,10 +33,12 @@ class AdminControllerRender {
     const lecture_detail = await this.adminservice.get_detail_lecture(
       lecture_id
     );
-    res.render("admin/index", {
-      ejsName: "update-lecture",
-      lecture: lecture_detail,
-    });
+
+    if (!res.locals.user_id) {
+      return res.render("admin/index", { ejsName: "update-lecture", user_info: false, lecture: lecture_detail });
+    }
+    const user_info = await this.authService.get_user_by_id(res.locals.user_id);
+    res.render("admin/index", { ejsName: "update-lecture", user_info: user_info, lecture: lecture_detail });
   };
   
 }
