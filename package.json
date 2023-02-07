@@ -4,8 +4,20 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prettify": "prettier --write *.js **/*.js"
+    "prettify": "prettier --write *.js **/*.js",
+    "test": "jest --forceExit",
+    "test:silent": "jest --silent --forceExit",
+    "test:coverage": "jest --coverage --forceExit",
+    "test:unit": "jest src/__tests__/unit --forceExit",
+    "test:unit-main": "jest src/__tests__/unit/main --forceExit --verbose",
+    "test:unit-auth": "jest src/__tests__/unit/auth --forceExit --verbose",
+    "test:unit-mypage": "jest src/__tests__/unit/myPage --forceExit --verbose",
+    "test:unit-admin": "jest src/__tests__/unit/admin --forceExit --verbose",
+    "test:integration": "jest src/__tests__/integration --forceExit",
+    "test:integration-main": "jest src/__tests__/integration/main.integration.spec --forceExit",
+    "test:integration-auth": "jest src/__tests__/integration/auth.integration.spec --forceExit",
+    "test:integration-mypage": "jest src/__tests__/integration/mypage.integration.spec --forceExit",
+    "test:integration-admin": "jest src/__tests__/integration/admin.integration.spec --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +31,7 @@
     "jsonwebtoken": "^9.0.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.1.0",
+    "nodemailer": "^6.9.1",
     "sequelize": "^6.28.0",
     "socket.io": "^4.5.4"
   },
