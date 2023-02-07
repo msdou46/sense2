@@ -10,7 +10,9 @@ class MainRepository {
   }
 
   find_lectures = async () => {
-    const lectures = await this.mainModels.findAll();
+    const lectures = await this.mainModels.findAll({
+      order: [['lecture_id', 'DESC']]
+    });
     return lectures;
   };
 

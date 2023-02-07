@@ -39,6 +39,7 @@ router.use("/api/lecture",show_lecture_detail_router); // 주호의 임시 라�
 
 router.use("/api/register", register_router);
 router.use("/api/login", login_router);
+router.use("/api/logout", login_router);
 
 router.use("/api/profile", my_profile_router);
 router.use("/api/cart", my_cart_router);

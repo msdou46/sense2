@@ -22,7 +22,9 @@ class AdminRepository {
   };
 
   find_all_lectures = async () => {
-    return await this.adminModels.findAll();
+    return await this.adminModels.findAll({
+      order: [['lecture_id', 'DESC']]
+    });
   };
 
   find_lecture = async (lecture_id) => {

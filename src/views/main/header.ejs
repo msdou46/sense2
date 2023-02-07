@@ -11,7 +11,7 @@
             <% if (user_info != false) { %>   
             <li>
               <button type="button"><a href="/myPage">마이 페이지</a></button>
-              <button type="button"><a href="/">로그아웃</a></button>
+              <button type="button"><a class="active" onclick="logout()">로그아웃</a></button>
             </li>
             <% } else { %>
             <li>
@@ -31,3 +31,18 @@
     display: inline-block;
   }
   </style>
+
+  <script>
+    const logout = () => {
+      $.ajax({
+            type: "GET",
+            url: `/api/logout`,
+            data: {},
+            success: function (response) {
+                if (response.success) {
+                  location.href="/";
+                }
+            }
+        });
+    }
+  </script>
