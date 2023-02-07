@@ -9,11 +9,13 @@ class MypageRepository {
     this.mypageModels = mypageModels;
   }
 
-  find_orders = async () => {
-    const myorders = await this.mypageModels.findAll({ where: { user_id: 1 } });
+  // 내 강의 목록 찾기
+  find_orders = async (user_id) => {
+    const myorders = await this.mypageModels.findAll({
+      where: { user_id: user_id },
+    });
     return myorders;
   };
-
   find_lectures = async (lecture_id) => {
     const mylectures = await this.mypageModels.findOne({
       where: { lecture_id: lecture_id },
@@ -21,23 +23,36 @@ class MypageRepository {
     return mylectures;
   };
 
-  find_user = async () => {
-    const user = await this.mypageModels.findOne({ where: { user_id: 1 } });
+  // 내 프로필 찾기
+  find_user = async (user_id) => {
+    const user = await this.mypageModels.findOne({
+      where: { user_id: user_id },
+    });
     return user;
   };
-
+  // 내 프로필 수정
   edit_user = async (nickname, email, user_id) => {
-    await this.mypageModels.update(
+    const edit_profile = await this.mypageModels.update(
       { nickname: nickname, email: email },
       { where: { user_id: user_id } }
     );
+    // const edit_profile = { "nickname": nickname, "email": email, "user_id": user_id}
+    return edit_profile
   };
 
+  find_other_users = async (user_id) => {
+    const users = await this.mypageModels.findAll({
+      where: { user_id: { [Op.ne]: user_id } },
+    });
+    return users;
+  };
+  // 내 비밀번호 수정
   edit_pw = async (user_id, new_pw) => {
-    await this.mypageModels.update(
+    const edit_password = await this.mypageModels.update(
       { password: new_pw },
       { where: { user_id: user_id } }
     );
+    return edit_password
   };
 
   // 강의 상세보기에서 장바구니 추가하기

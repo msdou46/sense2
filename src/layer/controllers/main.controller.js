@@ -28,14 +28,15 @@ class MainControllerApi {
   }
 
   get_lectures_list = async (req, res) => {
-    try {
+    // try {
       const lectures = await this.mainService.find_lectures();
 
       return res.status(200).send({ lectures: lectures });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).send({ message: error.message });
-    }
+    // }
+    //  catch (error) {
+    //   console.error(error);
+    //   return res.status(500).send({ message: error.message });
+    // }
   };
 
   // 강의 상세보기에서 바로 수강하기

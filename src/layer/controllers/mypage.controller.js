@@ -21,9 +21,11 @@ class MypageControllerRender {
 class MypageControllerApi {
   mypageservice = new MypageService();
 
+  // 내 프로필 찾기
   get_my_profile = async (req, res) => {
     try {
-      const user = await this.mypageservice.find_user();
+      const user_id = res.locals.user_id;
+      const user = await this.mypageservice.find_user(user_id);
 
       return res.status(200).send({ profile: user });
     } catch (error) {
@@ -32,32 +34,44 @@ class MypageControllerApi {
     }
   };
 
+  // 내 프로필 & 비밀번호 수정
   update_my_profile = async (req, res) => {
+    const { nickname, email, origin_pw, new_pw } = req.body;
+    const user_id = res.locals.user_id;
     try {
-      const { nickname, email, origin_pw, new_pw } = req.body;
-      const user_id = 1;
-      const password = 1234;
+      //현재 비밀번호 확인 검사
+      await this.mypageservice.checking_password(origin_pw, user_id);
 
-      if (origin_pw == password) {
-        if (new_pw != undefined) {
-          await this.mypageservice.edit_pw(user_id, new_pw);
-          return res.json({ message: "비밀번호를 수정하였습니다" });
-        } else {
-          await this.mypageservice.edit_user(nickname, email, user_id);
-          return res.json({ message: "프로필을 수정하였습니다" });
-        }
-      } else if (origin_pw != password) {
-        return res.json({ message: " 현재 비밀번호가 틀렸습니다!" });
+      if (new_pw != undefined) {
+        //새 비밀번호 조건 검사
+        await this.mypageservice.checking_pw(new_pw);
+      } else {
+        // 새 이메일 조건 검사
+        await this.mypageservice.checking_email(email, user_id);
       }
+    } catch (err) {
+      return res.status(500).send({ success: false, error_message: err.message });
+    }
+
+    try {
+      const message = await this.mypageservice.edit_profile(
+        user_id,
+        nickname,
+        email,
+        new_pw
+      );
+      return res.status(200).send({ message });
     } catch (error) {
       console.error(error);
       return res.status(500).send({ message: error.message });
     }
   };
 
+  // 내 강의 목록 찾기
   get_my_lectures = async (req, res) => {
     try {
-      const mylectures = await this.mypageservice.find_orders();
+      const user_id = res.locals.user_id;
+      const mylectures = await this.mypageservice.find_orders(user_id);
 
       return res.status(200).send({ mylectures: mylectures });
     } catch (error) {
