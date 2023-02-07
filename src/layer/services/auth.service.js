@@ -129,7 +129,7 @@ class AuthService {
         };
 
         const data = {
-            "from": "msdou46@gmail.com",
+            "from": process.env.GOOGLE_MAIL,
             "to": email,
             "subject": "sense2 회원가입 이메일 인증",
             "text": `인증번호 : ${auth_num}` 
