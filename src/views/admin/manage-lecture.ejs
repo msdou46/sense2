@@ -211,97 +211,14 @@
             <div class="lecture-category">
                 <div class="category-btns-label">강의 카테고리</div>
                 <div class="category-btns">
-                    <button type="button" class="btn btn-outline-secondary cate-btn" onclick="select_category(this)">javascript</button>
-                    <button type="button" class="btn btn-outline-secondary cate-btn" onclick="select_category(this)">typescript</button>
-                    <button type="button" class="btn btn-outline-secondary cate-btn" onclick="select_category(this)">python</button>
-                    <button type="button" class="btn btn-outline-secondary cate-btn" onclick="select_category(this)">java</button>
+                    <button type="button" class="btn btn-outline-secondary cate-btn" onclick="select_category(0)">all</button>
+                    <button type="button" class="btn btn-outline-secondary cate-btn" onclick="select_category(1)">javascript</button>
+                    <button type="button" class="btn btn-outline-secondary cate-btn" onclick="select_category(2)">typescript</button>
+                    <button type="button" class="btn btn-outline-secondary cate-btn" onclick="select_category(3)">python</button>
+                    <button type="button" class="btn btn-outline-secondary cate-btn" onclick="select_category(4)">java</button>
                 </div>
             </div>
             <div class="lecture-list">
-                <div class="lecture-card">
-                    <div class="card-img-wrap">
-                        <img src="/image/public_lecture_thum.jpeg">
-                    </div>
-                    <div class="card-category">javascript</div>
-                    <div class="card-title">자바스크립트 기초부터 실전까지</div>
-                    <div class="card-lecturer">가나다</div>
-                    <div class="card-lecture-price">₩50000</div>
-                    <div class="lecture-created">등록일 : 2022-12-13</div>
-                    <div class="lecture-manage">
-                        <button type="button" class="lecture-update">수정하기</button>
-                        <button type="button" class="lecture-delete">삭제하기</button>
-                    </div>
-                </div>
-                <div class="lecture-card">
-                    <div class="card-img-wrap">
-                        <img src="/image/public_lecture_thum.jpeg">
-                    </div>
-                    <div class="card-category">javascript</div>
-                    <div class="card-title">자바스크립트 기초부터 실전까지</div>
-                    <div class="card-lecturer">가나다</div>
-                    <div class="card-lecture-price">₩50000</div>
-                    <div class="lecture-created">등록일 : 2022-12-13</div>
-                    <div class="lecture-manage">
-                        <button type="button" class="lecture-update">수정하기</button>
-                        <button type="button" class="lecture-delete">삭제하기</button>
-                    </div>
-                </div>
-                <div class="lecture-card">
-                    <div class="card-img-wrap">
-                        <img src="/image/public_lecture_thum.jpeg">
-                    </div>
-                    <div class="card-category">javascript</div>
-                    <div class="card-title">자바스크립트 기초부터 실전까지</div>
-                    <div class="card-lecturer">가나다</div>
-                    <div class="card-lecture-price">₩50000</div>
-                    <div class="lecture-created">등록일 : 2022-12-13</div>
-                    <div class="lecture-manage">
-                        <button type="button" class="lecture-update">수정하기</button>
-                        <button type="button" class="lecture-delete">삭제하기</button>
-                    </div>
-                </div>
-                <div class="lecture-card">
-                    <div class="card-img-wrap">
-                        <img src="/image/public_lecture_thum.jpeg">
-                    </div>
-                    <div class="card-category">javascript</div>
-                    <div class="card-title">자바스크립트 기초부터 실전까지</div>
-                    <div class="card-lecturer">가나다</div>
-                    <div class="card-lecture-price">₩50000</div>
-                    <div class="lecture-created">등록일 : 2022-12-13</div>
-                    <div class="lecture-manage">
-                        <button type="button" class="lecture-update">수정하기</button>
-                        <button type="button" class="lecture-delete">삭제하기</button>
-                    </div>
-                </div>
-                <div class="lecture-card">
-                    <div class="card-img-wrap">
-                        <img src="/image/public_lecture_thum.jpeg">
-                    </div>
-                    <div class="card-category">javascript</div>
-                    <div class="card-title">자바스크립트 기초부터 실전까지</div>
-                    <div class="card-lecturer">가나다</div>
-                    <div class="card-lecture-price">₩50000</div>
-                    <div class="lecture-created">등록일 : 2022-12-13</div>
-                    <div class="lecture-manage">
-                        <button type="button" class="lecture-update">수정하기</button>
-                        <button type="button" class="lecture-delete">삭제하기</button>
-                    </div>
-                </div>
-                <div class="lecture-card">
-                    <div class="card-img-wrap">
-                        <img src="/image/public_lecture_thum.jpeg">
-                    </div>
-                    <div class="card-category">javascript</div>
-                    <div class="card-title">자바스크립트 기초부터 실전까지</div>
-                    <div class="card-lecturer">가나다</div>
-                    <div class="card-lecture-price">₩50000</div>
-                    <div class="lecture-created">등록일 : 2022-12-13</div>
-                    <div class="lecture-manage">
-                        <button type="button" class="lecture-update">수정하기</button>
-                        <button type="button" class="lecture-delete">삭제하기</button>
-                    </div>
-                </div>
                 <div class="lecture-card">
                     <div class="card-img-wrap">
                         <img src="/image/public_lecture_thum.jpeg">
@@ -326,50 +243,85 @@
 
 <script>
 
-    const select_category = (event) => {
+$(document).ready(function() {
+    select_category(0)
 
-    };
-    
-    function get_lectures () {
+})
+    const select_category = (cate) => {
         $.ajax({
             type: "GET",
-            url: "127.0.0.1:3000/api/admin/lecture/lectures",
+            url: "/api/admin/lecture/lectures",
             data:{},
             success:function(response){
-                console.log(response)
                 const rows = response.data;
-
-                for (let i in rows) {
-                let category = rows[i].category;
-                let content = rows[i].content;
-                let lecture_id = rows[i].lecture_id;
-                let lecturer = rows[i].lecturer;
-                let point = rows[i].point;
-                let title = rows[i].title;
                 
-            let temp_html = `
-            <div class="lecture-card">
-                    <div class="card-img-wrap">
-                        <img src="/image/public_lecture_thum.jpeg">
-                    </div>
-                    <div class="card-category">${category}</div>
-                    <div class="card-title">${title}</div>
-                    <div class="card-lecturer">${lecturer}</div>
-                    <div class="card-lecture-price">₩${point}</div>
-                    <div class="lecture-created">등록일 : 2022-12-13</div>
-                    <div class="lecture-manage">
-                        <button type="button" class="lecture-update">수정하기</button>
-                        <button type="button" class="lecture-delete">삭제하기</button>
-                    </div>
-                </div>
-            </div>
-            `
+                let temp_html = ''
+                for (let i = 0; i < rows.length; i++) {
+                    let lecture_id = rows[i].lecture_id;
+                    let category = rows[i].category;
+                    let image = rows[i].image;
+                    let content = rows[i].content;
+                    let lecturer = rows[i].lecturer;
+                    let point = rows[i].point;
+                    let title = rows[i].title;
+                    let create = rows[i].createdAt;
 
-            $('#lecture-card').append(temp_html)
-            }
+                
+                    if (cate === 0) {
+                        temp_html += `
+                            <div class="lecture-card">
+                                <div class="card-img-wrap">
+                                    <img src="/image/public_lecture_thum.jpeg">
+                                </div>
+                                <div class="card-category">${category}</div>
+                                <div class="card-title">${title}</div>
+                                <div class="card-lecturer">${lecturer}</div>
+                                <div class="card-lecture-price">${point}</div>
+                                <div class="lecture-created">등록일 :${create}</div>
+                                <div class="lecture-manage">
+                                    <button type="button" class="lecture-update" onclick="location.href='/admin/lecture/rewrite/${lecture_id}'">수정하기</button>
+                                    <button type="button" class="lecture-delete">삭제하기</button>
+                                </div>
+                            </div>
+                        `
+                    }
+                    if (category === cate) {
+                        temp_html += `
+                            <div class="lecture-card">
+                                <div class="card-img-wrap">
+                                    <img src="/image/public_lecture_thum.jpeg">
+                                </div>
+                                <div class="card-category">${category}</div>
+                                <div class="card-title">${title}</div>
+                                <div class="card-lecturer">${lecturer}</div>
+                                <div class="card-lecture-price">${point}</div>
+                                <div class="lecture-created">등록일 :${create}</div>
+                                <div class="lecture-manage">
+                                    <button type="button" class="lecture-update">수정하기</button>
+                                    <button type="button" class="lecture-delete">삭제하기</button>
+                                </div>
+                            </div>
+                        `
+                    }
+                }
+                $('.lecture-list').empty()
+                $('.lecture-list').append(temp_html)
             }
         })
+    };
+
+    const remove_lecture = () => {
+        $.ajax({
+            type: "DELETE",
+            url: `/api/admin/lecture/lectures/${lecture_id}`,
+            data:{},
+            success:function(response){
+                const rows = response.data;
+                console.log(rows)
     }
+})
+}
+    
 
 </script>
 </html>

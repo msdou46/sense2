@@ -1,7 +1,5 @@
 "use strict";
 
-// 테스트
-
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
@@ -23,5 +21,6 @@ app.use("/", rootRouting);
 app.listen(process.env.PORT, () => {
   console.log(process.env.PORT, " 포트로 서버가 열렸어요!");
 });
+
 
 module.exports = {app};

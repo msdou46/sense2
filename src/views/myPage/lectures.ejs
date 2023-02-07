@@ -100,10 +100,22 @@
                     let title = rows[i]['title']
                     let content = rows[i]['content']
                     let category = rows[i]['category']
-                    let image = rows[i]['image']
+                    let images = rows[i]['image']
                     let point = rows[i]['point']
                     let update = rows[i]['updatedAt']
+                    let image;
 
+                    if (images == 4) {
+                    image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcQanpm%2FbtrYaqnRn5G%2FdR0MYp8LMUHWSuFm3k5rw1%2Fimg.png'
+                    } else if (images == 1) {
+                    image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiWRMY%2FbtrYj1fHDeU%2F611TAxdd3k4WuTwKgKJyTK%2Fimg.png'
+                    } else if (images == 3) {
+                    image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbkGHhW%2FbtrYe0h5VME%2FSkrYQA4uDkadFToraUZo9K%2Fimg.png'
+                    } else if (images == 2) {
+                    image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUNI6i%2FbtrYkDTcp0c%2FBlQ6JQJsVle4DZ4RSEb9KK%2Fimg.png'
+                    } else {
+                    image = 'https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png'
+                    };
                     
                     if (cat == 0){temp_html += `
                     <div class="card" style="width: 18rem; float:left; margin: 10px;">

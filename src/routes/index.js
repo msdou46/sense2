@@ -10,6 +10,10 @@ const admin_render_router = require("./admin");
 // main 에서 강의 목록 가져오기 라우터
 const main_lecture_list_router = require("./main/main-lecture-list.routes");
 
+// 임시 라우트(주호) : 강의 상세보기 
+const show_lecture_detail_router = require("./main/show-lecture-detail")
+
+
 // 회원가입 및 로그인 라우터
 const register_router = require("./auth/register.routes");
 const login_router = require("./auth/login.routes");
@@ -31,6 +35,7 @@ router.use("/admin", admin_render_router);
 
 // api 라우트
 router.use("/api/lectures", main_lecture_list_router);
+router.use("/api/lecture",show_lecture_detail_router); // 주호의 임시 라우터
 
 router.use("/api/register", register_router);
 router.use("/api/login", login_router);

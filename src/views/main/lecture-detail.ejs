@@ -5,6 +5,7 @@
   <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <div id="spStrap" sp-contents class="initialize" spstrap>
+      
       <style>
         @import url("https://fonts.googleapis.com/css2?&family=Roboto:wght@300%3B700&display=swap");
         @import url("https://fonts.googleapis.com/css2?&family=Noto+Sans+KR:wght@300%3B500&display=swap");
@@ -627,179 +628,226 @@
           }
         }
       </style>
-      <div
-        class="mo-E844D80A94 initialize"
-        sp-edit="box"
-        sp-sort-nodrop="fixed"
-        area="before"
-      >
-        <div sp-edit="box" sp-size class="initialize">
-          <div
-            class="mo-E844D80A94--box initialize"
-            sp-edit
-            sp-tab="100"
-            sp-mob="100"
-          >
-            <div
-              class="mo-E844D80A94--inner initialize"
-              sp-edit="box"
-              sp-sort-nodrop="element"
-              sp-tab="100"
-              sp-mob="100"
-              style="width: 60%; padding: 3rem"
-              area="before"
-            >
-              <div
-                sp-edit="box"
-                style="padding: 0 0 3rem 0"
-                class="initialize"
-                area="before"
-              >
-                <a
-                  href="#!"
-                  sp-edit="image_button"
-                  sp-resize
-                  style="width: 100%"
-                  class="initialize"
-                  direction="vertical"
-                  ><img
-                    src="https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png"
-                    sp-edit="image"
-                    style="width: 100%"
-                    class="initialize"
-                    onerror="this.onerror=null;this.src='/src/img/onerror.png';"
-                /></a>
-              </div>
-            </div>
+      <main id="cart_list_id">
+        <style>
+          .cart_btn {
+            /* position: absolute; */
+            bottom: 10px;
+            width: 120px;
+            height: 30px;
+            background-color: var(--point-color);
+            color: #fff;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            margin: auto;
+            padding: auto;
+        }
 
-            <div
-              class="mo-563DD445ED initialize"
-              sp-edit="box"
-              sp-size
-              sp-sort-nodrop
-              style="padding: 3rem"
-              draggable="false"
-              area="before"
-            >
-              <div
-                sp-edit="text"
-                style="text-align: center"
-                class="initialize"
-                area="before"
-                draggable="false"
-              >
-                <span style="font-size: 25px" draggable="false"
-                  ><b draggable="false">혼자 공부하는 타입스크립트!!</b></span
-                ><br draggable="false" />
-              </div>
+          .cart_btn:hover {
+              background-color: var(--sub-color-1);
+              color: var(--point-color);
+              border: 2px solid var(--point-color);
+          }
+        </style>
 
-              <div
-                sp-edit="text"
-                style="text-align: center"
-                class="initialize"
-                area="after"
-                draggable="false"
-              >
-                <font color="#548742" draggable="false"
-                  >당신도 할 수 있다!!<br draggable="false"
-                /></font>
-                단기간 타입 스크립트 완벽 마스터<br draggable="false" />자바
-                스크립트 기초 지식부터 차근차근 진행!<br draggable="false" /><br
-                  draggable="false"
-                />튜터 : 김민수<br draggable="false" />&nbsp;코드 고수<br
-                  draggable="false"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        sp-edit="box"
-        sp-inlinebox
-        sp-sort-nodrop="element"
-        style="font-size: 0; text-align: center"
-        class="initialize"
-      >
-        <a
-          class="mo-356F912B00 initialize"
-          href="#!"
-          sp-edit="button"
-          sp-sortable-inline
-          mo-filter
-          style="
-            font-size: 0.1rem;
-            margin: 0.5rem;
-            display: inline-block;
-            padding: 0.8rem 5rem;
-            color: #f1ff28c0;
-            border-radius: 10rem;
-            box-shadow: 0px 10px 10px -5px #f1ff28c0;
-          "
-          area="before"
-          ><span style="font-size: 14.4px" onclick="start_run()"
-            ><b>수강하기</b></span
-          ></a
-        >
-
-        <a
-          class="mo-356F912B00 initialize"
-          href="#!"
-          sp-edit="button"
-          sp-sortable-inline
-          mo-filter
-          style="
-            font-size: 0.1rem;
-            margin: 0.5rem;
-            display: inline-block;
-            padding: 0.8rem 5rem;
-            color: #f1ff28c0;
-            border-radius: 10rem;
-            box-shadow: 0px 10px 10px -5px #f1ff28c0;
-          "
-          area="after"
-          ><span style="font-size: 14.4px" onclick="in_cart()"
-            ><b>장바구니 담기</b></span
-          ></a
-        >
-      </div>
-    </div>
+      </main>
+    
     <script>
-      function start_run() {
-        const lecture_id = "test";
-        console.log(lecture_id);
+        // let query = window.location.search;
+        // let param = new URLSearchParams(query);
+        // let id = param.get('name');
+      $(document).ready(function () {
+        show_lecture_detail();
+      });
+
+      // 강의 상세보기에서 수강하기
+      function start_run(index) {
+        const lecture_id = index;
         $.ajax({
           type: "POST",
-          url: "/api/cart/:lecture",
+          url: "/api/lecture/test",
           data: {
             lecture_id,
           },
           success: function (response) {
-            alert("수강하기 완료!");
+            alert(response.data);
+            window.location.reload()
           },
           error: function (error) {
-            alert("수강 신청 실패하였습니다..");
+            alert("알 수 없는 이유로 실행되지 않았습니다. 관리자에게 문의해 주세요.[error:start_run]");
           },
         });
       }
 
-      function in_cart() {
-        const lecture_id = 5;
-        console.log(lecture_id);
+      // 강의 상세보기에서 장바구니 추가하기
+      function in_cart(index) {
+        const lecture_id = index;
         $.ajax({
           type: "POST",
-          url: "/api/cart/lecture",
+          url: "/api/lecture/test2",
           data: {
             lecture_id,
           },
           success: function (response) {
-            alert("장바구니에 담았습니다.!!!");
+            alert(response.data);
+            window.location.reload();
           },
           error: function (error) {
-            alert("장바구니 담기 실패");
+            alert("알 수 없는 이유로 실행되지 않았습니다. 관리자에게 문의해 주세요.[error:in_cart]");
           },
         });
       }
+
+      // 강의 상세보기
+      function show_lecture_detail() {
+        const urlParams = window.location.href
+        const lecture_id = urlParams.split('lecture/')[1]
+
+        $.ajax({
+          type: "get",
+          url: `/api/lecture/${lecture_id}`,
+          data: {
+            lecture_id,
+          },
+          success: function (response) {
+            const rows = response.data;
+            
+            let category = rows.category;
+            let content = rows.content;
+            let images = rows.image;
+            let lecturer = rows.lecturer;
+            let lecture_id = rows.lecture_id;
+            let point = rows.point;
+            let title = rows.title;
+            let image;
+
+            if (images == 4) {
+              image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcQanpm%2FbtrYaqnRn5G%2FdR0MYp8LMUHWSuFm3k5rw1%2Fimg.png'
+            } else if (images == 1) {
+              image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiWRMY%2FbtrYj1fHDeU%2F611TAxdd3k4WuTwKgKJyTK%2Fimg.png'
+            } else if (images == 3) {
+              image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbkGHhW%2FbtrYe0h5VME%2FSkrYQA4uDkadFToraUZo9K%2Fimg.png'
+            } else if (images == 2) {
+              image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUNI6i%2FbtrYkDTcp0c%2FBlQ6JQJsVle4DZ4RSEb9KK%2Fimg.png'
+            } else {
+              image = 'https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png'
+            };
+
+            let temp_html = `
+                              <div
+                          class="mo-E844D80A94 initialize"
+                          sp-edit="box"
+                          sp-sort-nodrop="fixed"
+                          area="before"
+                        >
+                          <div sp-edit="box" sp-size class="initialize">
+                            <div
+                              class="mo-E844D80A94--box initialize"
+                              sp-edit
+                              sp-tab="100"
+                              sp-mob="100"
+                            >
+                              <div
+                                class="mo-E844D80A94--inner initialize"
+                                sp-edit="box"
+                                sp-sort-nodrop="element"
+                                sp-tab="100"
+                                sp-mob="100"
+                                style="width: 60%; padding: 3rem"
+                                area="before"
+                              >
+                                <div
+                                  sp-edit="box"
+                                  style="padding: 0 0 3rem 0"
+                                  class="initialize"
+                                  area="before"
+                                >
+                                <img
+                                src= "${image}"
+                                onerror="this.src ='https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png'"
+                                />
+                                </div>
+                              </div>
+
+                              <div
+                                class="mo-563DD445ED initialize"
+                                sp-edit="box"
+                                sp-size
+                                sp-sort-nodrop
+                                style="padding: 3rem"
+                                draggable="false"
+                                area="before"
+                              >
+                                <div
+                                  sp-edit="text"
+                                  style="text-align: center"
+                                  class="initialize"
+                                  area="before"
+                                  draggable="false"
+                                >
+                                  <span style="font-size: 25px" draggable="false"
+                                    ><b draggable="false">${title}</b></span
+                                  ><br draggable="false" />
+                                </div>
+
+                                <div
+                                  sp-edit="text"
+                                  style="text-align: center"
+                                  class="initialize"
+                                  area="after"
+                                  draggable="false"
+                                >
+                                  <font color="#548742" draggable="false"
+                                    >당신도 할 수 있다!!<br draggable="false"
+                                  /></font>
+                                  ${content}<br draggable="false" />
+                                  튜터 : ${lecturer}<br draggable="false"
+                                  />
+                                  <font color="#548742" draggable="false"
+                                  >가격: ${point}<br draggable="false"
+                                /></font>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          sp-edit="box"
+                          sp-inlinebox
+                          sp-sort-nodrop="element"
+                          style="font-size: 0; text-align: center"
+                          class="initialize"
+                        >
+                        <input
+                            class="cart_btn"
+                            type="button"
+                            name="cart_start"
+                            value="수강"
+                            onclick="start_run(${lecture_id})"
+                            />
+                            <input
+                            class="cart_btn"
+                            type="button"
+                            name="cart_start"
+                            value="장바구니 추가"
+                            onclick="in_cart(${lecture_id})"
+                            />
+                        </div>
+                      </div>
+            `
+            $('#cart_list_id').append(temp_html)    
+          },
+          error: function (error) {
+            console.log(error);
+            alert(
+              "알 수 없는 이유로 실행되지 않았습니다. 관리자에게 문의해 주세요"
+            );
+          },
+        });
+      }
+
     </script>
   </body>
 </html>

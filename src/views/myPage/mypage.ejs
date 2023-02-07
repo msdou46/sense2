@@ -304,7 +304,7 @@ $.ajax({
                     <div class="modal_label">이메일</div>
                     <input type="text" class="input_box" id="email_box" value="${email}"/>
                     <div class="modal_label">비밀번호</div>
-                    <input type="text" class="input_box" id="origin_pw_box"/>
+                    <input type="password"  class="input_box"  id="origin_pw_box" placeholder=" 현재 비밀번호를 입력하세요">
                     `       
                 
                 $('#m_body').append(temp_html)
@@ -312,11 +312,11 @@ $.ajax({
                 let pw_html=''
                  pw_html = `
                     <div class="modal_label">현재 비밀번호</div>
-                    <input type="text" class="input_box" id="origin_pw_box2"/>
+                    <input type="password" class="input_box" id="origin_pw_box2"/>
                     <div class="modal_label">새 비밀번호</div>
-                    <input type="text" class="input_box" id="new_pw_box"/>
+                    <input type="password" class="input_box" id="new_pw_box"/>
                     <div class="modal_label">새 비밀번호 (확인)</div>
-                    <input type="text" class="input_box" id="confirm_pw_box"/>`
+                    <input type="password" class="input_box" id="confirm_pw_box"/>`
                 $('#m_body2').append(pw_html)
 
                 let profile_html =''
@@ -355,16 +355,18 @@ $.ajax({
             email: email,
             origin_pw: origin_pw
           },
-          success: function (response) {
-            alert(response.message)
+          success: function (res) {
+            alert(res.message.message)
               window.location.replace(`/myPage`);
-
-          }})
+          },  error: function (err){
+        alert(err.responseJSON.error_message)
+      }})
   }
 }
 
 // 비밀번호 수정
 function edit_pw(){
+
 
 const origin_pw = $("#origin_pw_box2").val();
 const new_pw = $("#new_pw_box").val();
@@ -379,10 +381,12 @@ else if(new_pw == confirm_pw){
         origin_pw: origin_pw ,
         new_pw: new_pw
       },
-      success: function (response) {
-        alert(response.message)
+      success: function (res) {
+        alert(res.message.message)
           window.location.replace(`/myPage`);
 
+      }, error: function (err){
+        alert(err.responseJSON.error_message)
       }})
 }
 else if (new_pw != confirm_pw){alert("새 비밀번호와 확인 비밀번호가 일치하지 않습니다!")}
