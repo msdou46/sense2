@@ -16,10 +16,11 @@ app.use(express.urlencoded({ extended: false }));
 
 // 라우팅
 const rootRouting = require("./src/routes");
-app.use("/", rootRouting);
+app.use("/", rootRouting); 
 
 app.listen(process.env.PORT, () => {
   console.log(process.env.PORT, " 포트로 서버가 열렸어요!");
 });
 
-// 커밋 확인
+
+module.exports = {app};
