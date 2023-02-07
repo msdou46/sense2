@@ -109,7 +109,7 @@ class AuthService {
         const accessToken = jwt.sign(
             { user_id: user.user_id, account_type: this.user_type[user.type] }, 
             process.env.JWT_SECRET_KEY, 
-            { expiresIn: '60s', algorithm : "HS256"});
+            { expiresIn: '3000s', algorithm : "HS256"});
         return accessToken;
     }
 

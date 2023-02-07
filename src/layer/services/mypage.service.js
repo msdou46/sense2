@@ -27,7 +27,7 @@ class MypageService {
       const mylecture = await this.lectureModel.find_lectures(lecture_id);
       mylectures.push(mylecture);
     }
-    return { mylectures: mylectures };
+    return { mylectures: mylectures.reverse() };
   };
 
   //내 프로필

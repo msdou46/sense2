@@ -73,6 +73,11 @@ class AuthControllerApi {
       res.cookie('accessToken', token); 
       return res.status(200).json({success: true});
     }
+
+    user_logout = async (req, res) => {
+      res.clearCookie("accessToken");
+      res.status(200).json({success: true});
+    }
 }
 
 module.exports = { AuthControllerRender, AuthControllerApi };

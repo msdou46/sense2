@@ -60,6 +60,7 @@ class MainControllerApi {
     if (check_result === false) {
       return res.status(400).json({success: false, message: "결제 내역이 정상적으로 기록되지 않았습니다."})
     }
+    return res.status(200).json({success: true, message: "수강 신청 및 결제 등록이 완료되었습니다."})
   }
 
   // 강의 상세보기에서 바로 수강하기
