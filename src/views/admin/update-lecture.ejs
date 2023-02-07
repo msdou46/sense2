@@ -12,10 +12,10 @@
         crossorigin="anonymous"></script>
 	<title>admin page</title>
 	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
-
     *{
     margin: 0;
     padding: 0;
@@ -24,25 +24,22 @@
     text-decoration: none;
     font-family: 'Josefin Sans', sans-serif;
     }
-
     body{
-    background-color: #f3f5f9;
+        background-color: #252525;;
     }
-
     .wrapper{
     display: flex;
-    position: relative;
-    }
-
-    .wrapper .sidebar{
-    width: 250px;
+    min-height: 1080px;
     height: 100%;
+    }
+    .wrapper .sidebar{
+        min-width: 200px;
+    width: 17%;
+    height: 100%;
+    min-height: 1080px;
     background: #252525;
-    padding: 30px 0px;
-    position: fixed;
     color: white;
     }
-
     .sidebar-title{
     font-size: 30px;
     font-weight: 500;
@@ -51,7 +48,6 @@
     margin-bottom: 50px;
     margin-top: 20px;
     }
-
     .ul-title {
     padding-top: 10px;
     padding-left: 15px;
@@ -60,7 +56,6 @@
     margin-top: 30px;
     border-top: 1px solid rgb(61, 61, 61);
     }
-
     .cate-ul {
     display: block;
     margin-top: 5px;
@@ -70,7 +65,6 @@
     .fas {
     margin-right: 5px;
     }
-
     .target-li {
         display: block;
         padding-left: 40px;
@@ -78,35 +72,30 @@
         line-height: 35px;
         font-size: 14px;
     }
-
     .target-li a{
     color: white;
     display: block;
     }
-
     .link-li:hover{
     background-color: #fff718;
     color: black;
     cursor: pointer;
     }
-
     .active-li {
     background-color: white;
     color: black;
     }
-
     .main_content{
-        width: 100%;
-        margin-left: 250px;
+        min-width: 1000px;
+        width: 83%;
+        background-color: #f3f5f9;
     }
-
     .lecture-form-wrap {
         width: 70%;
         margin: auto;
         margin-top: 100px;
         display: flex;
     }
-
     .submit-lecture {
         width: 70%;
         margin: auto;
@@ -115,34 +104,27 @@
         align-content: right;
         justify-content: right;
     }
-
     .lecture-form-wrap .lecture-text-form {
         width: 500px;
         height: 100%;
     }
-
     .lecture-form-wrap .lecture-img-form {
         width: 500px;
         height: 100%;
         
     }
-
     #lecture-lecturer {
         width: 200px;
     }
-
     #lecture-title {
         width: 400px;
     }
-
     #lecture-point {
         width: 200px;
     }
-
     .text_box {position:relative; display:inline-block; width:100%;}
     .text_box textarea {width:100%; height:152px; color:#666; font-family:"ht_r"; font-size:18px; line-height:28px; padding:20px; border:1px solid #e4dcd3; outline:0; resize:none}
     .text_box .count {position:absolute; right:20px; bottom:20px; color:#666; font-family:"ht_r"; font-size:15px;}
-
     .lecture-img-form img {
         width: 400px;
         height: 250px;
@@ -153,10 +135,10 @@
         margin-bottom: 50px;
         border-radius: 1px solid gray;
     }
-
     .img-div {
         margin: auto;
     }
+
 
 </style>
 <body>
@@ -279,6 +261,7 @@
 
 // ---------------------------------------------------
  
+    const socket = io.connect("/");
     // 강의 수정
     const rewrite_lecture = () => {
 
@@ -301,6 +284,11 @@
             success: function (response) {
                 console.log(response.success);
                 location.href="/admin/lectures";
+                socket.emit("update_lecture", {
+                            lecturer: lecturer,
+                            title: title,
+                            lecture_id: lecture_id
+                        });
             },
             error: function (request, status, error) {
             alert(`${request.status} ${error} / ${request.responseJSON.message}`);

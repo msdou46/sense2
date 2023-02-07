@@ -15,7 +15,6 @@
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
-
     *{
     margin: 0;
     padding: 0;
@@ -24,25 +23,22 @@
     text-decoration: none;
     font-family: 'Josefin Sans', sans-serif;
     }
-
     body{
-    background-color: #f3f5f9;
+        background-color: #252525;
     }
-
     .wrapper{
     display: flex;
-    position: relative;
-    }
-
-    .wrapper .sidebar{
-    width: 250px;
+    min-height: 1080px;
     height: 100%;
+    }
+    .wrapper .sidebar{
+    min-width: 200px;
+    width: 17%;
+    height: 100%;
+    min-height: 1080px;
     background: #252525;
-    padding: 30px 0px;
-    position: fixed;
     color: white;
     }
-
     .sidebar-title{
     font-size: 30px;
     font-weight: 500;
@@ -51,7 +47,6 @@
     margin-bottom: 50px;
     margin-top: 20px;
     }
-
     .ul-title {
     padding-top: 10px;
     padding-left: 15px;
@@ -60,7 +55,6 @@
     margin-top: 30px;
     border-top: 1px solid rgb(61, 61, 61);
     }
-
     .cate-ul {
     display: block;
     margin-top: 5px;
@@ -70,7 +64,6 @@
     .fas {
     margin-right: 5px;
     }
-
     .target-li {
         display: block;
         padding-left: 40px;
@@ -78,35 +71,30 @@
         line-height: 35px;
         font-size: 14px;
     }
-
     .target-li a{
     color: white;
     display: block;
     }
-
     .link-li:hover{
     background-color: #fff718;
     color: black;
     cursor: pointer;
     }
-
     .active-li {
     background-color: white;
     color: black;
     }
-
     .main_content{
-        width: 100%;
-        margin-left: 250px;
+        min-width: 1000px;
+        width: 83%;
+        background-color: #f3f5f9;
     }
-
     .lecture-form-wrap {
         width: 70%;
         margin: auto;
         margin-top: 100px;
         display: flex;
     }
-
     .submit-lecture {
         width: 70%;
         margin: auto;
@@ -115,34 +103,27 @@
         align-content: right;
         justify-content: right;
     }
-
     .lecture-form-wrap .lecture-text-form {
         width: 500px;
         height: 100%;
     }
-
     .lecture-form-wrap .lecture-img-form {
         width: 500px;
         height: 100%;
         
     }
-
     #lecture-lecturer {
         width: 200px;
     }
-
     #lecture-title {
         width: 400px;
     }
-
     #lecture-point {
         width: 200px;
     }
-
     .text_box {position:relative; display:inline-block; width:100%;}
     .text_box textarea {width:100%; height:152px; color:#666; font-family:"ht_r"; font-size:18px; line-height:28px; padding:20px; border:1px solid #e4dcd3; outline:0; resize:none}
     .text_box .count {position:absolute; right:20px; bottom:20px; color:#666; font-family:"ht_r"; font-size:15px;}
-
     .lecture-img-form img {
         width: 400px;
         height: 250px;
@@ -153,11 +134,9 @@
         margin-bottom: 50px;
         border-radius: 1px solid gray;
     }
-
     .img-div {
         margin: auto;
     }
-
 </style>
 <body>
 
@@ -235,46 +214,36 @@
             $('.text_box .count span').html(200);
         }
     });
-
     $(document).ready(function () {
         const ims_input_tag = document.querySelector("#lecture-img-input");
         ims_input_tag.addEventListener("change", function (event) {
             let files = event.target.files;
-
             if (files.length >= 1) {
                 insertImageDate(files[0])
             }
-
             if (!files.length) {
                 const imgShow = document.querySelector(`#img-${i}-show`);
                 imgShow.removeAttribute('src');
             }
         });
-
         async function insertImageDate (file) {
             const imgShow = document.querySelector("#lecture-img");
-
             const reader = new FileReader();
-
             reader.addEventListener('load', function (event) {
                 imgShow.src = reader.result;
             });
             reader.readAsDataURL(file);
         };
     });
-
     // 카테고리 select 변경 시 선택된 카테고리의 지정값(1~4)을 반환.
     const change_selection = () => {
         const selected_lecture_category = document.querySelector("#lecture-category");
         const selected_value = selected_lecture_category.options[selected_lecture_category.selectedIndex].value;
         
     }
-
 // ---------------------------------------------------
     // 추가 한 것 
-
     const add_lecture = () => {
-
         const lecturer = $("#lecture-lecturer").val();
         const title = $("#lecture-title").val();
         const content = $("#lecture-textarea").val();
@@ -282,7 +251,6 @@
         const point = $("#lecture-point").val();
         const image = $("#lecture-img-input").val();
         console.log(lecturer, title, content, category, point)
-
         $.ajax({
             type: "POST",
             url: '/api/admin/lecture',
@@ -297,6 +265,5 @@
             }
         });
     }
-
 </script>
 </html>
