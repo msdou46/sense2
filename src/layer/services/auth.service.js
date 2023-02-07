@@ -109,7 +109,7 @@ class AuthService {
         const accessToken = jwt.sign(
             { user_id: user.user_id, account_type: this.user_type[user.type] }, 
             process.env.JWT_SECRET_KEY, 
-            { expiresIn: '60s', algorithm : "HS256"});
+            { expiresIn: '300s', algorithm : "HS256"});
         return accessToken;
     }
 
@@ -163,6 +163,11 @@ class AuthService {
         }
 
         delete auth_email_num[email];
+    }
+
+    get_user_by_id = async (user_id) => {
+        const user_info = await this.userModel.get_account_by_id(Number(user_id));
+        return user_info;
     }
     
 }
