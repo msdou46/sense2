@@ -15,8 +15,13 @@ class AdminControllerRender {
   };
   get_page_update_lecture = async (req, res) => {
     const lecture_id = req.params.lecture_id;
-    const lecture_detail = await this.adminservice.get_detail_lecture(lecture_id)
-    res.render("admin/index", { ejsName: "update-lecture", lecture: lecture_detail });
+    const lecture_detail = await this.adminservice.get_detail_lecture(
+      lecture_id
+    );
+    res.render("admin/index", {
+      ejsName: "update-lecture",
+      lecture: lecture_detail,
+    });
   };
 }
 

@@ -28,7 +28,7 @@ class AdminService {
   // 강의 상세 조회
   get_detail_lecture = async (lecture_id) => {
     return await this.lectureModel.find_lecture(lecture_id);
-  }
+  };
   // 강의 수정
   edit_lecture = async (
     lecture_id,

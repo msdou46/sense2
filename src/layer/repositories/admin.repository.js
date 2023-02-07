@@ -26,7 +26,7 @@ class AdminRepository {
   };
 
   find_lecture = async (lecture_id) => {
-    return await this.adminModels.findOne({where: {lecture_id}})
+    return await this.adminModels.findOne({ where: { lecture_id } });
   };
   update_lecture = async (
     lecture_id,
@@ -52,7 +52,7 @@ class AdminRepository {
       content,
       category,
       point,
-      image: "image.jpg"
+      image: "image.jpg",
     });
   };
 }

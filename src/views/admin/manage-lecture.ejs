@@ -245,9 +245,7 @@
 
 $(document).ready(function() {
     select_category(0)
-    const urlParams = window.location.href;
-    const Id = urlParams.split('lecture/')[1];
-    console.log(urlParams)
+
 })
     const select_category = (cate) => {
         $.ajax({
@@ -282,7 +280,7 @@ $(document).ready(function() {
                                 <div class="lecture-created">등록일 :${create}</div>
                                 <div class="lecture-manage">
                                     <button type="button" class="lecture-update" onclick="location.href='/admin/lecture/rewrite/${lecture_id}'">수정하기</button>
-                                    <button type="button" class="lecture-delete" onclick="location.href='/admin/lectures">삭제하기</button>
+                                    <button type="button" class="lecture-delete">삭제하기</button>
                                 </div>
                             </div>
                         `
