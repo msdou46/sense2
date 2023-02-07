@@ -26,20 +26,21 @@
     }
 
     body{
-    background-color: #f3f5f9;
+    background-color: #252525;
     }
 
     .wrapper{
     display: flex;
-    position: relative;
+    min-height: 1080px;
+    height: 100%;
     }
 
     .wrapper .sidebar{
-    width: 250px;
+    min-width: 200px;
+    width: 17%;
     height: 100%;
+    min-height: 1080px;
     background: #252525;
-    padding: 30px 0px;
-    position: fixed;
     color: white;
     }
 
@@ -91,8 +92,9 @@
     }
 
     .wrapper .main_content{
-        width: 100%;
-        margin-left: 250px;
+        min-width: 1000px;
+        width: 83%;
+        background-color: #f3f5f9;
     }
 
     #content-input-wrap {
@@ -183,7 +185,7 @@
             </div>
             <button type="button" class="btn btn-warning" onclick="search_user()">유저 검색</button>
         </div>
-
+        
         <div id="content-output-wrap">
             <div class="content-title">조회 결과</div>
             <div class="user-info-wrap">
