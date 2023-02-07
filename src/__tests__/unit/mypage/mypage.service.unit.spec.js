@@ -26,6 +26,7 @@ describe('Layered Architecture Pattern Mypage Service Unit Test', () => {
     jest.resetAllMocks(); // 모든 Mock을 초기화합니다.
   })
 
+//내 강의 찾기
   test('Mypage Service find_orders Method', async () => {
 
     const find_orders_ReturnValue = [{
@@ -92,6 +93,7 @@ describe('Layered Architecture Pattern Mypage Service Unit Test', () => {
     expect(mockMypageLectureRepository.find_lectures).toHaveBeenCalledTimes(1);
   });
 
+  // 프로필 찾기
   test('Mypage Service find_user Method', async () => {
     
     const find_user_ReturnValue = {
@@ -118,6 +120,7 @@ describe('Layered Architecture Pattern Mypage Service Unit Test', () => {
   expect(mockMypageUserRepository.find_user).toHaveBeenCalledTimes(1);
   });
 
+  //프로필(비밀번호) 수정
   test('Mypage Service edit_profile Method By edit_pw', async () => {
     const find_user_ReturnValue = {
       user_id: 3,
