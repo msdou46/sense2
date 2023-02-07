@@ -11,7 +11,6 @@ class AdminService {
   lectureModel = new AdminRepository(lecture);
   orderModel = new AdminRepository(order);
   cartModel = new AdminRepository(cart);
-  
 
   // 관리자 권한
   update_admin_user = async (user_id, admin_type) => {
@@ -56,7 +55,6 @@ class AdminService {
       point
     );
   };
-  
 }
 
 module.exports = AdminService;

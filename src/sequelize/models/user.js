@@ -46,12 +46,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       point: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
-    },{
+    },
+    {
       sequelize,
       modelName: "user",
       freezeTableName: true,
-    });
+    }
+  );
   return user;
 };
