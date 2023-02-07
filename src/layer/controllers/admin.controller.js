@@ -13,17 +13,39 @@ class AdminControllerRender {
   get_page_add_lecture = async (req, res) => {
     res.render("admin/index", { ejsName: "add-lecture" });
   };
+  
+  get_page_update_lecture = async (req, res) => {
+    const lecture_id = req.params.lecture_id;
+    const lecture_detail = await this.adminservice.get_detail_lecture(
+      lecture_id
+    );
+    res.render("admin/index", {
+      ejsName: "update-lecture",
+      lecture: lecture_detail,
+    });
+  };
+  
 }
 
 // api 용
 class AdminControllerApi {
   adminservice = new AdminService();
 
-  get_user_info = async (req, res) => {};
+  // 관리자 유저 조회
+  get_user_info = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+      const user = await this.adminservice.get_user_info(email, password);
+
+      return res.status(200).json({ success: true, data: user });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // 관리자 권한 부여
   add_admin_user = async (req, res) => {
-    const user_id = req.params.user_id;
+    const user_id = req.user_id;
     const admin_type = 99;
 
     try {
@@ -47,29 +69,15 @@ class AdminControllerApi {
     }
   };
 
+  // 강의 상세 조회
+
   // 강의 수정
   update_lecture = async (req, res) => {
-    // 강의id로 수정할 강의 확인하기 위함
-    const lecture_id = req.params.lecture_id;
     // 수정 할 field
+    const { lecture_id } = req.params;
     const { lecturer, title, content, category, image, point } = req.body;
     // 유저 타입 가져오기 예시
-    // const type = res.locals.user.type;
-    // 유저 타입이 99인 관리자만 수정 가능하도록 확인용
-    // const user_type = await user.findOne({ where: { type } });
     try {
-      // if (user_type !== 99) {
-      //   return res.status(401).json({
-      //     success: false,
-      //     msg: "관리자만 수정 가능합니다.",
-      //   });
-      // }
-      // if (!lecture || !title || !content || category || !image || !point) {
-      //   return res.status(412).json({
-      //     success: false,
-      //     msg: "모든 항목을 작성해주세요.",
-      //   });
-      // }
       await this.adminservice.edit_lecture(
         lecture_id,
         lecturer,
@@ -91,15 +99,7 @@ class AdminControllerApi {
   // 강의 삭제
   remove_lecture = async (req, res) => {
     const lecture_id = req.params.lecture_id;
-    // const type = res.locals.user.type;
-    // const user_type = await user.findAll({ where: { type } });
     try {
-      // if (user_type.type !== 99) {
-      //   return res.status(401).json({
-      //     success: false,
-      //     msg: "관리자만 삭제 가능합니다.",
-      //   });
-      // }
       await this.adminservice.delete_lecture(lecture_id);
       return res.status(200).json({
         success: true,
@@ -112,14 +112,13 @@ class AdminControllerApi {
 
   // 강의 등록
   add_lecture = async (req, res) => {
-    const { lecturer, title, content, category, image, point } = req.body;
+    const { lecturer, title, content, category, point } = req.body;
     try {
       const new_lecture = await this.adminservice.regist_lecture(
         lecturer,
         title,
         content,
         category,
-        image,
         point
       );
       return res.status(200).json({
