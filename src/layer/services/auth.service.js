@@ -3,6 +3,11 @@ const { cart, lecture, order, user } = require("../../sequelize/models/index.js"
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const util = require("util");
+const nodemailer = require("nodemailer");
+
+
+// 이메일 인증 번호 임시 저장.
+const auth_email_num = {};
 
 class AuthService {
     userModel = new AuthRepository(user);
@@ -104,10 +109,67 @@ class AuthService {
         const accessToken = jwt.sign(
             { user_id: user.user_id, account_type: this.user_type[user.type] }, 
             process.env.JWT_SECRET_KEY, 
-            { expiresIn: '60s', algorithm : "HS256"});
+            { expiresIn: '3000s', algorithm : "HS256"});
         return accessToken;
     }
-    
+
+    send_email_for_register = async (email) => {
+        const auth_num = crypto.randomBytes(3).toString('hex');
+        auth_email_num[email] = auth_num;
+
+        const config = {
+            service: 'gmail',
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            auth: {
+            user: process.env.GOOGLE_MAIL,
+            pass: process.env.GOOGLE_PASSWORD
+            }
+        };
+
+        const data = {
+            "from": process.env.GOOGLE_MAIL,
+            "to": email,
+            "subject": "sense2 회원가입 이메일 인증",
+            "text": `인증번호 : ${auth_num}` 
+        }
+
+        const send = async (data) => {
+            const transporter = nodemailer.createTransport(config);
+            transporter.sendMail(data, (err, info) => {
+            if (err) {
+                console.log(err);
+            } 
+            transporter.close();
+            })
+        };
+
+        const r = await send(data);
+        return r;
+    }
+
+    check_email_auth_code = async (email, auth_code) => {
+        if (!auth_email_num.hasOwnProperty(email)) {
+            const err = new Error("잘못된 이메일 접근입니다.");
+            err.name = "EmailAndAuthCodeNotMatch";
+            throw err;
+        }
+
+        if (auth_email_num[email] !== auth_code) {
+            const err = new Error("인증코드가 알맞지 않습니다.");
+            err.name = "WrongEmailAuthCode";
+            throw err;
+        }
+
+        delete auth_email_num[email];
+    }
+
+    get_user_by_id = async (user_id) => {
+        const user_info = await this.userModel.get_account_by_id(Number(user_id));
+        return user_info;
+    }
+ 
 }
 
 module.exports = AuthService;

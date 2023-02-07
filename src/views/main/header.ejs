@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #ffffff;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="https://c.mql5.com/31/563/fx-sensei-logo-200x200-7589.png" width="70" height="70" alt="">
+      </a>
+      <div>
+        <div class="space">
+  
+        </div>
+         <ul>
+            <% if (user_info != false) { %>   
+            <li>
+              <button type="button"><a href="/myPage">마이 페이지</a></button>
+              <button type="button"><a class="active" onclick="logout()">로그아웃</a></button>
+            </li>
+            <% } else { %>
+            <li>
+              <button type="button"><a href="/auth/login">로그인</a></button>
+              <button type="button"><a href="/auth/register">회원가입</a></button>
+            </li>
+            <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <style>
+    .space {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+  }
+  </style>
+
+  <script>
+    const logout = () => {
+      $.ajax({
+            type: "GET",
+            url: `/api/logout`,
+            data: {},
+            success: function (response) {
+                if (response.success) {
+                  location.href="/";
+                }
+            }
+        });
+    }
+  </script>
