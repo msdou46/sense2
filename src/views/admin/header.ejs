@@ -7,24 +7,26 @@
         <div class="space">
   
         </div>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="/auth/login">로그인</a>
+        <ul>
+          <% if (user_info != false) { %>   
+          <li>
+            <button type="button"><a href="/myPage">마이 페이지</a></button>
+            <button type="button"><a href="/">로그아웃</a></button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">로그아웃</a>
+          <% } else { %>
+          <li>
+            <button type="button"><a href="/auth/login">로그인</a></button>
+            <button type="button"><a href="/auth/register">회원가입</a></button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/myPage">마이 페이지</a>
-          </li>
-        </ul>
+          <% } %>
+      </ul>
       </div>
     </div>
   </nav>
   
   <style>
     .space {
-      width: 1300px;
+      width: 100%;
       height: auto;
       display: inline-block;
     }
