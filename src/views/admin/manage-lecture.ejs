@@ -254,7 +254,7 @@ $(document).ready(function() {
                                 <div class="lecture-created">등록일 :${create}</div>
                                 <div class="lecture-manage">
                                     <button type="button" class="lecture-update" onclick="location.href='/admin/lecture/rewrite/${lecture_id}'">수정하기</button>
-                                    <button type="button" class="lecture-delete">삭제하기</button>
+                                    <button type="button" class="lecture-delete" onclick="remove_lecture(${lecture_id})">삭제하기</button>
                                 </div>
                             </div>
                         `
@@ -271,8 +271,8 @@ $(document).ready(function() {
                                 <div class="card-lecture-price">${point}</div>
                                 <div class="lecture-created">등록일 :${create}</div>
                                 <div class="lecture-manage">
-                                    <button type="button" class="lecture-update">수정하기</button>
-                                    <button type="button" class="lecture-delete">삭제하기</button>
+                                    <button type="button" class="lecture-update" onclick="location.href='/admin/lecture/rewrite/${lecture_id}'">수정하기</button>
+                                    <button type="button" class="lecture-delete" onclick="remove_lecture(${lecture_id})">삭제하기</button>
                                 </div>
                             </div>
                         `
@@ -283,17 +283,23 @@ $(document).ready(function() {
             }
         })
     };
-    const remove_lecture = () => {
+    
+    const remove_lecture = (a) => {
+        const lecture_id = a;
         $.ajax({
             type: "DELETE",
-            url: `/api/admin/lecture/lectures/${lecture_id}`,
-            data:{},
+            url: `/api/admin/lecture/${lecture_id}`,
+            data:{ lecture_id },
             success:function(response){
-                const rows = response.data;
-                console.log(rows)
+                window.location.reload()
+                alert("강의를 삭제하였습니다.");
+            },
+            error: function (error) {
+                alert("알 수 없는 이유로 실행되지 않았습니다. 관리자에게 문의해 주세요.");
+                console.log(error);
+            },
+        })
     }
-})
-}
     
 </script>
 </html>

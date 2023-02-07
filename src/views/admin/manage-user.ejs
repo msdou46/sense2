@@ -161,14 +161,14 @@
             <div class="user-info-form">
                 <div class="mb-3">
                     <input type="email" class="form-control" id="search-email" placeholder="이메일">
-                    <input type="password" class="form-control" id="search-password" placeholder="비밀번호">
+                    <!-- <input type="password" class="form-control" id="search-password" placeholder="비밀번호"> -->
                 </div>
             </div>
             <button type="button" class="btn btn-warning" onclick="search_user()">유저 검색</button>
         </div>
         
         <div id="content-output-wrap">
-            <div class="content-title">조회 결과</div>
+            <!-- <div class="content-title">조회 결과</div>
             <div class="user-info-wrap">
                 <table class="result-table">
                     <th class="table-email">이메일</th>
@@ -182,8 +182,8 @@
                         <td>일반 유저 </td>
                     </tr>
                 </table>
-            </div>
-            <button type="button" class="btn btn-warning" onclick="add_admin_account()">관리자 등록</button>
+            </div> -->
+            
         </div>
     </div>
     
@@ -191,53 +191,56 @@
 
 </body>
 <script>
-    $(document).ready(function () {
-        const login_form = document.querySelector("#content-input-wrap");
-        login_form.addEventListener("submit", (event) => {
-            event.preventDefault();
-        });
-    })
+
+    // $(document).ready(function () {
+    //     const login_form = document.querySelector("#content-input-wrap");
+    //     login_form.addEventListener("submit", (event) => {
+    //         event.preventDefault();
+    //     });
+    // })
+
     const search_user = () => {
         const input_div = document.querySelector("#content-input-wrap");
         const output_div = document.querySelector("#content-output-wrap");
         input_div.style.display = "none";
         output_div.style.display = "flex";
         const email = document.getElementById("search-email").value
-        const password = document.getElementById("search-password").value
+        // const password = document.getElementById("search-password").value
+        
         $.ajax({
-            type:'GET',
+            type:'POST',
             url:'/api/admin/user/userinfo',
-            data: {email, password},
+            data: {email},
             success: function (response) {
                 console.log(response.data);
                 const rows = response.data;
-                for (let i = 0; i < rows.length; i++) {
-                const email = rows[i].email;
-                const nickname = rows[i].nickname;
-                const point = rows[i].point;
-                const type = rows[i].type;
+
+                const user_id = rows.user_id
+                const email = rows.email;
+                const nickname = rows.nickname;
+                const point = rows.point;
+                let type = rows.type;
+
                 let temp_html = `
-                <div id="content-output-wrap">
                     <div class="content-title">조회 결과</div>
-                    <div class="user-info-wrap">
+                        <div class="user-info-wrap">
                         <table class="result-table">
-                            <th class="table-email">이메일</th>
-                            <th class="table-nick">닉네임</th>
-                            <th class="table-point">point</th>
-                            <th class="table-type">유형</th>
+                        <th class="table-email">이메일</th>
+                        <th class="table-nick">닉네임</th>
+                        <th class="table-point">point</th>
+                        <th class="table-type">유형</th>
                             <tr>
                                 <td>${email}</td>
                                 <td>${nickname}</td>
-                                <td${point}</td>
+                                <td>${point}</td>
                                 <td>${type}</td>
                             </tr>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-warning" onclick="add_admin_account()">관리자 등록</button>
-                </div>
+                    <button type="button" class="btn btn-warning" onclick="add_admin_account(${user_id})">관리자 등록</button>
                 `
+                $('#content-output-wrap').empty()
                 $('#content-output-wrap').append(temp_html)
-            }
             },
             error: function (request, status, error) {
             alert(`${request.status} ${error} / ${request.responseJSON.message}`);
@@ -246,15 +249,17 @@
         })
     };
     
-    const add_admin_account = () => {
+    const add_admin_account = (a) => {
         const input_div = document.querySelector("#content-input-wrap");
         const output_div = document.querySelector("#content-output-wrap");
         input_div.style.display = "flex";
         output_div.style.display = "none";
-        const user_id = 3 //임시
+
+        const user_id = a 
+        
         $.ajax({
             type:'PUT',
-            url:`/api/admin/user//register/${user_id}`,
+            url:`/api/admin/user/register/${user_id}`,
             data: {},
             success: function (response) {
                 alert("관리자 권한 부여 완료")

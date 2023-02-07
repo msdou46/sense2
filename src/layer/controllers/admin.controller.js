@@ -49,9 +49,9 @@ class AdminControllerApi {
 
   // 관리자 유저 조회
   get_user_info = async (req, res) => {
-    const { email, password } = req.body;
+    const { email } = req.body;
     try {
-      const user = await this.adminservice.get_user_info(email, password);
+      const user = await this.adminservice.get_user_info(email);
 
       return res.status(200).json({ success: true, data: user });
     } catch (error) {
@@ -61,7 +61,7 @@ class AdminControllerApi {
 
   // 관리자 권한 부여
   add_admin_user = async (req, res) => {
-    const user_id = req.user_id;
+    const user_id = req.params.user_id;
     const admin_type = 99;
 
     try {

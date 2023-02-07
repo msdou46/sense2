@@ -109,7 +109,7 @@ class AuthService {
         const accessToken = jwt.sign(
             { user_id: user.user_id, account_type: this.user_type[user.type] }, 
             process.env.JWT_SECRET_KEY, 
-            { expiresIn: '6000s', algorithm : "HS256"});
+            { expiresIn: '60s', algorithm : "HS256"});
         return accessToken;
     }
 
@@ -169,7 +169,7 @@ class AuthService {
         const user_info = await this.userModel.get_account_by_id(Number(user_id));
         return user_info;
     }
-    
+ 
 }
 
 module.exports = AuthService;
