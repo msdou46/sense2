@@ -16,7 +16,6 @@ class MainService {
     const lectures = await this.lectureModel.find_lectures();
     return lectures;
   };
-  
 }
 
 module.exports = MainService;

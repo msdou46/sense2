@@ -7,9 +7,11 @@ class MypageRepository {
     this.mypageModels = mypageModels;
   }
 
-  // 내 강의 목록 찾기 
+  // 내 강의 목록 찾기
   find_orders = async (user_id) => {
-    const myorders = await this.mypageModels.findAll({ where: { user_id: user_id } });
+    const myorders = await this.mypageModels.findAll({
+      where: { user_id: user_id },
+    });
     return myorders;
   };
   find_lectures = async (lecture_id) => {
@@ -21,29 +23,36 @@ class MypageRepository {
 
   // 내 프로필 찾기
   find_user = async (user_id) => {
-    const user = await this.mypageModels.findOne({ where: { user_id: user_id} });
+    const user = await this.mypageModels.findOne({
+      where: { user_id: user_id },
+    });
     return user;
   };
   // 내 프로필 수정
   edit_user = async (nickname, email, user_id) => {
-    await this.mypageModels.update(
+    const edit_profile = await this.mypageModels.update(
       { nickname: nickname, email: email },
       { where: { user_id: user_id } }
     );
+    // const edit_profile = { "nickname": nickname, "email": email, "user_id": user_id}
+    return edit_profile
   };
 
   find_other_users = async (user_id) => {
-    const users = await this.mypageModels.findAll({where: {user_id: {[Op.ne]: user_id} }})
-    return users
-  }
+    const users = await this.mypageModels.findAll({
+      where: { user_id: { [Op.ne]: user_id } },
+    });
+    return users;
+  };
   // 내 비밀번호 수정
   edit_pw = async (user_id, new_pw) => {
-    await this.mypageModels.update(
+    const edit_password = await this.mypageModels.update(
       { password: new_pw },
       { where: { user_id: user_id } }
     );
+    return edit_password
   };
-  
+
   add_cart = async (user_id, lecture_id) => {
     // const creat_add = `INSERT INTO cart (user_id, lecture_id) VALUES ('${user_id}','${lecture_id}')`
     try {
@@ -91,7 +100,6 @@ class MypageRepository {
       console.log("알 수 없는 에러가 발생했습니다. [cart_list]", err);
     }
   };
-  
 }
 
 module.exports = MypageRepository;

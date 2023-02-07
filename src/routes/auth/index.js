@@ -14,6 +14,10 @@ const auth_middleware = require("../../middleware/auth-page-middleware");
 // 통합 로그인 페이지
 router.get("/login", auth_middleware, authControllerRender.get_page_login);
 // 통합 회원가입 페이지
-router.get("/register", auth_middleware, authControllerRender.get_page_register);
+router.get(
+  "/register",
+  auth_middleware,
+  authControllerRender.get_page_register
+);
 
 module.exports = router;

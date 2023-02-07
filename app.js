@@ -1,7 +1,5 @@
 "use strict";
 
-// 테스트
-
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
