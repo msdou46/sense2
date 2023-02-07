@@ -164,6 +164,11 @@ class AuthService {
 
         delete auth_email_num[email];
     }
+
+    get_user_by_id = async (user_id) => {
+        const user_info = await this.userModel.get_account_by_id(Number(user_id));
+        return user_info;
+    }
     
 }
 

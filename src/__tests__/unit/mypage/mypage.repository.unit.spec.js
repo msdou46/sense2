@@ -3,7 +3,8 @@ const MypageRepository = require ("../../../layer/repositories/mypage.repository
 let mockmypageModel = {
     findAll: jest.fn(),
     findOne: jest.fn(),
-    update: jest.fn()
+    update: jest.fn(),
+    destroy: jest.fn()
 }
 
 let mypageRepository = new MypageRepository(mockmypageModel);
@@ -107,6 +108,57 @@ test('Mypage Repository edit_user Method', async () => {
   expect(mockmypageModel.update).toHaveBeenCalledWith(
     {password: edit_pw_params.new_pw},
     {where: {user_id: edit_pw_params.user_id }});
+
+  });
+
+  test('Mypage Repository add_cart Method', async () => {
+    mockmypageModel.findOne = jest.fn(() => {
+        return "findOne Result"
+    });
+
+    mockmypageModel.create = jest.fn(() => {
+      return "create Result"
+    });
+
+
+    const user_id = 1
+    const lecture_id = 1
+
+    const add_cart = await mypageRepository.add_cart(user_id,lecture_id);
+
+    expect(mockmypageModel.findOne).toHaveBeenCalledTimes(1);
+    // expect(mockmypageModel.create).toHaveBeenCalledTimes(1);
+    expect(add_cart).toEqual("findOne Result");
+
+  });
+
+  test('Mypage Repository remove_cart Method', async () => {
+    mockmypageModel.destroy = jest.fn(() => {
+        return "destroy Result"
+    });
+
+    const user_id = 1
+    const lecture_id = 1
+
+    const remove_cart = await mypageRepository.remove_cart(user_id,lecture_id);
+
+    expect(mockmypageModel.destroy).toHaveBeenCalledTimes(1);
+
+    expect(remove_cart).toEqual("destroy Result");
+  });
+
+  test('Mypage Repository cart_list Method', async () => {
+    mockmypageModel.findAll = jest.fn(() => {
+        return "findAll Result"
+    });
+
+    const user_id = 1
+
+    const cart_list = await mypageRepository.cart_list(user_id);
+
+    expect(mockmypageModel.findAll).toHaveBeenCalledTimes(1);
+
+    expect(cart_list).toEqual("findAll Result");
 
   });
 });
