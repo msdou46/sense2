@@ -13,6 +13,7 @@ class AdminControllerRender {
   get_page_add_lecture = async (req, res) => {
     res.render("admin/index", { ejsName: "add-lecture" });
   };
+  
   get_page_update_lecture = async (req, res) => {
     const lecture_id = req.params.lecture_id;
     const lecture_detail = await this.adminservice.get_detail_lecture(
@@ -23,6 +24,7 @@ class AdminControllerRender {
       lecture: lecture_detail,
     });
   };
+  
 }
 
 // api 용
@@ -43,7 +45,7 @@ class AdminControllerApi {
 
   // 관리자 권한 부여
   add_admin_user = async (req, res) => {
-    const user_id = req.params.user_id;
+    const user_id = req.user_id;
     const admin_type = 99;
 
     try {

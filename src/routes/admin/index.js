@@ -29,6 +29,7 @@ router.get(
   admin_middleware,
   adminControllerRender.get_page_add_lecture
 );
+
 // 관리자 페이지 - 상품관리 - 강의 수정
 router.get(
   "/lecture/rewrite/:lecture_id",
