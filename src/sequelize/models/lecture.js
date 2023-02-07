@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true, // AUTO_INCREMENT
         primaryKey: true, // PRIMARY KEY, 기본키
       },
+      merchant_uid: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       lecturer: {
         type: DataTypes.STRING,
         allowNull: false,

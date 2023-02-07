@@ -1,6 +1,8 @@
 const MainService = require("../services/main.service");
 const AuthService = require("../services/auth.service");
 
+const axios = require("axios");
+
 // 랜더링 용
 class MainControllerRender {
   mainService = new MainService();
@@ -48,6 +50,17 @@ class MainControllerApi {
     //   return res.status(500).send({ message: error.message });
     // }
   };
+
+  // 강의 상세보기에서 수강하기 클릭 시 결제 처리
+  payment_lecture = async (req, res) => {
+    const user_id = res.locals.user_id;
+    const {lecture_id, imp_uid, merchant_uid} = req.body;
+    const check_result = await this.mainService.checking_payment(user_id, lecture_id, imp_uid, merchant_uid);
+
+    if (check_result === false) {
+      return res.status(400).json({success: false, message: "결제 내역이 정상적으로 기록되지 않았습니다."})
+    }
+  }
 
   // 강의 상세보기에서 바로 수강하기
   sign_cart = async (req,res) => {

@@ -31,6 +31,21 @@ module.exports = (sequelize, DataTypes) => {
       lecture_id: {
         type: DataTypes.INTEGER,
       },
+      imp_uid: {
+        type: DataTypes.STRING
+      },
+      merchant_uid: {
+        type: DataTypes.STRING
+      },
+      amount: {
+        type: DataTypes.INTEGER,
+      },
+      pay_method: {
+        type: DataTypes.STRING
+      },
+      order_status: {
+        type: DataTypes.STRING
+      }
     },
     {
       sequelize,

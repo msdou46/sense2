@@ -1,3 +1,5 @@
+const crypto = require("crypto");
+
 const AdminRepository = require("../repositories/admin.repository");
 const {
   cart,
@@ -5,6 +7,7 @@ const {
   order,
   user,
 } = require("../../sequelize/models/index.js");
+const { type } = require("os");
 
 class AdminService {
   userModel = new AdminRepository(user);
@@ -55,7 +58,9 @@ class AdminService {
   };
   // 강의 등록
   regist_lecture = async (lecturer, title, content, category, point) => {
+    const merchant_uid = this.make_merchant_uid();
     return await this.lectureModel.create_lecture(
+      merchant_uid,
       lecturer,
       title,
       content,
@@ -63,6 +68,21 @@ class AdminService {
       point
     );
   };
+
+  // merchant_uid 만들기
+  make_merchant_uid = () => {
+    const current_time = new Date();
+    const year = current_time.getFullYear().toString();
+    const month = (current_time.getMonth()+1).toString();
+    const day = current_time.getDate().toString();
+    const hour = current_time.getHours().toString();
+    const minute = current_time.getMinutes().toString();
+    const second = current_time.getSeconds().toString();
+    
+    const auth_num = crypto.randomBytes(2).toString('hex');
+    const merchant_uid = auth_num + year + month + day + hour + minute + second;
+    return merchant_uid;
+  }
 }
 
 module.exports = AdminService;
