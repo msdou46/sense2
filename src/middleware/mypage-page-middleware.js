@@ -3,13 +3,13 @@ const jwt = require("jsonwebtoken");
 module.exports = async (req, res, next) => {
   const accessToken = req.cookies.accessToken;
   if (!accessToken) {
-    return res.redirect("/auth/login");
+    return res.render("auth/go-to-login");
   }
 
   const isAccessTokenValidate = validateAccessToken(accessToken);
   if (isAccessTokenValidate === false) {
     res.clearCookie("accessToken");
-    return res.redirect("/auth/login");
+    return res.render("auth/go-to-login");
   }
 
   res.locals.user_id = isAccessTokenValidate.user_id;
