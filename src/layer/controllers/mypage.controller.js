@@ -7,25 +7,16 @@ class MypageControllerRender {
   authService = new AuthService();
 
   get_page_mypage = async (req, res) => {
-    if (!res.locals.user_id) {
-      return res.render("myPage/mypage", {user_info: false});
-    }
     const user_info = await this.authService.get_user_by_id(res.locals.user_id);
     res.render("myPage/mypage", {user_info: user_info});
   };
 
   get_page_my_cart = async (req, res) => {
-    if (!res.locals.user_id) {
-      return res.render("myPage/cart", {user_info: false});
-    }
     const user_info = await this.authService.get_user_by_id(res.locals.user_id);
     res.render("myPage/cart", {user_info: user_info});
   };
 
   get_page_my_lectures = async (req, res) => {
-    if (!res.locals.user_id) {
-      return res.render("myPage/lectures", {user_info: false});
-    }
     const user_info = await this.authService.get_user_by_id(res.locals.user_id);
     res.render("myPage/lectures", {user_info: user_info});
   };
