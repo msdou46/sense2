@@ -240,12 +240,27 @@ $(document).ready(function() {
                     let point = rows[i].point;
                     let title = rows[i].title;
                     let create = rows[i].createdAt;
+
+                    if (category == 4) {
+                    image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcQanpm%2FbtrYaqnRn5G%2FdR0MYp8LMUHWSuFm3k5rw1%2Fimg.png'
+                    } else if (category == 1) {
+                    image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiWRMY%2FbtrYj1fHDeU%2F611TAxdd3k4WuTwKgKJyTK%2Fimg.png'
+                    } else if (category == 3) {
+                    image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbkGHhW%2FbtrYe0h5VME%2FSkrYQA4uDkadFToraUZo9K%2Fimg.png'
+                    } else if (category == 2) {
+                    image = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUNI6i%2FbtrYkDTcp0c%2FBlQ6JQJsVle4DZ4RSEb9KK%2Fimg.png'
+                    } else {
+                    image = 'https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png'
+                    };
                 
                     if (cate === 0) {
                         temp_html += `
                             <div class="lecture-card">
                                 <div class="card-img-wrap">
-                                    <img src="/image/public_lecture_thum.jpeg">
+                                    <img
+                                src= "${image}"
+                                onerror="this.src ='https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png'"
+                                />
                                 </div>
                                 <div class="card-category">${category}</div>
                                 <div class="card-title">${title}</div>
@@ -263,7 +278,10 @@ $(document).ready(function() {
                         temp_html += `
                             <div class="lecture-card">
                                 <div class="card-img-wrap">
-                                    <img src="/image/public_lecture_thum.jpeg">
+                                    <img
+                                src= "${image}"
+                                onerror="this.src ='https://online.spartacodingclub.kr/assets/images/classroom/sql_classroom_thumbnail_beom.png'"
+                                />
                                 </div>
                                 <div class="card-category">${category}</div>
                                 <div class="card-title">${title}</div>
