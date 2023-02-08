@@ -3,20 +3,18 @@ const jwt = require("jsonwebtoken");
 module.exports = async (req, res, next) => {
   const accessToken = req.cookies.accessToken;
   if (!accessToken) {
-    return res.redirect("/auth/login");
+    return res.render("auth/go-to-login");
   }
 
   const isAccessTokenValidate = validateAccessToken(accessToken);
   if (isAccessTokenValidate === false) {
     res.clearCookie("accessToken");
-    return res.redirect("/auth/login");
+    return res.render("auth/go-to-login");
   }
-
+  
   const account_type = isAccessTokenValidate.account_type;
   if (account_type === "normal") {
-    return res
-      .status(401)
-      .json({ success: false, message: "권한이 없습니다." });
+    return res.render("auth/no-authority");
   }
   if (account_type === "admin") {
     res.locals.user_id = isAccessTokenValidate.user_id;

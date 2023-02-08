@@ -7,23 +7,14 @@ class AdminControllerRender {
   authService = new AuthService();
 
   get_page_admin_user = async (req, res) => {
-    if (!res.locals.user_id) {
-      return res.render("admin/index", { ejsName: "manage-user", user_info: false });
-    }
     const user_info = await this.authService.get_user_by_id(res.locals.user_id);
     res.render("admin/index", { ejsName: "manage-user", user_info: user_info });
   };
   get_page_lectures = async (req, res) => {
-    if (!res.locals.user_id) {
-      return res.render("admin/index", { ejsName: "manage-lecture", user_info: false });
-    }
     const user_info = await this.authService.get_user_by_id(res.locals.user_id);
     res.render("admin/index", { ejsName: "manage-lecture", user_info: user_info });
   };
   get_page_add_lecture = async (req, res) => {
-    if (!res.locals.user_id) {
-      return res.render("admin/index", { ejsName: "add-lecture", user_info: false });
-    }
     const user_info = await this.authService.get_user_by_id(res.locals.user_id);
     res.render("admin/index", { ejsName: "add-lecture", user_info: user_info });
   };
@@ -34,9 +25,6 @@ class AdminControllerRender {
       lecture_id
     );
 
-    if (!res.locals.user_id) {
-      return res.render("admin/index", { ejsName: "update-lecture", user_info: false, lecture: lecture_detail });
-    }
     const user_info = await this.authService.get_user_by_id(res.locals.user_id);
     res.render("admin/index", { ejsName: "update-lecture", user_info: user_info, lecture: lecture_detail });
   };
